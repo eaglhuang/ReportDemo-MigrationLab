@@ -4,6 +4,12 @@ import re
 from pathlib import Path
 
 
+# Template governance note:
+# If this generator is used again, preserve the tasks/README.md gate:
+# Qutora is the drill legacy system, MariaDB is the drill target DB,
+# and a task card must not start until its full design spec includes
+# 10 validators, 10 test cases, impact scope, rollback, reviewer,
+# human gate, and ADR references.
 ROOT = Path(__file__).resolve().parents[1]
 TASK_DIR = ROOT / "tasks"
 PLAN_PATH = ROOT / "內部人員交易報表轉媒體儲存系統_功能里程碑計畫.md"

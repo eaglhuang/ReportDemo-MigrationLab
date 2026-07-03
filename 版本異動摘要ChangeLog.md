@@ -7,8 +7,8 @@
 
 | 異動 | 併入文件 / 章節 |
 | --- | --- |
-| 新增演練總計畫、MVP1 計畫、演練文件索引與演練 ChangeLog。 | `drills/` |
-| 新增 ADR-012「本演練舊系統採用 Qutora」。 | `決策紀錄樣板ADR.md` |
+| 新增演練總計畫、MVP1、MVP2、Pilot、上線候選計畫、演練文件索引與演練 ChangeLog。 | `drills/` |
+| 新增 ADR-012「本演練舊系統採用 Qutora」、ADR-013「本演練目標資料庫採用 MariaDB」、ADR-014「兩週 MVP 節奏與完整任務卡開工 Gate」。 | `決策紀錄樣板ADR.md` |
 | README 與 tasks README 改為直接定義 Qutora 為本演練舊系統。 | `README.md`、`tasks/README.md` |
 | `runbooks/Qutora舊系統替身演練對照表.md` 已 superseded 並刪除。 | 內容併入 `drills/演練總計畫書.md` 與 `drills/MVP1兩週風險驗證計畫.md` |
 

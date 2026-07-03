@@ -26,6 +26,8 @@ This directory turns the function milestone plan into dispatchable task cards fo
 - 文件引用關係：`drills/演練文件索引與引用關係.md`。
 - 演練異動摘要：`drills/演練版本異動摘要ChangeLog.md`。
 - Qutora 作為本演練舊系統的決策依 ADR-012；不得再以獨立 Qutora 對照表維護。
+- MariaDB 作為本演練目標資料庫的決策依 ADR-013；此決策不取代正式專案最終 DB 選型。
+- 2 週 MVP 節奏與完整任務卡開工 Gate 依 ADR-014。
 
 ## Agent Team Dispatch Contract
 

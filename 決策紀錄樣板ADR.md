@@ -1,9 +1,9 @@
 # 內部人員交易報表轉媒體儲存系統 決策紀錄樣板 ADR
-## 版本 v1.2
+## 版本 v1.3
 
 ## 1. 文件目的
 
-本文件用於集中管理本計畫需要人類優先決策的 Top 12 關鍵點。這些決策會影響系統架構、資安邊界、權限治理、資料一致性、舊系統遷移、驗收 Gate、預算與時程，不應由工程團隊或 AI 在未授權情況下自行假設。
+本文件用於集中管理本計畫需要人類優先決策的 Top 14 關鍵點。這些決策會影響系統架構、資安邊界、權限治理、資料一致性、舊系統遷移、驗收 Gate、預算與時程，不應由工程團隊或 AI 在未授權情況下自行假設。
 
 本文件不是功能需求清單；功能拆分以「功能里程碑計畫」為準，系統架構與治理原則以「系統架構與治理計畫書」為準。
 
@@ -26,7 +26,7 @@
 | 驗收 Gate | 什麼條件達成才算決策落地。 |
 | 待補問題 | 尚未釐清的問題。 |
 
-## 3. 人類優先決策 Top 12
+## 3. 人類優先決策 Top 14
 
 | 優先 | ADR | 需要人類決策的關鍵點 | 為何優先 |
 | ---: | --- | --- | --- |
@@ -42,6 +42,8 @@
 | 10 | ADR-010 | 第一版預算、人力、時程與 NFR 上限 | 影響哪些 P1/P2 能延後、worker 化時機、UAT 長度、上線日期與 Go / No-Go 門檻。 |
 | 11 | ADR-011 | Agent Team 自動決策、人類簽核與違規阻擋邊界 | 影響任務卡派工、reviewer、validator、human sign-off、ADR gate、違規阻擋與 closure gate。 |
 | 12 | ADR-012 | 本演練舊系統採用 Qutora | 影響 drills 文件、MVP1/MVP2 任務卡、舊系統 baseline、資料移轉與驗收口徑。 |
+| 13 | ADR-013 | 本演練目標資料庫採用 MariaDB | 影響 MVP2、Pilot、資料型別轉換、SQL 改寫、validator 與 rollback。 |
+| 14 | ADR-014 | 兩週 MVP 節奏與完整任務卡開工 Gate | 影響 drills 文件、核心任務卡升級順序、validators/test cases 與開工條件。 |
 
 ## 4. ADR-001 資料庫最終選型與遷移路線
 
@@ -200,7 +202,33 @@
 | 影響範圍 | `drills/` 文件群、`tasks/README.md`、MVP1/MVP2 核心任務卡、Qutora baseline、MariaDB 轉換演練、PDF 與 audit evidence。 |
 | 驗收 Gate | 演練文件不得再維護獨立 Qutora 對照表；MVP1 必須能啟動 Qutora、上傳/查詢/下載 PDF、匯出 metadata、取得 DB 與 audit evidence。 |
 
-## 16. 決策狀態追蹤表
+## 16. ADR-013 本演練目標資料庫採用 MariaDB
+
+| 欄位 | 內容 |
+| --- | --- |
+| 決策狀態 | Accepted for drill |
+| 決策 owner | 專案 sponsor / Backend / DBA |
+| 參與角色 | Tech Lead、Backend / DBA、QA、資安、維運 |
+| 候選方案 | 維持 SQL Server、MariaDB、PostgreSQL、MSSQL on Linux。 |
+| 決策結論 | 本演練的新系統目標資料庫採用 MariaDB；Qutora 仍以 SQL Server 作為舊系統來源。 |
+| 邊界聲明 | 此決策只鎖定本演練路線，不取代 ADR-001 對真實正式專案最終 DB 選型的決策。 |
+| 影響範圍 | `drills/MVP2兩週調整驗證計畫.md`、`drills/Pilot與平行作業驗證計畫.md`、M1、M2、M4、M5、M9 任務卡、資料型別與 SQL 改寫。 |
+| 驗收 Gate | MVP2 必須完成 Qutora SQL Server 到 MariaDB 的抽樣 metadata 移轉、筆數比對、legacy reference、必要索引與 rollback evidence。 |
+
+## 17. ADR-014 兩週 MVP 節奏與完整任務卡開工 Gate
+
+| 欄位 | 內容 |
+| --- | --- |
+| 決策狀態 | Accepted |
+| 決策 owner | 專案 sponsor / Tech Lead / Agent Team Captain |
+| 參與角色 | PM、Tech Lead、Backend / DBA、QA、資安、Agent Team Captain、Reviewer |
+| 候選方案 | 12 週大 MVP、2 週 MVP1 + 2 週 MVP2 + Pilot、直接拆 45 張完整任務卡。 |
+| 決策結論 | 採 2 週 MVP1、2 週 MVP2、Pilot、Production Candidate 的由大到小演練節奏。先升級 MVP1/MVP2 核心任務卡，其他任務卡未補齊完整設計規格前不得開工。 |
+| 完整任務卡 Gate | 每張完整任務卡必須包含任務目標、真實功能場景、落地設計、影響範圍、輸入輸出、完成定義、10 條 validators、10 條 test cases、風險回復、reviewer / human gate / ADR。 |
+| 影響範圍 | `drills/` 文件群、`tasks/README.md`、`tasks/TASK-RPT-*.task.md`、`tools/generate_reportdemo_task_cards.py`。 |
+| 驗收 Gate | tasks README 與產卡模板必須保留 gate；MVP1/MVP2 核心任務卡升級前不得正式派工；任務卡缺 10 validators 或 10 test cases 不得 closure。 |
+
+## 18. 決策狀態追蹤表
 
 | ADR | 決策狀態 | Owner | 目標決策時間 | 目前結論 | 待補問題 |
 | --- | --- | --- | --- | --- | --- |
@@ -216,3 +244,5 @@
 | ADR-010 | Proposed | 待指定 | 專案啟動前 | 未決 | 上線日期、人力、預算、NFR。 |
 | ADR-011 | Proposed | 待指定 | 任務卡正式派工前 | 未決 | Agent 自動決策範圍、human/ADR gate、違規阻擋與 closure gate。 |
 | ADR-012 | Accepted | 專案 sponsor / Tech Lead | 已決 | 本演練舊系統採用 Qutora。 | 不修改 Qutora 原始碼；若要修改需另開 ADR 或人類簽核。 |
+| ADR-013 | Accepted for drill | 專案 sponsor / Backend / DBA | 已決 | 本演練目標資料庫採用 MariaDB。 | 不取代正式專案最終 DB 選型。 |
+| ADR-014 | Accepted | 專案 sponsor / Tech Lead | 已決 | 採 2 週 MVP 節奏與完整任務卡開工 Gate。 | MVP1/MVP2 核心任務卡需後續逐張升級。 |
