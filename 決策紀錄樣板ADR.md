@@ -1,9 +1,9 @@
 # 內部人員交易報表轉媒體儲存系統 決策紀錄樣板 ADR
-## 版本 v1.1
+## 版本 v1.2
 
 ## 1. 文件目的
 
-本文件用於集中管理本計畫需要人類優先決策的 Top 11 關鍵點。這些決策會影響系統架構、資安邊界、權限治理、資料一致性、舊系統遷移、驗收 Gate、預算與時程，不應由工程團隊或 AI 在未授權情況下自行假設。
+本文件用於集中管理本計畫需要人類優先決策的 Top 12 關鍵點。這些決策會影響系統架構、資安邊界、權限治理、資料一致性、舊系統遷移、驗收 Gate、預算與時程，不應由工程團隊或 AI 在未授權情況下自行假設。
 
 本文件不是功能需求清單；功能拆分以「功能里程碑計畫」為準，系統架構與治理原則以「系統架構與治理計畫書」為準。
 
@@ -26,7 +26,7 @@
 | 驗收 Gate | 什麼條件達成才算決策落地。 |
 | 待補問題 | 尚未釐清的問題。 |
 
-## 3. 人類優先決策 Top 11
+## 3. 人類優先決策 Top 12
 
 | 優先 | ADR | 需要人類決策的關鍵點 | 為何優先 |
 | ---: | --- | --- | --- |
@@ -41,6 +41,7 @@
 | 9 | ADR-009 | Validation Rule 表達、版本化與維護責任 | 影響 M2-01 是否能拆任務、規則異動是否需發版、業務或稽核能否自助維護。 |
 | 10 | ADR-010 | 第一版預算、人力、時程與 NFR 上限 | 影響哪些 P1/P2 能延後、worker 化時機、UAT 長度、上線日期與 Go / No-Go 門檻。 |
 | 11 | ADR-011 | Agent Team 自動決策、人類簽核與違規阻擋邊界 | 影響任務卡派工、reviewer、validator、human sign-off、ADR gate、違規阻擋與 closure gate。 |
+| 12 | ADR-012 | 本演練舊系統採用 Qutora | 影響 drills 文件、MVP1/MVP2 任務卡、舊系統 baseline、資料移轉與驗收口徑。 |
 
 ## 4. ADR-001 資料庫最終選型與遷移路線
 
@@ -185,7 +186,21 @@
 | 影響範圍 | 全部 TASK-RPT 任務卡、M5、M7、M8、M9、closure gate、CI scope check、review 流程與證據保存。 |
 | 驗收 Gate | Agent Team 計畫書 v1.0 已核准；任務卡已標示 agent_team_plan、reviewer、validator、human/ADR gate；違規阻擋機制與人工補位流程已被資安與稽核接受。 |
 
-## 15. 決策狀態追蹤表
+## 15. ADR-012 本演練舊系統採用 Qutora
+
+| 欄位 | 內容 |
+| --- | --- |
+| 決策狀態 | Accepted |
+| 決策 owner | 專案 sponsor / Tech Lead |
+| 參與角色 | PM、Tech Lead、Backend / DBA、QA、資安、稽核、Agent Team Captain |
+| 候選方案 | 使用抽象舊系統代號、另找 ASP.NET 文件系統、使用 Qutora 作為本演練舊系統。 |
+| 決策結論 | 本演練舊系統採用 Qutora，位置為 `open-source-sandbox/qutora-api`，固定 commit 為 `de156e0eb72d58772a76e570eb711db344bedfc0`。 |
+| 邊界聲明 | Qutora 代表本次演練舊系統，用於驗證搬移流程、資料移轉、下載、權限、稽核與平行驗證；不宣稱涵蓋真實券商舊系統的全部業務規則、正式資料、法遵規則或報表計算邏輯。 |
+| 需回答 | 是否允許在後續階段修改 Qutora 原始碼？若要修改，需另開 ADR 或人類簽核。 |
+| 影響範圍 | `drills/` 文件群、`tasks/README.md`、MVP1/MVP2 核心任務卡、Qutora baseline、MariaDB 轉換演練、PDF 與 audit evidence。 |
+| 驗收 Gate | 演練文件不得再維護獨立 Qutora 對照表；MVP1 必須能啟動 Qutora、上傳/查詢/下載 PDF、匯出 metadata、取得 DB 與 audit evidence。 |
+
+## 16. 決策狀態追蹤表
 
 | ADR | 決策狀態 | Owner | 目標決策時間 | 目前結論 | 待補問題 |
 | --- | --- | --- | --- | --- | --- |
@@ -200,3 +215,4 @@
 | ADR-009 | Proposed | 待指定 | M2-01 前 | 未決 | 規則表達、版本化、維護責任。 |
 | ADR-010 | Proposed | 待指定 | 專案啟動前 | 未決 | 上線日期、人力、預算、NFR。 |
 | ADR-011 | Proposed | 待指定 | 任務卡正式派工前 | 未決 | Agent 自動決策範圍、human/ADR gate、違規阻擋與 closure gate。 |
+| ADR-012 | Accepted | 專案 sponsor / Tech Lead | 已決 | 本演練舊系統採用 Qutora。 | 不修改 Qutora 原始碼；若要修改需另開 ADR 或人類簽核。 |

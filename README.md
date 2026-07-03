@@ -1,6 +1,6 @@
 # ReportDemo Migration Lab
 
-本 repo 是「內部人員交易報表轉媒體儲存系統」的獨立模擬搬移實驗室，用來保存計畫書、任務卡、ADR、PDF 交付物，以及後續舊系統替身的執行演練證據。
+本 repo 是「內部人員交易報表轉媒體儲存系統」的獨立模擬搬移實驗室，用來保存計畫書、任務卡、ADR、PDF 交付物，以及以 Qutora 作為本演練舊系統的執行證據。
 
 ## Source Of Truth
 
@@ -9,10 +9,11 @@
 - 功能拆解與任務卡：`內部人員交易報表轉媒體儲存系統_功能里程碑計畫.md`、`tasks/`
 - 人類決策與 ADR：`決策紀錄樣板ADR.md`
 - 版本異動：`版本異動摘要ChangeLog.md`
+- 演練文件索引：`drills/演練文件索引與引用關係.md`
 
 ## Open Source Sandbox
 
-`open-source-sandbox/qutora-api` 以 git submodule 管理，作為本案模擬舊系統替身。
+`open-source-sandbox/qutora-api` 以 git submodule 管理，作為本演練舊系統。
 
 ```powershell
 git submodule update --init --recursive

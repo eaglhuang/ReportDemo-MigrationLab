@@ -13,9 +13,19 @@ This directory turns the function milestone plan into dispatchable task cards fo
 ## Task Card Contract
 
 - 每張 `TASK-RPT-*` 卡都必須對應一個功能里程碑項目。
-- 每張卡都要保留舊系統覆蓋欄位；未知程式碼以 `舊系統報表模組_功能別XXX.xxx` 或 `舊系統資料轉換_SP_功能別XXX.sql` 代稱。
+- 本演練舊系統採用 Qutora；任務卡中的「舊系統」若未另行限定，均指 `open-source-sandbox/qutora-api` 固定 commit 的 Qutora。
+- 每張卡都要保留舊系統覆蓋欄位；MVP1/MVP2 核心任務卡應優先引用 Qutora 具體元件，例如 Documents API、Metadata Schema、Audit Logs、SQL Server DB、Storage Provider。非核心卡若尚未盤點完成，才可暫用 `舊系統報表模組_功能別XXX.xxx` 或 `舊系統資料轉換_SP_功能別XXX.sql` 代稱。
 - 任務卡不得跳過 Golden Dataset、Shadow Validation、權限、Data Scope、稽核與 rollback 驗證。
 - Before the target implementation location exists, use `scopePaths`, `deliverables`, and evidence folders as the delivery boundary; add concrete paths later.
+- 摘要任務卡未補齊完整設計規格前不得開工；完整規格至少包含任務目標、真實功能場景、落地設計、影響範圍、輸入輸出、完成定義、10 條 validators、10 條 test cases、風險回復、reviewer / human gate / ADR。
+
+## Drill Plan Contract
+
+- 演練總入口：`drills/演練總計畫書.md`。
+- MVP1 風險驗證：`drills/MVP1兩週風險驗證計畫.md`。
+- 文件引用關係：`drills/演練文件索引與引用關係.md`。
+- 演練異動摘要：`drills/演練版本異動摘要ChangeLog.md`。
+- Qutora 作為本演練舊系統的決策依 ADR-012；不得再以獨立 Qutora 對照表維護。
 
 ## Agent Team Dispatch Contract
 

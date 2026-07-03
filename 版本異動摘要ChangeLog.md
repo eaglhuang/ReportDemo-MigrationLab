@@ -1,6 +1,17 @@
 # 內部人員交易報表轉媒體儲存系統
 ## 版本異動摘要 Change Log
 
+## 2026-07-03：演練文件群與 Qutora 舊系統定義
+
+本次新增 `drills/` 演練文件群，並將 Qutora 直接定義為本演練舊系統。原獨立 Qutora 對照表已刪除，內容併入演練總計畫與 MVP1 兩週風險驗證計畫。詳細異動請見 `drills/演練版本異動摘要ChangeLog.md`。
+
+| 異動 | 併入文件 / 章節 |
+| --- | --- |
+| 新增演練總計畫、MVP1 計畫、演練文件索引與演練 ChangeLog。 | `drills/` |
+| 新增 ADR-012「本演練舊系統採用 Qutora」。 | `決策紀錄樣板ADR.md` |
+| README 與 tasks README 改為直接定義 Qutora 為本演練舊系統。 | `README.md`、`tasks/README.md` |
+| `runbooks/Qutora舊系統替身演練對照表.md` 已 superseded 並刪除。 | 內容併入 `drills/演練總計畫書.md` 與 `drills/MVP1兩週風險驗證計畫.md` |
+
 ## 2026-07-02：Agent Team 文件升版批次
 
 本次新增 Agent Team 計畫書 v1.0，並將三份核心文件、任務卡 README、45 張任務卡與產卡模板同步到同一套 Agent Team 協作與簽核邊界。PDF 不在本次更新範圍，`tasks.zip` 也不重新打包。
