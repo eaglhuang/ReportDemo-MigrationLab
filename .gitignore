@@ -13,6 +13,11 @@ temp/
 bin/
 obj/
 
+# Python local cache
+__pycache__/
+*.pyc
+*.pyo
+
 # Docker and generated runtime data
 docker-data/
 qutora-data/
