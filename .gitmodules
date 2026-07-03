@@ -1,0 +1,3 @@
+[submodule "open-source-sandbox/qutora-api"]
+	path = open-source-sandbox/qutora-api
+	url = https://github.com/qutora/qutora-api.git

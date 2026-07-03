@@ -1,0 +1,30 @@
+# Runtime and local environment
+.env
+*.env
+*.local
+
+# Logs and temporary files
+*.log
+logs/
+tmp/
+temp/
+
+# .NET local build outputs
+bin/
+obj/
+
+# Docker and generated runtime data
+docker-data/
+qutora-data/
+qutora-logs/
+qutora-keys/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Keep generated document deliverables tracked intentionally.
+!*.pdf
+!文件包/
