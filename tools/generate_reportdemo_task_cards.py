@@ -275,10 +275,30 @@ def task_card(seq: int, section: dict[str, object]) -> tuple[str, str]:
     feature = section["feature"] or ["依功能里程碑計畫完成本項功能交付。"]
     acceptance = section["acceptance"] or ["完成本項功能驗收並留下簽核紀錄。"]
     priority = "P0" if milestone in {"M0", "M1", "M2", "M7", "M8", "M9", "M10"} else "P1"
+    suffix = task_id[-4:]
     validators = [
-        "git diff --check",
-        "After target implementation location is created, add: dotnet test or equivalent automated tests",
-        "After target implementation location is created, add: Golden Dataset / Shadow Validation comparison command",
+        f"V-{suffix}-01: verify Qutora baseline input and target output are documented",
+        f"V-{suffix}-02: verify data tables or artifacts include status, error code, and payload hash",
+        f"V-{suffix}-03: verify state machine includes review, sign-off, and closure boundaries",
+        f"V-{suffix}-04: verify P0/P1 failures are fail-closed or block the next gate",
+        f"V-{suffix}-05: verify Role and Data Scope checks are separated",
+        f"V-{suffix}-06: verify audit event and correlation_id are recorded",
+        f"V-{suffix}-07: verify evidence is written under the RB-03 evidence path",
+        f"V-{suffix}-08: verify reviewer is independent from producer",
+        f"V-{suffix}-09: verify human gate and ADR gate triggers are explicit",
+        f"V-{suffix}-10: git diff --check",
+    ]
+    test_cases = [
+        f"TC-{suffix}-01: happy path with Qutora synthetic data",
+        f"TC-{suffix}-02: missing Qutora baseline must block the gate",
+        f"TC-{suffix}-03: MariaDB metadata mismatch must create an issue",
+        f"TC-{suffix}-04: unauthorized role must be denied and audited",
+        f"TC-{suffix}-05: Data Scope mismatch must deny or mask data",
+        f"TC-{suffix}-06: audit write failure must fail closed",
+        f"TC-{suffix}-07: missing human sign-off must block closure",
+        f"TC-{suffix}-08: ADR-required condition must block closure until decided",
+        f"TC-{suffix}-09: validator rerun must be reproducible",
+        f"TC-{suffix}-10: rollback path must return to Qutora or last approved state",
     ]
     content = f"""---
 task_id: {task_id}
@@ -340,9 +360,16 @@ nonGoals:
 - 不得用未脫敏正式資料做一般開發或測試；正式資料只可進受控 Shadow Validation。
 - 涉及權限、資料範圍、PDF、稽核、告警或 break-glass 時，安全性與可稽核性優先於便利性。
 - 每個可觀測流程需留下 trace ID / correlation ID，方便新舊系統比對與事故追蹤。
+- 未補齊任務目標、真實功能帶入場景、落地設計、影響範圍、輸入輸出、完成定義、10 條 validators、10 條 test cases、風險回復、reviewer、human gate 與 ADR gate 前，不得正式開工或 closure。
 - Agent Team 派工、role、reviewer、validator、human sign-off 與 ADR gate 需依 Agent Team 計畫書 v1.0 執行：`內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md`。
 - 分階段演練、三人責任矩陣、validators、test cases 與 Gate 需依 `drills/分階段演練與驗收計畫.md` 執行。
 - Evidence 需依 `runbooks/RB-03-evidence-standard.md` 寫入 `evidence/{stage}/{task_id}/`。
+
+## Impact Scope
+
+- 影響 `{stage}` 階段 Gate、evidence package 與後續任務卡開工順序。
+- 影響 Qutora 舊系統覆蓋判斷、新系統功能驗證、權限與稽核證據。
+- 若本卡觸發資安、稽核、資料、正式切換或架構決策，必須改列 human gate 或 ADR gate。
 
 ## Deliverables
 
@@ -352,9 +379,11 @@ nonGoals:
 
 ## Validators
 
-- `git diff --check`
-- After target implementation location is created, add: dotnet test or equivalent automated tests
-- After target implementation location is created, add: Golden Dataset / Shadow Validation comparison command
+{chr(10).join(f"- {item}" for item in validators)}
+
+## Test Cases
+
+{chr(10).join(f"- {item}" for item in test_cases)}
 
 ## Acceptance Criteria
 {chr(10).join(f"- {item}" for item in acceptance)}
@@ -362,6 +391,12 @@ nonGoals:
 ## Rollback
 
 以 feature flag、路由切回舊系統、回復 migration 或 revert commit 為優先；若已接觸正式流程，必須先確認資料一致性與稽核紀錄完整。
+
+## Reviewer / Human Gate / ADR
+
+- Reviewer：依 `primary_role` 與 `support_roles` 指派，產出者不得自我驗收。
+- Human Gate：正式資料、權限放寬、稽核例外、正式切換與舊系統下線必須人類簽核。
+- ADR Gate：DB、Object Storage / WORM、SSO / API session、PDF library、稽核 fail-closed、Go / No-Go 或架構邊界變更必須 ADR。
 
 ## Notes
 

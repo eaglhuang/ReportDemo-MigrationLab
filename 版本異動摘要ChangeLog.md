@@ -1,6 +1,17 @@
 # 內部人員交易報表轉媒體儲存系統
 ## 版本異動摘要 Change Log
 
+## 2026-07-07：Pilot 與 Production Candidate 核心任務卡完整格式升級
+
+範圍：升級第三批 Pilot 核心任務卡 `TASK-RPT-0013`、`TASK-RPT-0018`、`TASK-RPT-0021`、`TASK-RPT-0022`、`TASK-RPT-0028`、`TASK-RPT-0033`、`TASK-RPT-0035`、`TASK-RPT-0036`、`TASK-RPT-0037`，以及第四批 Production Candidate 核心任務卡 `TASK-RPT-0038`、`TASK-RPT-0040`、`TASK-RPT-0041`、`TASK-RPT-0042`、`TASK-RPT-0043`、`TASK-RPT-0044`、`TASK-RPT-0045`。這 16 張卡已補齊 Qutora 演練場景、落地設計、影響範圍、Fail-Closed 規則、10 條 validators、10 條 test cases、reviewer / human gate / ADR gate。
+
+| 異動 | 併入文件 / 章節或任務卡 |
+| --- | --- |
+| Pilot 批次補齊新舊驗證、雙製比對、PDF 主檔完整性、PDF reconciliation、報表查詢、稽核 Hash Chain、告警路由、角色管理與 Data Scope 管理任務卡。 | `tasks/TASK-RPT-0013`、`0018`、`0021`、`0022`、`0028`、`0033`、`0035`、`0036`、`0037` |
+| Production Candidate 批次補齊 break-glass、Go / No-Go、Rollback、UAT、Pilot 舊系統下線、Release Acceptance 與舊系統覆蓋確認任務卡。 | `tasks/TASK-RPT-0038`、`0040`、`0041`、`0042`、`0043`、`0044`、`0045` |
+| `tasks/README.md` 更新第三批與第四批核心卡狀態，標示已升級為完整任務卡。 | `tasks/README.md` |
+| 產卡模板補強完整任務卡 frontmatter、stage、role、evidence 與 gate 欄位要求，避免未來重產卡退回摘要格式。 | `tools/generate_reportdemo_task_cards.py` |
+
 ## 2026-07-07：MVP2 核心任務卡完整格式升級
 
 範圍：升級 MVP2 第二批核心任務卡 `TASK-RPT-0007`、`TASK-RPT-0008`、`TASK-RPT-0010`、`TASK-RPT-0014`、`TASK-RPT-0019`、`TASK-RPT-0023`、`TASK-RPT-0024`、`TASK-RPT-0025`。這批卡已補齊真實 Qutora 演練場景、落地設計、影響範圍、Fail-Closed 規則、10 條 validators、10 條 test cases、reviewer / human gate / ADR gate，evidence 路徑統一為 `evidence/MVP2/<TASK-ID>/`。
