@@ -4,93 +4,139 @@ source_milestone: M4-01
 title: "建立 PDF metadata"
 status: planned
 owner: backend-storage-devops
-priority: P1
+priority: P0
 milestone: M4
+drill_stage: "MVP2"
+primary_role: "Backend / DBA"
+support_roles:
+  - "Tech Lead / Captain"
+  - "QA / Security / DevOps"
 depends_on:
-  - "TASK-RPT-0017"
-  - "TASK-RPT-0018"
+  - "TASK-RPT-0008"
+  - "TASK-RPT-0014"
 related_plan: "內部人員交易報表轉媒體儲存系統_功能里程碑計畫.md"
 agent_team_plan: "內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md"
+drill_plan: "drills/分階段演練與驗收計畫.md"
+evidence_path: "evidence/MVP2/TASK-RPT-0019/"
 scopePaths:
-  - "tasks/TASK-RPT-*-pdf-metadata.task.md"
-  - "evidence/M4-01/**"
-  - "src/ReportDemo.DocumentStorage/**"
-  - "infra/storage/reportdemo/**"
-  - "legacy/舊系統報表模組_功能別401.xxx"
-  - "legacy/舊系統資料轉換_SP_功能別401.sql"
+  - "tasks/TASK-RPT-0019-m4-01-pdf-metadata.task.md"
+  - "evidence/MVP2/TASK-RPT-0019/**"
+  - "evidence/MVP1/TASK-RPT-0003/**"
+  - "evidence/MVP2/TASK-RPT-0008/**"
 deliverables:
-  - "evidence/M4-01/implementation-notes.md"
-  - "evidence/M4-01/validation-result.md"
-  - Target system implementation artifacts: code, DB migration, tests, and operation docs
+  - "evidence/MVP2/TASK-RPT-0019/pdf-metadata-model.md"
+  - "evidence/MVP2/TASK-RPT-0019/metadata-mapping.md"
+  - "evidence/MVP2/TASK-RPT-0019/metadata-validation-result.md"
 validators:
-  - "git diff --check"
-  - After target implementation location is created, add: dotnet test or equivalent automated tests
-  - After target implementation location is created, add: Golden Dataset / Shadow Validation comparison command
+  - "V-0019-01"
+  - "V-0019-02"
+  - "V-0019-03"
+  - "V-0019-04"
+  - "V-0019-05"
+  - "V-0019-06"
+  - "V-0019-07"
+  - "V-0019-08"
+  - "V-0019-09"
+  - "V-0019-10"
 evidence:
   required: command-backed
 rollback:
-  strategy: revert-commit-or-feature-flag-disable
-  notes: "若已進入正式資料流程，需先依 rollback runbook 停用新功能並回復舊系統路徑。"
-atomizationImpact:
-  ownerAtomOrMap: "reportdemo.m4.pdf-metadata"
-  mapUpdates:
-    - After target implementation location is created, add actual module/path map
-  notes: "This card defines the functional work package first; add actual module/map and file boundaries after the implementation location is created."
+  strategy: revert-metadata-projection
+  notes: "metadata projection 錯誤時回復 staging baseline，不修改 PDF 主檔。"
 outOfScope:
-  - "使用未脫敏正式資料進行開發或一般測試"
-  - "未完成舊系統覆蓋比對即切換正式流程"
-  - "繞過 Admin、Data Scope、稽核與告警要求"
+  - "PDF 主檔儲存區實作"
+  - "全文搜尋索引"
+  - "正式報表產製"
 nonGoals:
-  - "一次性重寫所有舊系統功能"
-  - "在未完成 PoC / Gate 前承諾最終技術選型"
+  - "建立完整報表查詢 UI"
 ---
 # TASK-RPT-0019 - M4-01 建立 PDF metadata
 
-## Goal
+## 任務目標
 
-完成 `M4-01` 對應功能，並能證明新系統涵蓋舊系統必要行為；未知舊系統程式碼先以象徵性代號標記，後續盤點時替換為真實名稱。
+定義 MVP2 PDF metadata 模型，將 Qutora baseline 與 MariaDB staging 的欄位投影成下載閘道與浮水印可使用的報表 metadata。
 
-## Legacy Coverage
+## 真實功能帶入場景
 
-- 需對照：`legacy/舊系統報表模組_功能別401.xxx`
-- 需對照：`legacy/舊系統資料轉換_SP_功能別401.sql`
-- 若本卡涉及重寫，必須保留舊系統輸入、輸出、排序、欄位、狀態與例外案例的比對紀錄。
+使用 MVP1 合成 PDF 與 Qutora metadata export，建立新系統 `pdf_metadata` 概念模型，確保每份 PDF 都有 legacy reference、報表代號、資料日期、機密等級、部門、主檔 hash、版本與可稽核欄位。
 
-## Functional Scope
-- 保存報表代號、資料日期、批次編號、版本、機密等級、模板版本、Report Run ID。
-- 保存 PDF 主檔路徑與 SHA-256 Hash。
+## 舊系統覆蓋
 
-## Implementation Contract
+| Qutora 來源 | PDF metadata 欄位 | 用途 |
+| --- | --- | --- |
+| Document id | legacy_document_id | 舊系統反查。 |
+| Metadata | report_code / data_date / confidentiality | 查詢、授權、浮水印。 |
+| Storage provider | master_object_ref | 主檔定位但不得直接暴露。 |
+| Download baseline | master_hash | 完整性檢查。 |
 
-- 優先採漸進式承接：沿用、封裝、移植、重寫、廢止候選需逐項記錄。
-- 不得用未脫敏正式資料做一般開發或測試；正式資料只可進受控 Shadow Validation。
-- 涉及權限、資料範圍、PDF、稽核、告警或 break-glass 時，安全性與可稽核性優先於便利性。
-- 每個可觀測流程需留下 trace ID / correlation ID，方便新舊系統比對與事故追蹤。
+## 落地設計
 
-- Agent Team 派工、role、reviewer、validator、human sign-off 與 ADR gate 需依 Agent Team 計畫書 v1.0 執行：`內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md`。
+| 項目 | 定義 |
+| --- | --- |
+| API | MVP2 先定義 metadata read contract；下載閘道只讀 metadata。 |
+| 資料表 | `pdf_metadata`、`pdf_version`、`pdf_integrity_ref`。 |
+| 狀態機 | `imported`、`metadata_validated`、`hash_verified`、`ready_for_download`、`invalid`。 |
+| 錯誤碼 | `PDF_META_MISSING`、`PDF_HASH_MISSING`、`PDF_SCOPE_MISSING`、`PDF_VERSION_INVALID`。 |
+| 權限檢查 | metadata 可查詢不代表可下載；下載需經 M5-01。 |
+| 稽核欄位 | legacy_document_id、report_code、version、batch_id、row_hash、updated_at。 |
+| fail-closed | metadata、scope、hash 任一缺失，PDF 不得進入下載閘道。 |
 
-## Deliverables
+## 影響範圍
 
-- 實作程式碼、DB migration、設定檔或文件，依本卡 `scopePaths` 控制。
-- `evidence/M4-01/implementation-notes.md`
-- `evidence/M4-01/validation-result.md`
+- 影響下載閘道授權、浮水印欄位、下載副本 hash 與 Pilot 查詢。
+- 不直接暴露主檔儲存路徑。
+
+## 輸入與輸出
+
+| 類型 | 內容 |
+| --- | --- |
+| 輸入 | Golden Dataset、MariaDB staging mapping、Data Scope 規則。 |
+| 輸出 | metadata model、mapping、validation result。 |
+
+## 完成定義
+
+- 每份 MVP2 PDF 都有 legacy id、report_code、data_date、confidentiality、department、version、hash。
+- metadata 缺失時可分類錯誤且 fail-closed。
+- 下載閘道與浮水印可直接引用欄位。
 
 ## Validators
 
-- `git diff --check`
-- After target implementation location is created, add: dotnet test or equivalent automated tests
-- After target implementation location is created, add: Golden Dataset / Shadow Validation comparison command
+| ID | 輸入條件 | 執行方式 / Evidence | 預期結果 | 阻擋條件 |
+| --- | --- | --- | --- | --- |
+| V-0019-01 | baseline metadata | 檢查 mapping | 欄位完整 | 缺核心欄位 |
+| V-0019-02 | legacy id | 檢查唯一性 | 每份唯一 | 重複 |
+| V-0019-03 | report_code | 檢查可查詢 | 可作索引 | 不可查 |
+| V-0019-04 | confidentiality | 檢查分級 | 可供 Data Scope | 缺分級 |
+| V-0019-05 | department | 檢查部門欄位 | 可判斷 scope | 缺 scope |
+| V-0019-06 | master_hash | 檢查 hash 欄位 | 可重算 | hash 缺失 |
+| V-0019-07 | version | 檢查版本規則 | 可判斷最新版 | 版本不明 |
+| V-0019-08 | storage ref | 檢查不直接暴露 | 只能 gateway 使用 | 直接暴露路徑 |
+| V-0019-09 | invalid case | 模擬缺欄 | fail-closed | 缺欄仍 ready |
+| V-0019-10 | evidence path | 檢查 `evidence/MVP2/TASK-RPT-0019/` | 符合 RB-03 | evidence 散落 |
 
-## Acceptance Criteria
-- 每份 PDF 主檔有 metadata。
-- PDF 主檔 Hash 可驗證。
-- metadata 可追溯報表產生來源。
+## Test Cases
 
-## Rollback
+| ID | 輸入條件 | 執行方式 | 預期結果 | 阻擋條件 |
+| --- | --- | --- | --- | --- |
+| TC-0019-01 | 3 份 baseline PDF | 建立 metadata projection | 3 筆 ready | 筆數不一致 |
+| TC-0019-02 | 缺 report_code | validate | `PDF_META_MISSING` | 通過 |
+| TC-0019-03 | 缺 hash | validate | `PDF_HASH_MISSING` | 通過 |
+| TC-0019-04 | 缺 department | validate | `PDF_SCOPE_MISSING` | 通過 |
+| TC-0019-05 | 重複 legacy id | validate | invalid | 通過 |
+| TC-0019-06 | version 不一致 | validate | `PDF_VERSION_INVALID` | 通過 |
+| TC-0019-07 | 查 report_code | 查詢設計 | 命中正確 PDF | 查詢錯誤 |
+| TC-0019-08 | 查 high confidentiality | 查詢設計 | 可分類 | 分級錯誤 |
+| TC-0019-09 | gateway 讀 metadata | 模擬 input | 取得必要欄位 | 欄位不足 |
+| TC-0019-10 | reviewer 抽查 | 抽查 3 筆 | 可追溯 Qutora | 來源不明 |
 
-以 feature flag、路由切回舊系統、回復 migration 或 revert commit 為優先；若已接觸正式流程，必須先確認資料一致性與稽核紀錄完整。
+## Reviewer / Human Gate / ADR
+
+| 項目 | 規則 |
+| --- | --- |
+| Reviewer | Backend / DBA 產出，QA / Security / DevOps 複核敏感欄位與 fail-closed。 |
+| Human Gate | 若 metadata 欄位不足以支援機密分級，需人類決定縮 MVP 或補資料。 |
+| ADR | 若 PDF metadata 保存策略影響長期保存或 WORM，需更新 ADR-008。 |
 
 ## Notes
 
-- 2026-07-02 | planned | Card generated from the function milestone plan; waiting for human confirmation of priority, owner, and target implementation location path.
-- 2026-07-02 | planned | 已同步 Agent Team 計畫書 v1.0；正式派工前需確認 role、reviewer、validator、human/ADR gate 與違規阻擋機制。
+- 2026-07-07 | upgraded | MVP2 核心卡完整格式升級，evidence 改為 `evidence/MVP2/TASK-RPT-0019/`。

@@ -26,7 +26,7 @@ This directory turns the function milestone plan into dispatchable task cards fo
 | Batch | Stage | Core cards | 開工條件 |
 | --- | --- | --- | --- |
 | 1 | MVP1 | `TASK-RPT-0001`、`TASK-RPT-0002`、`TASK-RPT-0003`、`TASK-RPT-0004` | 已升級為完整任務卡；正式開工前仍需依 RB-01 啟動 Qutora，並依 RB-03 建立 evidence index。 |
-| 2 | MVP2 | `TASK-RPT-0007`、`TASK-RPT-0008`、`TASK-RPT-0010`、`TASK-RPT-0014`、`TASK-RPT-0019`、`TASK-RPT-0023`、`TASK-RPT-0024`、`TASK-RPT-0025` | MVP1 Gate 通過，且 MariaDB / 下載 / 浮水印 PoC 的任務卡已補齊完整規格。 |
+| 2 | MVP2 | `TASK-RPT-0007`、`TASK-RPT-0008`、`TASK-RPT-0010`、`TASK-RPT-0014`、`TASK-RPT-0019`、`TASK-RPT-0023`、`TASK-RPT-0024`、`TASK-RPT-0025` | 已升級為完整任務卡；MVP1 Gate 通過後，可依 MariaDB / 下載 / 浮水印 PoC 順序領卡執行。 |
 | 3 | Pilot | `TASK-RPT-0013`、`TASK-RPT-0018`、`TASK-RPT-0021`、`TASK-RPT-0022`、`TASK-RPT-0028`、`TASK-RPT-0033`、`TASK-RPT-0035`、`TASK-RPT-0036`、`TASK-RPT-0037` | MVP2 Gate 通過，且平行作業、權限、稽核與告警驗證路徑已定義。 |
 | 4 | Production Candidate | `TASK-RPT-0038`、`TASK-RPT-0040`、`TASK-RPT-0041`、`TASK-RPT-0042`、`TASK-RPT-0043`、`TASK-RPT-0044`、`TASK-RPT-0045` | Pilot Gate 通過，且 rollback dry run、Go / No-Go evidence package 與 human sign-off 角色已確認。 |
 

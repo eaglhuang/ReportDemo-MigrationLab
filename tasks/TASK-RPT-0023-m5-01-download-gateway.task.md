@@ -4,94 +4,139 @@ source_milestone: M5-01
 title: "建立下載閘道"
 status: planned
 owner: backend-security
-priority: P1
+priority: P0
 milestone: M5
+drill_stage: "MVP2"
+primary_role: "Backend / DBA"
+support_roles:
+  - "Tech Lead / Captain"
+  - "QA / Security / DevOps"
 depends_on:
   - "TASK-RPT-0014"
-  - "TASK-RPT-0020"
+  - "TASK-RPT-0019"
+  - "TASK-RPT-0010"
 related_plan: "內部人員交易報表轉媒體儲存系統_功能里程碑計畫.md"
 agent_team_plan: "內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md"
+drill_plan: "drills/分階段演練與驗收計畫.md"
+evidence_path: "evidence/MVP2/TASK-RPT-0023/"
 scopePaths:
-  - "tasks/TASK-RPT-*-download-gateway.task.md"
-  - "evidence/M5-01/**"
-  - "src/ReportDemo.DownloadGateway/**"
-  - "src/ReportDemo.Watermark/**"
-  - "legacy/舊系統報表模組_功能別501.xxx"
-  - "legacy/舊系統資料轉換_SP_功能別501.sql"
+  - "tasks/TASK-RPT-0023-m5-01-download-gateway.task.md"
+  - "evidence/MVP2/TASK-RPT-0023/**"
 deliverables:
-  - "evidence/M5-01/implementation-notes.md"
-  - "evidence/M5-01/validation-result.md"
-  - Target system implementation artifacts: code, DB migration, tests, and operation docs
+  - "evidence/MVP2/TASK-RPT-0023/download-gateway-api.md"
+  - "evidence/MVP2/TASK-RPT-0023/download-state-machine.md"
+  - "evidence/MVP2/TASK-RPT-0023/fail-closed-test-result.md"
 validators:
-  - "git diff --check"
-  - After target implementation location is created, add: dotnet test or equivalent automated tests
-  - After target implementation location is created, add: Golden Dataset / Shadow Validation comparison command
+  - "V-0023-01"
+  - "V-0023-02"
+  - "V-0023-03"
+  - "V-0023-04"
+  - "V-0023-05"
+  - "V-0023-06"
+  - "V-0023-07"
+  - "V-0023-08"
+  - "V-0023-09"
+  - "V-0023-10"
 evidence:
   required: command-backed
 rollback:
-  strategy: revert-commit-or-feature-flag-disable
-  notes: "若已進入正式資料流程，需先依 rollback runbook 停用新功能並回復舊系統路徑。"
-atomizationImpact:
-  ownerAtomOrMap: "reportdemo.m5.download-gateway"
-  mapUpdates:
-    - After target implementation location is created, add actual module/path map
-  notes: "This card defines the functional work package first; add actual module/map and file boundaries after the implementation location is created."
+  strategy: disable-new-download-route-and-return-to-qutora
+  notes: "下載閘道失敗時停用新下載路徑，回到 Qutora 舊路徑；不得直接暴露主檔儲存位置。"
 outOfScope:
-  - "使用未脫敏正式資料進行開發或一般測試"
-  - "未完成舊系統覆蓋比對即切換正式流程"
-  - "繞過 Admin、Data Scope、稽核與告警要求"
+  - "正式 signed URL 供應商整合"
+  - "高機密安全預覽"
+  - "長期下載副本保存"
 nonGoals:
-  - "一次性重寫所有舊系統功能"
-  - "在未完成 PoC / Gate 前承諾最終技術選型"
+  - "繞過 Data Scope 直接下載"
 ---
 # TASK-RPT-0023 - M5-01 建立下載閘道
 
-## Goal
+## 任務目標
 
-完成 `M5-01` 對應功能，並能證明新系統涵蓋舊系統必要行為；未知舊系統程式碼先以象徵性代號標記，後續盤點時替換為真實名稱。
+定義 MVP2 下載閘道落地規格，確保所有 PDF 下載都經過授權、Data Scope、metadata、audit、watermark 與 hash 流程，不得直接存取主檔。
 
-## Legacy Coverage
+## 真實功能帶入場景
 
-- 需對照：`legacy/舊系統報表模組_功能別501.xxx`
-- 需對照：`legacy/舊系統資料轉換_SP_功能別501.sql`
-- 若本卡涉及重寫，必須保留舊系統輸入、輸出、排序、欄位、狀態與例外案例的比對紀錄。
+使用 MVP1 Qutora baseline PDF 與 MVP2 MariaDB metadata，模擬使用者透過新系統下載 PDF。下載成功前必須通過 Role、Data Scope、metadata ready、audit writable 與 watermark-ready 檢查。
 
-## Functional Scope
-- 所有下載必須經過後端授權檢查。
-- 產生 Download ID / Serial No.
-- 建立下載申請與下載紀錄。
+## 舊系統覆蓋
 
-## Implementation Contract
+| Qutora 來源 | 新下載閘道對應 | 用途 |
+| --- | --- | --- |
+| Qutora download | legacy baseline | 比對下載結果與 hash。 |
+| Document id | pdf_id / legacy_document_id | 下載對象。 |
+| Permission | Data Scope decision | 授權判斷。 |
+| AuditLog | download audit | 操作追蹤。 |
 
-- 優先採漸進式承接：沿用、封裝、移植、重寫、廢止候選需逐項記錄。
-- 不得用未脫敏正式資料做一般開發或測試；正式資料只可進受控 Shadow Validation。
-- 涉及權限、資料範圍、PDF、稽核、告警或 break-glass 時，安全性與可稽核性優先於便利性。
-- 每個可觀測流程需留下 trace ID / correlation ID，方便新舊系統比對與事故追蹤。
+## 落地設計
 
-- Agent Team 派工、role、reviewer、validator、human sign-off 與 ADR gate 需依 Agent Team 計畫書 v1.0 執行：`內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md`。
+| 項目 | 定義 |
+| --- | --- |
+| API | `POST /api/download-requests` 建立請求；`GET /api/download-requests/{id}/file` 取檔。 |
+| 資料表 | `download_request`、`download_decision`、`download_error`。 |
+| 狀態機 | `requested`、`authorized`、`watermark_pending`、`ready`、`delivered`、`denied`、`failed_closed`。 |
+| 錯誤碼 | `AUTH_DENIED`、`SCOPE_DENIED`、`PDF_NOT_READY`、`AUDIT_FAILED`、`WATERMARK_FAILED`、`HASH_FAILED`。 |
+| 權限檢查 | 先驗 session / role，再驗 Data Scope，再驗機密等級，再驗 audit writable。 |
+| 稽核欄位 | download_id、user_id、ip、user_agent、pdf_id、version、decision、reason、correlation_id。 |
+| fail-closed | 權限不明、metadata invalid、audit fail、watermark fail、hash fail 時不得回傳 PDF。 |
 
-## Deliverables
+## 影響範圍
 
-- 實作程式碼、DB migration、設定檔或文件，依本卡 `scopePaths` 控制。
-- `evidence/M5-01/implementation-notes.md`
-- `evidence/M5-01/validation-result.md`
+- 直接影響 `TASK-RPT-0024` 動態浮水印與 `TASK-RPT-0025` 下載副本 hash。
+- 影響 Pilot 下載平行作業。
+- 不暴露 object storage / NAS 直接路徑。
+
+## 輸入與輸出
+
+| 類型 | 內容 |
+| --- | --- |
+| 輸入 | PDF metadata、Data Scope decision、audit writer、Qutora baseline PDF。 |
+| 輸出 | API contract、狀態機、錯誤碼、fail-closed test result。 |
+
+## 完成定義
+
+- 所有下載都有 download_id 與 audit。
+- 未授權、audit fail、watermark fail 不得回傳 PDF。
+- 主檔不可被直接下載。
 
 ## Validators
 
-- `git diff --check`
-- After target implementation location is created, add: dotnet test or equivalent automated tests
-- After target implementation location is created, add: Golden Dataset / Shadow Validation comparison command
+| ID | 輸入條件 | 執行方式 / Evidence | 預期結果 | 阻擋條件 |
+| --- | --- | --- | --- | --- |
+| V-0023-01 | API contract | 檢查 request/response | 欄位完整 | contract 不明 |
+| V-0023-02 | metadata ready | 模擬合法下載 | 狀態到 ready | 無 ready |
+| V-0023-03 | role denied | 模擬無 role | `AUTH_DENIED` | 越權成功 |
+| V-0023-04 | scope denied | 模擬跨部門 | `SCOPE_DENIED` | 越權成功 |
+| V-0023-05 | pdf invalid | metadata invalid | `PDF_NOT_READY` | 仍下載 |
+| V-0023-06 | audit fail | 模擬 audit unavailable | `AUDIT_FAILED` + fail-closed | 仍下載 |
+| V-0023-07 | watermark fail | 模擬 watermark fail | `WATERMARK_FAILED` + fail-closed | 回傳未浮水印 PDF |
+| V-0023-08 | hash fail | 模擬 hash fail | `HASH_FAILED` + fail-closed | 回傳檔案 |
+| V-0023-09 | audit 欄位 | 檢查 sample event | 欄位完整 | 缺 user/ip/pdf |
+| V-0023-10 | evidence path | 檢查 `evidence/MVP2/TASK-RPT-0023/` | 符合 RB-03 | evidence 散落 |
 
-## Acceptance Criteria
-- 未授權使用者不可下載。
-- 每次下載都有唯一序號。
-- 下載紀錄包含使用者、時間、IP、User-Agent、報表版本。
+## Test Cases
 
-## Rollback
+| ID | 輸入條件 | 執行方式 | 預期結果 | 阻擋條件 |
+| --- | --- | --- | --- | --- |
+| TC-0023-01 | 合法使用者 | 建立下載請求 | 回傳 download_id | 無 id |
+| TC-0023-02 | 合法請求 | 取檔 | 狀態 delivered | 取檔失敗 |
+| TC-0023-03 | 無 role | 建立請求 | denied | 成功 |
+| TC-0023-04 | 跨部門 | 建立請求 | denied | 成功 |
+| TC-0023-05 | 高機密不足 | 建立請求 | denied | 成功 |
+| TC-0023-06 | audit fail | 建立請求 | failed_closed | 成功 |
+| TC-0023-07 | watermark fail | 取檔 | failed_closed | 回傳 PDF |
+| TC-0023-08 | hash fail | 取檔 | failed_closed | 回傳 PDF |
+| TC-0023-09 | 直接 storage path | 嘗試存取 | 不可取得 | 可直接下載 |
+| TC-0023-10 | reviewer 抽查 | 查 audit + state | 可追溯 | 不可追蹤 |
 
-以 feature flag、路由切回舊系統、回復 migration 或 revert commit 為優先；若已接觸正式流程，必須先確認資料一致性與稽核紀錄完整。
+## Reviewer / Human Gate / ADR
+
+| 項目 | 規則 |
+| --- | --- |
+| Reviewer | Backend / DBA 產出，QA / Security / DevOps 對負向測試具 blocking 權限。 |
+| Human Gate | 若下載 URL TTL、signed URL 或 session 模式需定案，需人類簽核。 |
+| ADR | API session / signed URL 策略需對應 ADR-003。 |
 
 ## Notes
 
-- 2026-07-02 | planned | Card generated from the function milestone plan; waiting for human confirmation of priority, owner, and target implementation location path.
-- 2026-07-02 | planned | 已同步 Agent Team 計畫書 v1.0；正式派工前需確認 role、reviewer、validator、human/ADR gate 與違規阻擋機制。
+- 2026-07-07 | upgraded | MVP2 核心卡完整格式升級，evidence 改為 `evidence/MVP2/TASK-RPT-0023/`。

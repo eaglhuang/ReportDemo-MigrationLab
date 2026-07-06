@@ -1,6 +1,22 @@
 # 內部人員交易報表轉媒體儲存系統
 ## 版本異動摘要 Change Log
 
+## 2026-07-07：MVP2 核心任務卡完整格式升級
+
+範圍：升級 MVP2 第二批核心任務卡 `TASK-RPT-0007`、`TASK-RPT-0008`、`TASK-RPT-0010`、`TASK-RPT-0014`、`TASK-RPT-0019`、`TASK-RPT-0023`、`TASK-RPT-0024`、`TASK-RPT-0025`。這批卡已補齊真實 Qutora 演練場景、落地設計、影響範圍、Fail-Closed 規則、10 條 validators、10 條 test cases、reviewer / human gate / ADR gate，evidence 路徑統一為 `evidence/MVP2/<TASK-ID>/`。
+
+| 異動 | 併入文件 / 章節或任務卡 |
+| --- | --- |
+| `TASK-RPT-0007` 補齊匯入批次管理規格，包含批次狀態機、錯誤碼、rollback 與 Qutora 抽取邊界。 | `tasks/TASK-RPT-0007-m1-01-import-batch-management.task.md` |
+| `TASK-RPT-0008` 補齊 MariaDB staging tables 規格，包含 staging schema、欄位對應、索引與驗證規則。 | `tasks/TASK-RPT-0008-m1-02-staging-tables.task.md` |
+| `TASK-RPT-0010` 補齊 audit write foundation 規格，包含 fail-closed matrix、audit event schema 與 payload hash。 | `tasks/TASK-RPT-0010-m1-04-audit-write-foundation.task.md` |
+| `TASK-RPT-0014` 補齊 Data Scope foundation 規格，包含 Role / Data Scope / Confidentiality deny-by-default 規則。 | `tasks/TASK-RPT-0014-m2-04-data-scope-foundation.task.md` |
+| `TASK-RPT-0019` 補齊 PDF metadata 規格，包含 Qutora metadata 對應、主檔 Hash、機密等級與版本欄位。 | `tasks/TASK-RPT-0019-m4-01-pdf-metadata.task.md` |
+| `TASK-RPT-0023` 補齊下載閘道落地設計，包含 API、資料表、狀態機、錯誤碼、權限檢查、稽核欄位與 fail-closed 規則。 | `tasks/TASK-RPT-0023-m5-01-download-gateway.task.md` |
+| `TASK-RPT-0024` 補齊動態浮水印處理規格，明確定義浮水印為外流追蹤、嚇阻與竄改偵測輔助，不宣稱絕對防竄改。 | `tasks/TASK-RPT-0024-m5-02-dynamic-watermark.task.md` |
+| `TASK-RPT-0025` 補齊下載副本 Hash 規格，區分主檔 Hash、下載副本 Hash 與 audit payload hash。 | `tasks/TASK-RPT-0025-m5-03-download-copy-hash.task.md` |
+| `tasks/README.md` 更新第二批核心卡狀態，標示 MVP2 核心卡已升級為完整任務卡。 | `tasks/README.md` |
+
 ## 2026-07-06：MVP1 核心任務卡完整格式升級
 
 範圍：只升級 MVP1 第一批核心任務卡 `TASK-RPT-0001` 到 `TASK-RPT-0004`。其他任務卡仍維持摘要格式，未補齊完整任務卡規格前不得正式開工或 closure。
