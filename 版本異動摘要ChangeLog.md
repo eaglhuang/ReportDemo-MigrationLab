@@ -1,6 +1,18 @@
 # 內部人員交易報表轉媒體儲存系統
 ## 版本異動摘要 Change Log
 
+## 2026-07-06：MVP1 核心任務卡完整格式升級
+
+範圍：只升級 MVP1 第一批核心任務卡 `TASK-RPT-0001` 到 `TASK-RPT-0004`。其他任務卡仍維持摘要格式，未補齊完整任務卡規格前不得正式開工或 closure。
+
+| 異動 | 併入文件 / 章節或任務卡 |
+| --- | --- |
+| `TASK-RPT-0001` 補齊 Qutora 文件 / 報表功能盤點、真實場景、影響範圍、10 條 validators、10 條 test cases、reviewer / human gate / ADR。 | `tasks/TASK-RPT-0001-m0-01-legacy-report-inventory.task.md` |
+| `TASK-RPT-0002` 補齊 Qutora DB / entity / provider 資料來源盤點、MariaDB 轉換風險、10 條 validators、10 條 test cases。 | `tasks/TASK-RPT-0002-m0-02-legacy-data-source-inventory.task.md` |
+| `TASK-RPT-0003` 補齊 Golden Dataset / 合成 PDF / metadata / hash baseline 規格與正式資料禁用 gate。 | `tasks/TASK-RPT-0003-m0-03-legacy-result-baseline.task.md` |
+| `TASK-RPT-0004` 補齊 Qutora startup、DB provider、PDF / storage / auth PoC 規格與 MVP2 前置 Gate。 | `tasks/TASK-RPT-0004-m0-04-third-party-cross-platform-poc.task.md` |
+| 四張核心卡 evidence 統一改為 `evidence/MVP1/TASK-RPT-000x/`。 | `tasks/TASK-RPT-0001` 到 `TASK-RPT-0004` |
+
 ## 2026-07-06：計畫文件包收斂與演練執行層重整
 
 範圍：文件包治理、演練計畫合併、runbook 新增、evidence 規則、任務卡開工 gate 與 archive 封存。不修改 Qutora submodule、不跑 migration、不重新產 PDF、不一次升級全部 45 張任務卡。
