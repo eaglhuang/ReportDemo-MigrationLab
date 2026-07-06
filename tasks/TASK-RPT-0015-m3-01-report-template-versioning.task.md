@@ -6,6 +6,7 @@ status: planned
 owner: backend-report-engineer
 priority: P1
 milestone: M3
+drill_stage: "Backlog"
 depends_on:
   - "TASK-RPT-0001"
   - "TASK-RPT-0013"

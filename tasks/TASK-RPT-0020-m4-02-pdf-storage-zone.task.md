@@ -6,6 +6,7 @@ status: planned
 owner: backend-storage-devops
 priority: P1
 milestone: M4
+drill_stage: "Backlog"
 depends_on:
   - "TASK-RPT-0004"
   - "TASK-RPT-0019"

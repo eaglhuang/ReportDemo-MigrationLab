@@ -6,6 +6,7 @@ status: planned
 owner: project-captain-devops
 priority: P0
 milestone: M9
+drill_stage: "Backlog"
 depends_on:
   - "TASK-RPT-0004"
   - "TASK-RPT-0005"

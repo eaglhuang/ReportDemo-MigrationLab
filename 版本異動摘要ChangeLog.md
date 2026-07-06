@@ -1,6 +1,18 @@
 # 內部人員交易報表轉媒體儲存系統
 ## 版本異動摘要 Change Log
 
+## 2026-07-07：收斂落地複查缺口補齊
+
+範圍：補齊複查列出的 5 個殘餘缺口，使 MVP1 kickoff 前需要的責任矩陣、簽核邊界、Phase↔M 權威、admin 初始化、Backlog 任務卡標記與 Production Candidate 簽核範本都有文件依據。
+
+| 缺口 | 修正內容 | 併入文件 |
+| --- | --- | --- |
+| 三人每階段責任矩陣與代理簽核表未落表 | 新增每階段責任矩陣、代理簽核表與 Gate Review 規則，明確定義誰驗收、誰不得自審、哪些 Gate 只能建議不可代理正式簽核。 | `drills/分階段演練與驗收計畫.md` §4.1、§4.2、§4.3 |
+| 架構書附錄 A 與功能里程碑 Phase↔M 對照表重複 | 刪除架構書附錄 A 的重複 Phase↔M 表格，只保留治理路線與指向「功能里程碑計畫」的權威說明。 | `內部人員交易報表轉媒體儲存系統_系統架構與治理計畫書.md` 附錄 A |
+| RB-01 admin 初始化不具體 | 補上 Qutora `system-status`、`initial-setup`、`login` 的 curl.exe 命令、預期結果與 token / 密碼遮罩要求。 | `runbooks/RB-01-qutora-startup.md` |
+| 非核心任務卡缺少 `drill_stage: Backlog` | 17 張非核心任務卡補上 `drill_stage: "Backlog"`，並在 tasks README 明確標示未補齊不得開工。 | `tasks/TASK-RPT-0005`、`0006`、`0009`、`0011`、`0012`、`0015`、`0016`、`0017`、`0020`、`0026`、`0027`、`0029`、`0030`、`0031`、`0032`、`0034`、`0039`、`tasks/README.md` |
+| PC 正式簽核表無範本 | 新增 `ProductionCandidate` sign-off record 格式與 Markdown 範本。 | `runbooks/RB-03-evidence-standard.md` |
+
 ## 2026-07-07：Pilot 與 Production Candidate 核心任務卡完整格式升級
 
 範圍：升級第三批 Pilot 核心任務卡 `TASK-RPT-0013`、`TASK-RPT-0018`、`TASK-RPT-0021`、`TASK-RPT-0022`、`TASK-RPT-0028`、`TASK-RPT-0033`、`TASK-RPT-0035`、`TASK-RPT-0036`、`TASK-RPT-0037`，以及第四批 Production Candidate 核心任務卡 `TASK-RPT-0038`、`TASK-RPT-0040`、`TASK-RPT-0041`、`TASK-RPT-0042`、`TASK-RPT-0043`、`TASK-RPT-0044`、`TASK-RPT-0045`。這 16 張卡已補齊 Qutora 演練場景、落地設計、影響範圍、Fail-Closed 規則、10 條 validators、10 條 test cases、reviewer / human gate / ADR gate。

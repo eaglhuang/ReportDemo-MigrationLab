@@ -6,6 +6,7 @@ status: planned
 owner: backend-security
 priority: P1
 milestone: M5
+drill_stage: "Backlog"
 depends_on:
   - "TASK-RPT-0023"
   - "TASK-RPT-0024"

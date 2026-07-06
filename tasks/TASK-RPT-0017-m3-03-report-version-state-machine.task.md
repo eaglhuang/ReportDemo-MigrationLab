@@ -6,6 +6,7 @@ status: planned
 owner: backend-report-engineer
 priority: P1
 milestone: M3
+drill_stage: "Backlog"
 depends_on:
   - "TASK-RPT-0016"
 related_plan: "內部人員交易報表轉媒體儲存系統_功能里程碑計畫.md"

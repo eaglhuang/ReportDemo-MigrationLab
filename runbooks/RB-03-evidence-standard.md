@@ -64,3 +64,60 @@ evidence/<Stage>/gate-summary.md
 - blocking issue。
 - 例外簽核。
 - 下一階段 Go / No-Go 建議。
+
+## Production Candidate Sign-off Record
+
+`ProductionCandidate` 階段需額外產出正式候選簽核表：
+
+```text
+evidence/ProductionCandidate/sign-off-record.md
+```
+
+建議格式：
+
+| 欄位 | 說明 |
+| --- | --- |
+| release_candidate_id | 正式候選版本或 commit |
+| evidence_package | Go / No-Go evidence package 路徑 |
+| business_proxy | 業務代理簽核人 |
+| audit_proxy | 稽核代理簽核人 |
+| security_proxy | 資安代理簽核人 |
+| operations_proxy | 維運代理簽核人 |
+| decision | go / no-go / conditional-go |
+| conditions | conditional-go 的限制條件 |
+| signed_at | 簽核時間 |
+| adr_refs | 相關 ADR |
+| open_risks | 未關閉風險 |
+| rollback_ready | yes / no |
+| notes | 補充說明 |
+
+範本：
+
+```markdown
+# Production Candidate Sign-off Record
+
+| Role | Proxy / Owner | Decision | Signed at | Notes |
+| --- | --- | --- | --- | --- |
+| Business Owner |  |  |  |  |
+| Audit Owner |  |  |  |  |
+| Security Owner |  |  |  |  |
+| Operations Owner |  |  |  |  |
+| Final Go / No-Go Approver |  |  |  |  |
+
+## Evidence Package
+
+- release_candidate_id:
+- gate_summary:
+- rollback_evidence:
+- open_blockers:
+- adr_refs:
+
+## Decision
+
+- decision:
+- conditions:
+- rollback_ready:
+- final_notes:
+```
+
+三人小隊可代理填寫演練用欄位，但正式 Go / No-Go、舊系統下線、資安例外與稽核例外不得由 Agent 或單一工程角色自行簽核。

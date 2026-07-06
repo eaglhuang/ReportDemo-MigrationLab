@@ -6,6 +6,7 @@ status: planned
 owner: backend-frontend-qa
 priority: P1
 milestone: M6
+drill_stage: "Backlog"
 depends_on:
   - "TASK-RPT-0024"
   - "TASK-RPT-0028"

@@ -6,6 +6,7 @@ status: planned
 owner: backend-dba
 priority: P0
 milestone: M1
+drill_stage: "Backlog"
 depends_on:
   - "TASK-RPT-0005"
   - "TASK-RPT-0008"

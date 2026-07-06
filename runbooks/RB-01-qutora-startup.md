@@ -41,7 +41,33 @@ docker compose -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserve
 docker compose -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml ps
 ```
 
-6. 依 Qutora README 或 samples 說明初始化 admin user。
+6. 初始化 admin user。
+
+先確認系統尚未初始化：
+
+```powershell
+curl.exe http://localhost:8080/api/auth/system-status
+```
+
+預期尚未初始化時回傳 `isInitialized: false`。接著建立第一個 admin：
+
+```powershell
+curl.exe -X POST http://localhost:8080/api/auth/initial-setup `
+  -H "Content-Type: application/json" `
+  -d '{ "email": "admin@qutora.local", "password": "AdminPassword123!", "firstName": "Admin", "lastName": "User", "organizationName": "ReportDemo Migration Lab" }'
+```
+
+預期回應包含 `System setup completed successfully. Please log in.`。此 endpoint 只能執行一次；若回傳 already initialized，需改以登入驗證既有 admin 是否可用，不得刪除正式或有用的 Docker volume。
+
+7. 登入 admin，確認可取得 token。
+
+```powershell
+curl.exe -X POST http://localhost:8080/api/auth/login `
+  -H "Content-Type: application/json" `
+  -d '{ "email": "admin@qutora.local", "password": "AdminPassword123!" }'
+```
+
+登入回應需保存遮罩後的 evidence：可記錄 HTTP status、`success`、角色或 token 欄位是否存在，但不得把完整 JWT 或密碼寫入 repo。
 
 ## Evidence
 
@@ -58,9 +84,14 @@ evidence/MVP1/TASK-RPT-0001/qutora-startup.md
 - container list。
 - API health 或 root endpoint 回應。
 - SQL Server / `QutoraDB` 連線結果。
+- `GET /api/auth/system-status` 結果。
+- `POST /api/auth/initial-setup` 結果，密碼不得明文進 evidence。
+- `POST /api/auth/login` 結果，JWT / refresh token 需遮罩。
 
 ## 失敗處理
 
 - Compose 解析失敗：先停在 MVP1，不得進入 MVP2。
 - API 無法啟動：保留 logs，建立 blocking issue。
 - DB 無法連線：不得產生 migration baseline。
+- admin 初始化失敗：保留 `system-status`、`initial-setup` HTTP status、container logs，先停在 MVP1。
+- 已初始化但無法登入：admin token 不可用，MVP1 Gate 不得通過。

@@ -30,6 +30,8 @@ This directory turns the function milestone plan into dispatchable task cards fo
 | 3 | Pilot | `TASK-RPT-0013`、`TASK-RPT-0018`、`TASK-RPT-0021`、`TASK-RPT-0022`、`TASK-RPT-0028`、`TASK-RPT-0033`、`TASK-RPT-0035`、`TASK-RPT-0036`、`TASK-RPT-0037` | 已升級為完整任務卡；MVP2 Gate 通過後，可依批次移轉、權限、稽核、告警驗證與平行作業順序領卡執行。 |
 | 4 | Production Candidate | `TASK-RPT-0038`、`TASK-RPT-0040`、`TASK-RPT-0041`、`TASK-RPT-0042`、`TASK-RPT-0043`、`TASK-RPT-0044`、`TASK-RPT-0045` | 已升級為完整任務卡；Pilot Gate 通過後，可依 break-glass、Go / No-Go、rollback、UAT、下線與 release acceptance 順序領卡執行。 |
 
+其餘 17 張非核心任務卡已標記 `drill_stage: "Backlog"`；它們只可作為規劃摘要，未補齊完整任務卡規格前不得正式開工或 closure。
+
 ## Stage 對照規則
 
 - 任務卡 frontmatter 後續升級時，應補 `drill_stage`、`primary_role`、`support_roles` 與 `evidence_path`。

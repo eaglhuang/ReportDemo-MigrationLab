@@ -6,6 +6,7 @@ status: planned
 owner: backend-qa-security
 priority: P0
 milestone: M2
+drill_stage: "Backlog"
 depends_on:
   - "TASK-RPT-0003"
   - "TASK-RPT-0009"

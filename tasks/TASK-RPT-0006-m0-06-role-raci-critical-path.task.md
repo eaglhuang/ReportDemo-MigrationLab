@@ -6,6 +6,7 @@ status: planned
 owner: project-captain
 priority: P0
 milestone: M0
+drill_stage: "Backlog"
 depends_on:
   - "TASK-RPT-0001"
   - "TASK-RPT-0002"

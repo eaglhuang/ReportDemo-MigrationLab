@@ -6,6 +6,7 @@ status: planned
 owner: security-sre
 priority: P0
 milestone: M7
+drill_stage: "Backlog"
 depends_on:
   - "TASK-RPT-0010"
 related_plan: "內部人員交易報表轉媒體儲存系統_功能里程碑計畫.md"
