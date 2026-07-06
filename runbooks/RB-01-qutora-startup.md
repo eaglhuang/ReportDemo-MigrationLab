@@ -23,25 +23,44 @@ git submodule status
 de156e0eb72d58772a76e570eb711db344bedfc0
 ```
 
-3. 檢查 Docker Compose。
+3. 準備 Qutora sample `.env`。
 
 ```powershell
-docker compose -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml config --quiet
+if (-not (Test-Path open-source-sandbox/qutora-api/samples/.env)) {
+  Copy-Item open-source-sandbox/qutora-api/samples/env.sqlserver.example open-source-sandbox/qutora-api/samples/.env
+}
 ```
 
-4. 啟動 SQL Server 與 Qutora。
+檢查 `open-source-sandbox/qutora-api/samples/.env` 至少包含 SQL Server、JWT 與 API 所需設定。密碼、JWT secret 與連線字串可保留在本機 `.env`，但不得把真實密碼、完整 token 或未遮罩連線字串寫入 evidence。
+
+4. 檢查 Docker Compose。
 
 ```powershell
-docker compose -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml up -d
+docker compose --env-file open-source-sandbox/qutora-api/samples/.env -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml config --quiet
 ```
 
-5. 記錄 container 狀態。
+5. 啟動 SQL Server 與 Qutora。
 
 ```powershell
-docker compose -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml ps
+docker compose --env-file open-source-sandbox/qutora-api/samples/.env -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml up -d
 ```
 
-6. 初始化 admin user。
+6. 記錄 container 狀態。
+
+```powershell
+docker compose --env-file open-source-sandbox/qutora-api/samples/.env -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml ps
+```
+
+7. 確認存取端點。
+
+| 項目 | 預設位置 | Evidence 規則 |
+| --- | --- | --- |
+| Qutora API | `http://localhost:8080` | 記錄 HTTP status 與回應摘要。 |
+| Swagger / OpenAPI | `http://localhost:8080/swagger` | 若可用，記錄頁面可開啟；若不可用，改記 API endpoint evidence。 |
+| SQL Server | `localhost:1433` | 記錄可連線到 `QutoraDB`；密碼需遮罩。 |
+| Admin account | `admin@qutora.local` | 只記錄帳號與角色，不記錄密碼。 |
+
+8. 初始化 admin user。
 
 先確認系統尚未初始化：
 
@@ -59,7 +78,7 @@ curl.exe -X POST http://localhost:8080/api/auth/initial-setup `
 
 預期回應包含 `System setup completed successfully. Please log in.`。此 endpoint 只能執行一次；若回傳 already initialized，需改以登入驗證既有 admin 是否可用，不得刪除正式或有用的 Docker volume。
 
-7. 登入 admin，確認可取得 token。
+9. 登入 admin，確認可取得 token。
 
 ```powershell
 curl.exe -X POST http://localhost:8080/api/auth/login `
@@ -80,9 +99,11 @@ evidence/MVP1/TASK-RPT-0001/qutora-startup.md
 至少包含：
 
 - submodule status。
-- Docker Compose config 結果。
+- `.env` 已由 sample 建立，敏感值已遮罩。
+- Docker Compose config 結果，需使用 `--env-file open-source-sandbox/qutora-api/samples/.env`。
 - container list。
 - API health 或 root endpoint 回應。
+- API / Swagger / SQL Server 端點可用性。
 - SQL Server / `QutoraDB` 連線結果。
 - `GET /api/auth/system-status` 結果。
 - `POST /api/auth/initial-setup` 結果，密碼不得明文進 evidence。

@@ -20,6 +20,8 @@ This directory turns the function milestone plan into dispatchable task cards fo
 - 摘要任務卡未補齊完整設計規格前不得開工；完整規格至少包含任務目標、真實功能場景、落地設計、影響範圍、輸入輸出、完成定義、10 條 validators、10 條 test cases、風險回復、reviewer / human gate / ADR。
 - 未升級為完整格式的任務卡只能作為規劃摘要，不得正式開工或 closure。
 - Evidence 路徑應依 `runbooks/RB-03-evidence-standard.md` 採 `evidence/<Stage>/<TASK-ID>/`。
+- MVP2 PoC 程式碼落點依 ADR-015，只能放在 `poc/` 與 `tools/`；不得修改 `open-source-sandbox/qutora-api` 作為第一階段原則。
+- MariaDB 演練環境依 `runbooks/RB-05-mariadb-environment.md` 建立，任務卡若涉及 M1 / M5 / migration 應在 `scopePaths` 納入對應 PoC 或 runbook。
 
 ## Core Card Batches
 
@@ -47,6 +49,7 @@ This directory turns the function milestone plan into dispatchable task cards fo
 - Qutora 作為本演練舊系統的決策依 ADR-012；不得再以獨立 Qutora 對照表維護。
 - MariaDB 作為本演練目標資料庫的決策依 ADR-013；此決策不取代正式專案最終 DB 選型。
 - 2 週 MVP 節奏與完整任務卡開工 Gate 依 ADR-014。
+- 演練 PoC 技術棧與程式碼落點依 ADR-015；正式實作技術棧仍需另行 ADR。
 
 ## Agent Team Dispatch Contract
 

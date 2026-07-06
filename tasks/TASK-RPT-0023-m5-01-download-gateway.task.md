@@ -22,6 +22,9 @@ evidence_path: "evidence/MVP2/TASK-RPT-0023/"
 scopePaths:
   - "tasks/TASK-RPT-0023-m5-01-download-gateway.task.md"
   - "evidence/MVP2/TASK-RPT-0023/**"
+  - "runbooks/RB-05-mariadb-environment.md"
+  - "poc/download-gateway/**"
+  - "poc/validators/**"
 deliverables:
   - "evidence/MVP2/TASK-RPT-0023/download-gateway-api.md"
   - "evidence/MVP2/TASK-RPT-0023/download-state-machine.md"

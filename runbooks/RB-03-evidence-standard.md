@@ -42,6 +42,14 @@ evidence/<Stage>/index.md
 | reviewed_at | 驗收時間 |
 | notes | 差異或例外說明 |
 
+MVP1 可直接複製下列範本作為起點：
+
+```text
+evidence/MVP1/.index-template.md
+```
+
+其他 Stage 也應沿用同一欄位；若任務涉及人類簽核、ADR 或 rollback，需在 `notes` 補上 ADR 編號、簽核人與 rollback evidence 路徑。
+
 ## 驗收原則
 
 - 誰產出 evidence，誰不得單獨驗收。

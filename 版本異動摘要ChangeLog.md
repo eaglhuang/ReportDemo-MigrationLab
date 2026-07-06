@@ -1,6 +1,25 @@
 # 內部人員交易報表轉媒體儲存系統
 ## 版本異動摘要 Change Log
 
+## 2026-07-07：執行層 Day 1 缺口補齊
+
+範圍：補齊三人小隊 Day 1 可執行與 MVP2 可落地的缺口，包含 Qutora `.env` / `--env-file` 啟動方式、MariaDB 演練環境、PoC 程式碼落點、合成 PDF 工具、evidence index 範本、Qutora 能力 fallback、MVP 兩週節奏與任務卡 scopePaths。
+
+| 異動 | 併入文件 / 章節或任務卡 |
+| --- | --- |
+| Qutora 啟動 runbook 補上 sample `.env` 建立方式、`--env-file` compose 指令、API / Swagger / SQL Server 存取資訊與敏感資訊遮罩規則。 | `runbooks/RB-01-qutora-startup.md` |
+| 新增 MariaDB 演練環境 runbook、compose 與 env 範本，定義 MariaDB 11.4、`utf8mb4`、dump / restore 與失敗處理。 | `runbooks/RB-05-mariadb-environment.md`、`runbooks/docker-compose.mariadb.yml`、`runbooks/env.mariadb.example` |
+| 新增 ADR-015，固定本演練 PoC 技術棧與程式碼落點，明確限制不得修改 Qutora 原始碼。 | `決策紀錄樣板ADR.md` §18 |
+| 新增 `poc/` 目錄與 MVP2 子目錄，作為下載閘道、浮水印、migration 與 validators PoC 落點。 | `poc/README.md`、`poc/download-gateway/`、`poc/watermark/`、`poc/migration/`、`poc/validators/` |
+| 新增合成 PDF 產生工具，輸出 PDF、metadata export 與 baseline hash，支援 RB-02 與 MVP1 evidence。 | `tools/generate_synthetic_pdf.py`、`runbooks/RB-02-seed-data-synthetic-pdf.md` |
+| Evidence 標準補上 MVP1 index template 引用；新增 MVP1 evidence index 範本。 | `runbooks/RB-03-evidence-standard.md`、`evidence/MVP1/.index-template.md` |
+| 演練計畫補上 MVP1 / MVP2 週節奏、Qutora 能力限制 fallback 規則、CI 與命令型 evidence 定位、ADR-015 PoC 落點。 | `drills/分階段演練與驗收計畫.md` §2.1、§4.4、§5.1、§6 |
+| README 的三人首讀清單與 12 步路線補上 RB-05 與 ADR-015。 | `README.md` |
+| MVP2 核心任務卡 scopePaths 補上 RB-05、`poc/` 與 validators 落點。 | `tasks/TASK-RPT-0008`、`0019`、`0023`、`0024`、`0025` |
+| 產卡模板補上 RB-05、ADR-015 與 `poc/`，避免未來重新產卡遺失演練落點規則。 | `tools/generate_reportdemo_task_cards.py` |
+
+本次未執行：不修改 Qutora submodule、不啟動 migration、不重新產 PDF、不把 PoC 技術棧推論為正式上線技術棧。
+
 ## 2026-07-07：收斂落地複查缺口補齊
 
 範圍：補齊複查列出的 5 個殘餘缺口，使 MVP1 kickoff 前需要的責任矩陣、簽核邊界、Phase↔M 權威、admin 初始化、Backlog 任務卡標記與 Production Candidate 簽核範本都有文件依據。

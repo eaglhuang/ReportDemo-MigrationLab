@@ -9,6 +9,8 @@ from pathlib import Path
 # Qutora is the drill legacy system, MariaDB is the drill target DB,
 # drill execution is governed by drills/分階段演練與驗收計畫.md,
 # evidence paths follow runbooks/RB-03-evidence-standard.md,
+# MariaDB drill setup follows runbooks/RB-05-mariadb-environment.md,
+# MVP2 PoC code belongs under poc/ or tools/ per ADR-015,
 # and a task card must not start until its full design spec includes
 # 10 validators, 10 test cases, impact scope, rollback, reviewer,
 # human gate, and ADR references.
@@ -247,11 +249,11 @@ def task_scope(code: str) -> list[str]:
     ]
     module_paths = {
         "M0": ["inventory/**", "decision-records/**"],
-        "M1": ["src/ReportDemo.Import/**", "db/migrations/reportdemo/**"],
+        "M1": ["src/ReportDemo.Import/**", "db/migrations/reportdemo/**", "runbooks/RB-05-mariadb-environment.md", "poc/migration/**"],
         "M2": ["src/ReportDemo.Validation/**", "db/migrations/reportdemo/**"],
         "M3": ["src/ReportDemo.Reporting/**", "templates/reportdemo/**"],
-        "M4": ["src/ReportDemo.DocumentStorage/**", "infra/storage/reportdemo/**"],
-        "M5": ["src/ReportDemo.DownloadGateway/**", "src/ReportDemo.Watermark/**"],
+        "M4": ["src/ReportDemo.DocumentStorage/**", "infra/storage/reportdemo/**", "poc/migration/**"],
+        "M5": ["src/ReportDemo.DownloadGateway/**", "src/ReportDemo.Watermark/**", "poc/download-gateway/**", "poc/watermark/**", "poc/validators/**"],
         "M6": ["src/ReportDemo.Web/**", "src/ReportDemo.Workflow/**"],
         "M7": ["src/ReportDemo.Audit/**", "src/ReportDemo.Alerting/**"],
         "M8": ["src/ReportDemo.Admin/**", "src/ReportDemo.Security/**"],
@@ -364,6 +366,7 @@ nonGoals:
 - Agent Team 派工、role、reviewer、validator、human sign-off 與 ADR gate 需依 Agent Team 計畫書 v1.0 執行：`內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md`。
 - 分階段演練、三人責任矩陣、validators、test cases 與 Gate 需依 `drills/分階段演練與驗收計畫.md` 執行。
 - Evidence 需依 `runbooks/RB-03-evidence-standard.md` 寫入 `evidence/{stage}/{task_id}/`。
+- MariaDB 演練環境需依 `runbooks/RB-05-mariadb-environment.md` 建立；MVP2 PoC 程式碼落點需依 ADR-015 放在 `poc/` 或 `tools/`。
 
 ## Impact Scope
 
@@ -443,9 +446,11 @@ This directory turns the function milestone plan into dispatchable task cards fo
 - 演練唯一執行指南：`drills/分階段演練與驗收計畫.md`。
 - Evidence 標準：`runbooks/RB-03-evidence-standard.md`。
 - Rollback 演練：`runbooks/RB-04-rollback-rehearsal.md`。
+- MariaDB 演練環境：`runbooks/RB-05-mariadb-environment.md`。
 - Qutora 作為本演練舊系統的決策依 ADR-012；不得再以獨立 Qutora 對照表維護。
 - MariaDB 作為本演練目標資料庫的決策依 ADR-013；此決策不取代正式專案最終 DB 選型。
 - 2 週 MVP 節奏與完整任務卡開工 Gate 依 ADR-014。
+- 演練 PoC 技術棧與程式碼落點依 ADR-015；正式實作技術棧仍需另行 ADR。
 
 ## Agent Team Dispatch Contract
 

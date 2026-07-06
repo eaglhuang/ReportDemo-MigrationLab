@@ -23,6 +23,7 @@ scopePaths:
   - "evidence/MVP2/TASK-RPT-0019/**"
   - "evidence/MVP1/TASK-RPT-0003/**"
   - "evidence/MVP2/TASK-RPT-0008/**"
+  - "poc/migration/**"
 deliverables:
   - "evidence/MVP2/TASK-RPT-0019/pdf-metadata-model.md"
   - "evidence/MVP2/TASK-RPT-0019/metadata-mapping.md"

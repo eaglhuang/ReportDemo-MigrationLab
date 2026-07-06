@@ -23,6 +23,9 @@ scopePaths:
   - "evidence/MVP2/TASK-RPT-0008/**"
   - "evidence/MVP1/TASK-RPT-0002/**"
   - "evidence/MVP2/TASK-RPT-0007/**"
+  - "runbooks/RB-05-mariadb-environment.md"
+  - "runbooks/docker-compose.mariadb.yml"
+  - "poc/migration/**"
 deliverables:
   - "evidence/MVP2/TASK-RPT-0008/mariadb-schema-v0.md"
   - "evidence/MVP2/TASK-RPT-0008/qutora-to-mariadb-mapping.md"

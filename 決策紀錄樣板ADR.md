@@ -3,7 +3,7 @@
 
 ## 1. 文件目的
 
-本文件用於集中管理本計畫需要人類優先決策的 Top 14 關鍵點。這些決策會影響系統架構、資安邊界、權限治理、資料一致性、舊系統遷移、驗收 Gate、預算與時程，不應由工程團隊或 AI 在未授權情況下自行假設。
+本文件用於集中管理本計畫需要人類優先決策的 Top 15 關鍵點。這些決策會影響系統架構、資安邊界、權限治理、資料一致性、舊系統遷移、驗收 Gate、預算與時程，不應由工程團隊或 AI 在未授權情況下自行假設。
 
 本文件不是功能需求清單；功能拆分以「功能里程碑計畫」為準，系統架構與治理原則以「系統架構與治理計畫書」為準。
 
@@ -26,7 +26,7 @@
 | 驗收 Gate | 什麼條件達成才算決策落地。 |
 | 待補問題 | 尚未釐清的問題。 |
 
-## 3. 人類優先決策 Top 14
+## 3. 人類優先決策 Top 15
 
 | 優先 | ADR | 需要人類決策的關鍵點 | 為何優先 |
 | ---: | --- | --- | --- |
@@ -44,6 +44,7 @@
 | 12 | ADR-012 | 本演練舊系統採用 Qutora | 影響 drills 文件、MVP1/MVP2 任務卡、舊系統 baseline、資料移轉與驗收口徑。 |
 | 13 | ADR-013 | 本演練目標資料庫採用 MariaDB | 影響 MVP2、Pilot、資料型別轉換、SQL 改寫、validator 與 rollback。 |
 | 14 | ADR-014 | 兩週 MVP 節奏與完整任務卡開工 Gate | 影響 drills 文件、核心任務卡升級順序、validators/test cases 與開工條件。 |
+| 15 | ADR-015 | 演練 PoC 技術棧與程式碼落點 | 影響 MVP2 下載閘道、浮水印、MariaDB migration、validator 與 `poc/` 目錄治理。 |
 
 ## 4. ADR-001 資料庫最終選型與遷移路線
 
@@ -228,7 +229,22 @@
 | 影響範圍 | `drills/分階段演練與驗收計畫.md`、`runbooks/`、`tasks/README.md`、`tasks/TASK-RPT-*.task.md`、`tools/generate_reportdemo_task_cards.py`。 |
 | 驗收 Gate | tasks README 與產卡模板必須保留 gate；MVP1/MVP2 核心任務卡升級前不得正式派工；任務卡缺 10 validators、10 test cases、impact scope、rollback、reviewer / human gate / ADR 不得 closure。 |
 
-## 18. 決策狀態追蹤表
+## 18. ADR-015 演練 PoC 技術棧與程式碼落點
+
+| 欄位 | 內容 |
+| --- | --- |
+| 決策狀態 | Accepted for drill |
+| 決策 owner | Tech Lead / Captain |
+| 參與角色 | Backend / DBA、QA / Security / DevOps、Audit / Evidence Agent |
+| 背景 | MVP2 需要下載閘道 PoC、動態浮水印 PoC、MariaDB metadata migration 與 validator；若沒有技術棧與程式碼落點，任務卡只能寫 evidence，無法開工。 |
+| 候選方案 | Python PoC、.NET PoC、混合 shell / SQL PoC、等正式架構決策後再做。 |
+| 決策結論 | 演練 PoC 採 Python 3 + shell / SQL 命令；PDF synthetic generator 優先使用 Python 標準函式庫；MariaDB 操作優先使用 `docker exec mariadb` 與 SQL 檔。程式碼落點固定為 `poc/`，工具型腳本放 `tools/`。 |
+| 邊界聲明 | 此決策只限演練，不代表正式系統語言、框架、PDF library 或 MariaDB client 最終選型；正式 PDF library 仍以 ADR-007 決策為準。 |
+| 影響範圍 | `poc/README.md`、`poc/download-gateway/`、`poc/watermark/`、`poc/migration/`、`poc/validators/`、`tools/generate_synthetic_pdf.py`、MVP2 核心任務卡 scopePaths。 |
+| 驗收 Gate | MVP2 任務卡需能指向 `poc/` 或 `tools/` 的可執行落點；PoC 不得修改 Qutora submodule；所有輸出需寫入 RB-03 evidence path。 |
+| 待補問題 | 若 MVP2 需要真實浮水印 library，需在本 ADR 補充演練限定套件與 license 檢查。 |
+
+## 19. 決策狀態追蹤表
 
 | ADR | 決策狀態 | Owner | 目標決策時間 | 目前結論 | 待補問題 |
 | --- | --- | --- | --- | --- | --- |
@@ -246,3 +262,4 @@
 | ADR-012 | Accepted | 專案 sponsor / Tech Lead | 已決 | 本演練舊系統採用 Qutora。 | 不修改 Qutora 原始碼；若要修改需另開 ADR 或人類簽核。 |
 | ADR-013 | Accepted for drill | 專案 sponsor / Backend / DBA | 已決 | 本演練目標資料庫採用 MariaDB。 | 不取代正式專案最終 DB 選型。 |
 | ADR-014 | Accepted | 專案 sponsor / Tech Lead | 已決 | 採 2 週 MVP 節奏與完整任務卡開工 Gate。 | MVP1/MVP2 核心任務卡需後續逐張升級。 |
+| ADR-015 | Accepted for drill | Tech Lead / Captain | 已決 | 演練 PoC 採 Python 3 + shell / SQL，落點固定為 `poc/` 與 `tools/`。 | 若引入第三方 PDF library 或 MariaDB client，需補 license 與安裝方式。 |

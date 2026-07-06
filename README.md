@@ -35,7 +35,7 @@ Qutora 代表本次演練舊系統，用於驗證搬移流程、PDF 移轉、met
 | 角色 | 先讀 | 第二步 |
 | --- | --- | --- |
 | Tech Lead / Captain | 本 README、架構與治理計畫書、ADR | 讀 `drills/分階段演練與驗收計畫.md` 第 1 到 3 章，確認 Gate 與責任矩陣。 |
-| Backend / DBA | 功能里程碑計畫、ADR-012、ADR-013 | 讀 MVP1 / MVP2 階段與 `RB-02-seed-data-synthetic-pdf.md`。 |
+| Backend / DBA | 功能里程碑計畫、ADR-012、ADR-013、ADR-015 | 讀 MVP1 / MVP2 階段、`RB-02-seed-data-synthetic-pdf.md` 與 `RB-05-mariadb-environment.md`。 |
 | QA / Security / DevOps | Agent Team 計畫書、`tasks/README.md` | 讀 `RB-01-qutora-startup.md`、`RB-03-evidence-standard.md`、`RB-04-rollback-rehearsal.md`。 |
 
 ## 12 步執行路線
@@ -46,11 +46,11 @@ Qutora 代表本次演練舊系統，用於驗證搬移流程、PDF 移轉、met
 4. 依 `runbooks/RB-02-seed-data-synthetic-pdf.md` 建立合成 PDF 與 metadata。
 5. 依 `runbooks/RB-03-evidence-standard.md` 建立 evidence index。
 6. 執行 `drills/分階段演練與驗收計畫.md` 的 MVP1。
-7. MVP1 Gate 通過後，執行 MVP2。
-8. MVP2 Gate 通過後，升級 Pilot 核心任務卡並執行 Pilot。
-9. Pilot Gate 通過後，準備 Production Candidate evidence package。
-10. 依 `runbooks/RB-04-rollback-rehearsal.md` 執行 rollback dry run。
-11. 依 ADR 與 Gate 總表完成 human sign-off。
+7. MVP1 Gate 通過後，依 `runbooks/RB-05-mariadb-environment.md` 建立 MariaDB 演練環境。
+8. 依 ADR-015 在 `poc/` 與 `tools/` 內執行 MVP2 PoC，不修改 Qutora 原始碼。
+9. MVP2 Gate 通過後，升級 Pilot 核心任務卡並執行 Pilot。
+10. Pilot Gate 通過後，準備 Production Candidate evidence package。
+11. 依 `runbooks/RB-04-rollback-rehearsal.md` 執行 rollback dry run，並依 ADR 與 Gate 總表完成 human sign-off。
 12. 若要正式上線或下線舊路徑，必須另行取得 Go / No-Go 簽核。
 
 ## 第一個命令

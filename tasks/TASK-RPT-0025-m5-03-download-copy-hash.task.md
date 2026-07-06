@@ -22,6 +22,7 @@ scopePaths:
   - "tasks/TASK-RPT-0025-m5-03-download-copy-hash.task.md"
   - "evidence/MVP2/TASK-RPT-0025/**"
   - "runbooks/RB-03-evidence-standard.md"
+  - "poc/validators/**"
   - "open-source-sandbox/qutora-api"
 deliverables:
   - "evidence/MVP2/TASK-RPT-0025/download-copy-hash-model.md"

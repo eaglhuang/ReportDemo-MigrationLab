@@ -23,6 +23,7 @@ scopePaths:
   - "evidence/MVP2/TASK-RPT-0024/**"
   - "runbooks/RB-02-seed-data-synthetic-pdf.md"
   - "runbooks/RB-03-evidence-standard.md"
+  - "poc/watermark/**"
   - "open-source-sandbox/qutora-api"
 deliverables:
   - "evidence/MVP2/TASK-RPT-0024/watermark-field-policy.md"
