@@ -7,6 +7,8 @@ from pathlib import Path
 # Template governance note:
 # If this generator is used again, preserve the tasks/README.md gate:
 # Qutora is the drill legacy system, MariaDB is the drill target DB,
+# drill execution is governed by drills/分階段演練與驗收計畫.md,
+# evidence paths follow runbooks/RB-03-evidence-standard.md,
 # and a task card must not start until its full design spec includes
 # 10 validators, 10 test cases, impact scope, rollback, reviewer,
 # human gate, and ADR references.
@@ -127,6 +129,67 @@ OWNER_BY_MILESTONE = {
     "M10": "project-captain-qa",
 }
 
+STAGE_BY_TASK = {
+    "TASK-RPT-0001": "MVP1",
+    "TASK-RPT-0002": "MVP1",
+    "TASK-RPT-0003": "MVP1",
+    "TASK-RPT-0004": "MVP1",
+    "TASK-RPT-0007": "MVP2",
+    "TASK-RPT-0008": "MVP2",
+    "TASK-RPT-0010": "MVP2",
+    "TASK-RPT-0014": "MVP2",
+    "TASK-RPT-0019": "MVP2",
+    "TASK-RPT-0023": "MVP2",
+    "TASK-RPT-0024": "MVP2",
+    "TASK-RPT-0025": "MVP2",
+    "TASK-RPT-0013": "Pilot",
+    "TASK-RPT-0018": "Pilot",
+    "TASK-RPT-0021": "Pilot",
+    "TASK-RPT-0022": "Pilot",
+    "TASK-RPT-0028": "Pilot",
+    "TASK-RPT-0033": "Pilot",
+    "TASK-RPT-0035": "Pilot",
+    "TASK-RPT-0036": "Pilot",
+    "TASK-RPT-0037": "Pilot",
+    "TASK-RPT-0038": "ProductionCandidate",
+    "TASK-RPT-0040": "ProductionCandidate",
+    "TASK-RPT-0041": "ProductionCandidate",
+    "TASK-RPT-0042": "ProductionCandidate",
+    "TASK-RPT-0043": "ProductionCandidate",
+    "TASK-RPT-0044": "ProductionCandidate",
+    "TASK-RPT-0045": "ProductionCandidate",
+}
+
+PRIMARY_ROLE_BY_MILESTONE = {
+    "M0": "Tech Lead / Captain",
+    "M1": "Backend / DBA",
+    "M2": "Backend / DBA",
+    "M3": "Backend / DBA",
+    "M4": "Backend / DBA",
+    "M5": "Backend / DBA",
+    "M6": "Backend / DBA",
+    "M7": "QA / Security / DevOps",
+    "M8": "QA / Security / DevOps",
+    "M9": "Tech Lead / Captain",
+    "M10": "Tech Lead / Captain",
+}
+
+
+def drill_stage(task_id: str) -> str:
+    return STAGE_BY_TASK.get(task_id, "Backlog")
+
+
+def primary_role(milestone: str) -> str:
+    return PRIMARY_ROLE_BY_MILESTONE.get(milestone, "Tech Lead / Captain")
+
+
+def support_roles(milestone: str) -> list[str]:
+    if milestone in {"M5", "M7", "M8", "M9", "M10"}:
+        return ["Tech Lead / Captain", "Backend / DBA", "QA / Security / DevOps"]
+    if milestone in {"M1", "M2", "M3", "M4"}:
+        return ["Tech Lead / Captain", "QA / Security / DevOps"]
+    return ["Backend / DBA", "QA / Security / DevOps"]
+
 
 def parse_sections() -> list[dict[str, object]]:
     text = PLAN_PATH.read_text(encoding="utf-8")
@@ -180,7 +243,7 @@ def task_scope(code: str) -> list[str]:
     milestone = code.split("-")[0]
     base = [
         f"tasks/TASK-RPT-*-{SLUGS[code]}.task.md",
-        f"evidence/{code}/**",
+        "evidence/<Stage>/<TASK-ID>/**",
     ]
     module_paths = {
         "M0": ["inventory/**", "decision-records/**"],
@@ -203,6 +266,8 @@ def task_card(seq: int, section: dict[str, object]) -> tuple[str, str]:
     title = str(section["title"])
     task_id = f"TASK-RPT-{seq:04d}"
     milestone = code.split("-")[0]
+    stage = drill_stage(task_id)
+    role = primary_role(milestone)
     slug = SLUGS[code]
     filename = f"{task_id}-{code.lower()}-{slug}.task.md"
     owner = OWNER_BY_MILESTONE[milestone]
@@ -226,10 +291,14 @@ milestone: {milestone}
 depends_on:{yaml_list(depends)}
 related_plan: "{RELATED_PLAN}"
 agent_team_plan: "{AGENT_TEAM_PLAN}"
+drill_stage: "{stage}"
+primary_role: "{role}"
+support_roles:{yaml_list(support_roles(milestone))}
+evidence_path: "evidence/{stage}/{task_id}/"
 scopePaths:{yaml_list(task_scope(code))}
 deliverables:
-  - "evidence/{code}/implementation-notes.md"
-  - "evidence/{code}/validation-result.md"
+  - "evidence/{stage}/{task_id}/implementation-notes.md"
+  - "evidence/{stage}/{task_id}/validation-result.md"
   - Target system implementation artifacts: code, DB migration, tests, and operation docs
 validators:{yaml_list(validators)}
 evidence:
@@ -271,14 +340,15 @@ nonGoals:
 - 不得用未脫敏正式資料做一般開發或測試；正式資料只可進受控 Shadow Validation。
 - 涉及權限、資料範圍、PDF、稽核、告警或 break-glass 時，安全性與可稽核性優先於便利性。
 - 每個可觀測流程需留下 trace ID / correlation ID，方便新舊系統比對與事故追蹤。
-
 - Agent Team 派工、role、reviewer、validator、human sign-off 與 ADR gate 需依 Agent Team 計畫書 v1.0 執行：`內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md`。
+- 分階段演練、三人責任矩陣、validators、test cases 與 Gate 需依 `drills/分階段演練與驗收計畫.md` 執行。
+- Evidence 需依 `runbooks/RB-03-evidence-standard.md` 寫入 `evidence/{stage}/{task_id}/`。
 
 ## Deliverables
 
 - 實作程式碼、DB migration、設定檔或文件，依本卡 `scopePaths` 控制。
-- `evidence/{code}/implementation-notes.md`
-- `evidence/{code}/validation-result.md`
+- `evidence/{stage}/{task_id}/implementation-notes.md`
+- `evidence/{stage}/{task_id}/validation-result.md`
 
 ## Validators
 
@@ -327,9 +397,20 @@ This directory turns the function milestone plan into dispatchable task cards fo
 ## Task Card Contract
 
 - 每張 `TASK-RPT-*` 卡都必須對應一個功能里程碑項目。
-- 每張卡都要保留舊系統覆蓋欄位；未知程式碼以 `舊系統報表模組_功能別XXX.xxx` 或 `舊系統資料轉換_SP_功能別XXX.sql` 代稱。
+- 本演練舊系統採用 Qutora；任務卡中的「舊系統」若未另行限定，均指 `open-source-sandbox/qutora-api` 固定 commit 的 Qutora。
+- 每張卡都要保留舊系統覆蓋欄位；MVP1/MVP2 核心任務卡應優先引用 Qutora 具體元件。非核心卡若尚未盤點完成，才可暫用 `舊系統報表模組_功能別XXX.xxx` 或 `舊系統資料轉換_SP_功能別XXX.sql` 代稱。
 - 任務卡不得跳過 Golden Dataset、Shadow Validation、權限、Data Scope、稽核與 rollback 驗證。
 - Before the target implementation location exists, use `scopePaths`, `deliverables`, and evidence folders as the delivery boundary; add concrete paths later.
+- 摘要任務卡未補齊完整設計規格前不得開工；完整規格至少包含任務目標、真實功能場景、落地設計、影響範圍、輸入輸出、完成定義、10 條 validators、10 條 test cases、風險回復、reviewer / human gate / ADR。
+
+## Drill Plan Contract
+
+- 演練唯一執行指南：`drills/分階段演練與驗收計畫.md`。
+- Evidence 標準：`runbooks/RB-03-evidence-standard.md`。
+- Rollback 演練：`runbooks/RB-04-rollback-rehearsal.md`。
+- Qutora 作為本演練舊系統的決策依 ADR-012；不得再以獨立 Qutora 對照表維護。
+- MariaDB 作為本演練目標資料庫的決策依 ADR-013；此決策不取代正式專案最終 DB 選型。
+- 2 週 MVP 節奏與完整任務卡開工 Gate 依 ADR-014。
 
 ## Agent Team Dispatch Contract
 

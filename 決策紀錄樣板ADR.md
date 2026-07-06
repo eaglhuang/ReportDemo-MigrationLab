@@ -199,8 +199,8 @@
 | 決策結論 | 本演練舊系統採用 Qutora，位置為 `open-source-sandbox/qutora-api`，固定 commit 為 `de156e0eb72d58772a76e570eb711db344bedfc0`。 |
 | 邊界聲明 | Qutora 代表本次演練舊系統，用於驗證搬移流程、資料移轉、下載、權限、稽核與平行驗證；不宣稱涵蓋真實券商舊系統的全部業務規則、正式資料、法遵規則或報表計算邏輯。 |
 | 需回答 | 是否允許在後續階段修改 Qutora 原始碼？若要修改，需另開 ADR 或人類簽核。 |
-| 影響範圍 | `drills/` 文件群、`tasks/README.md`、MVP1/MVP2 核心任務卡、Qutora baseline、MariaDB 轉換演練、PDF 與 audit evidence。 |
-| 驗收 Gate | 演練文件不得再維護獨立 Qutora 對照表；MVP1 必須能啟動 Qutora、上傳/查詢/下載 PDF、匯出 metadata、取得 DB 與 audit evidence。 |
+| 影響範圍 | `drills/分階段演練與驗收計畫.md`、`runbooks/RB-01-qutora-startup.md`、`tasks/README.md`、MVP1/MVP2 核心任務卡、Qutora baseline、MariaDB 轉換演練、PDF 與 audit evidence。 |
+| 驗收 Gate | 演練文件不得再維護獨立 Qutora 對照表；MVP1 必須能依 RB-01 啟動 Qutora、依 RB-02 上傳/查詢/下載 PDF、匯出 metadata、取得 DB 與 audit evidence。 |
 
 ## 16. ADR-013 本演練目標資料庫採用 MariaDB
 
@@ -212,7 +212,7 @@
 | 候選方案 | 維持 SQL Server、MariaDB、PostgreSQL、MSSQL on Linux。 |
 | 決策結論 | 本演練的新系統目標資料庫採用 MariaDB；Qutora 仍以 SQL Server 作為舊系統來源。 |
 | 邊界聲明 | 此決策只鎖定本演練路線，不取代 ADR-001 對真實正式專案最終 DB 選型的決策。 |
-| 影響範圍 | `drills/MVP2兩週調整驗證計畫.md`、`drills/Pilot與平行作業驗證計畫.md`、M1、M2、M4、M5、M9 任務卡、資料型別與 SQL 改寫。 |
+| 影響範圍 | `drills/分階段演練與驗收計畫.md` 的 MVP2 / Pilot 章節、M1、M2、M4、M5、M9 任務卡、資料型別與 SQL 改寫。 |
 | 驗收 Gate | MVP2 必須完成 Qutora SQL Server 到 MariaDB 的抽樣 metadata 移轉、筆數比對、legacy reference、必要索引與 rollback evidence。 |
 
 ## 17. ADR-014 兩週 MVP 節奏與完整任務卡開工 Gate
@@ -225,8 +225,8 @@
 | 候選方案 | 12 週大 MVP、2 週 MVP1 + 2 週 MVP2 + Pilot、直接拆 45 張完整任務卡。 |
 | 決策結論 | 採 2 週 MVP1、2 週 MVP2、Pilot、Production Candidate 的由大到小演練節奏。先升級 MVP1/MVP2 核心任務卡，其他任務卡未補齊完整設計規格前不得開工。 |
 | 完整任務卡 Gate | 每張完整任務卡必須包含任務目標、真實功能場景、落地設計、影響範圍、輸入輸出、完成定義、10 條 validators、10 條 test cases、風險回復、reviewer / human gate / ADR。 |
-| 影響範圍 | `drills/` 文件群、`tasks/README.md`、`tasks/TASK-RPT-*.task.md`、`tools/generate_reportdemo_task_cards.py`。 |
-| 驗收 Gate | tasks README 與產卡模板必須保留 gate；MVP1/MVP2 核心任務卡升級前不得正式派工；任務卡缺 10 validators 或 10 test cases 不得 closure。 |
+| 影響範圍 | `drills/分階段演練與驗收計畫.md`、`runbooks/`、`tasks/README.md`、`tasks/TASK-RPT-*.task.md`、`tools/generate_reportdemo_task_cards.py`。 |
+| 驗收 Gate | tasks README 與產卡模板必須保留 gate；MVP1/MVP2 核心任務卡升級前不得正式派工；任務卡缺 10 validators、10 test cases、impact scope、rollback、reviewer / human gate / ADR 不得 closure。 |
 
 ## 18. 決策狀態追蹤表
 

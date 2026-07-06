@@ -18,13 +18,30 @@ This directory turns the function milestone plan into dispatchable task cards fo
 - 任務卡不得跳過 Golden Dataset、Shadow Validation、權限、Data Scope、稽核與 rollback 驗證。
 - Before the target implementation location exists, use `scopePaths`, `deliverables`, and evidence folders as the delivery boundary; add concrete paths later.
 - 摘要任務卡未補齊完整設計規格前不得開工；完整規格至少包含任務目標、真實功能場景、落地設計、影響範圍、輸入輸出、完成定義、10 條 validators、10 條 test cases、風險回復、reviewer / human gate / ADR。
+- 未升級為完整格式的任務卡只能作為規劃摘要，不得正式開工或 closure。
+- Evidence 路徑應依 `runbooks/RB-03-evidence-standard.md` 採 `evidence/<Stage>/<TASK-ID>/`。
+
+## Core Card Batches
+
+| Batch | Stage | Core cards | 開工條件 |
+| --- | --- | --- | --- |
+| 1 | MVP1 | `TASK-RPT-0001`、`TASK-RPT-0002`、`TASK-RPT-0003`、`TASK-RPT-0004` | 需先能依 RB-01 啟動 Qutora，並依 RB-03 建立 evidence index。 |
+| 2 | MVP2 | `TASK-RPT-0007`、`TASK-RPT-0008`、`TASK-RPT-0010`、`TASK-RPT-0014`、`TASK-RPT-0019`、`TASK-RPT-0023`、`TASK-RPT-0024`、`TASK-RPT-0025` | MVP1 Gate 通過，且 MariaDB / 下載 / 浮水印 PoC 的任務卡已補齊完整規格。 |
+| 3 | Pilot | `TASK-RPT-0013`、`TASK-RPT-0018`、`TASK-RPT-0021`、`TASK-RPT-0022`、`TASK-RPT-0028`、`TASK-RPT-0033`、`TASK-RPT-0035`、`TASK-RPT-0036`、`TASK-RPT-0037` | MVP2 Gate 通過，且平行作業、權限、稽核與告警驗證路徑已定義。 |
+| 4 | Production Candidate | `TASK-RPT-0038`、`TASK-RPT-0040`、`TASK-RPT-0041`、`TASK-RPT-0042`、`TASK-RPT-0043`、`TASK-RPT-0044`、`TASK-RPT-0045` | Pilot Gate 通過，且 rollback dry run、Go / No-Go evidence package 與 human sign-off 角色已確認。 |
+
+## Stage 對照規則
+
+- 任務卡 frontmatter 後續升級時，應補 `drill_stage`、`primary_role`、`support_roles` 與 `evidence_path`。
+- `drill_stage` 只能使用 `MVP1`、`MVP2`、`Pilot`、`ProductionCandidate` 或 `Backlog`。
+- 非核心任務卡預設為 `Backlog`，直到被納入某一階段並補齊完整規格。
 
 ## Drill Plan Contract
 
-- 演練總入口：`drills/演練總計畫書.md`。
-- MVP1 風險驗證：`drills/MVP1兩週風險驗證計畫.md`。
-- 文件引用關係：`drills/演練文件索引與引用關係.md`。
-- 演練異動摘要：`drills/演練版本異動摘要ChangeLog.md`。
+- 演練唯一執行指南：`drills/分階段演練與驗收計畫.md`。
+- Evidence 標準：`runbooks/RB-03-evidence-standard.md`。
+- Rollback 演練：`runbooks/RB-04-rollback-rehearsal.md`。
+- 版本異動：根目錄 `版本異動摘要ChangeLog.md` 是唯一 active ChangeLog。
 - Qutora 作為本演練舊系統的決策依 ADR-012；不得再以獨立 Qutora 對照表維護。
 - MariaDB 作為本演練目標資料庫的決策依 ADR-013；此決策不取代正式專案最終 DB 選型。
 - 2 週 MVP 節奏與完整任務卡開工 Gate 依 ADR-014。

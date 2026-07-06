@@ -19,8 +19,11 @@ This document serves only the standalone ReportDemo simulation project and its f
 
 | 文件 | 與本文件的關係 | 同步規則 |
 | --- | --- | --- |
+| `README.md` | 定義本 repo 的唯一入口、文件權威順序、三人首讀清單與 12 步執行路線。 | 若本文件的 Agent role、human gate 或違規阻擋規則調整，README 的權威順序與三人首讀清單需同步檢查。 |
 | 《系統架構與治理計畫書》v1.4 | 定義系統架構、資料流程、權限模型、PDF 儲存、浮水印、稽核、告警與治理原則；本文件只承接其治理邊界來設計 Agent Team 協作方式。 | 若架構、權限、稽核、PDF 或正式切換原則調整，本文件需同步檢查 Agent role、reviewer、validator 與 human / ADR gate 是否仍合理。 |
 | 《決策紀錄樣板ADR》v1.1 | 定義人類優先決策與 ADR-011；本文件引用 ADR-011 作為 Agent 自動決策、人類簽核與違規阻擋邊界的正式決策入口。 | 若 ADR-011 或其他高風險 ADR 狀態改為 Accepted / Rejected / Superseded，本文件的自動決策範圍與必簽項需同步更新。 |
+| `drills/分階段演練與驗收計畫.md` | 定義 MVP1、MVP2、Pilot、Production Candidate 的三人小隊執行、驗收、Gate 與 evidence package。 | Agent Team 派工需依演練階段與 Gate 安排 reviewer；不得繞過該文件的阻擋條件。 |
+| `runbooks/` | 定義 Qutora 啟動、合成 PDF、evidence 標準與 rollback dry run。 | Agent 產出或驗收 evidence 時，需依 runbook 產生可重跑紀錄。 |
 | `tasks/README.md` | 是 45 張任務卡的索引與派工入口；README 應引用本文件作為任務派工 source of truth。 | README 的 Agent Team Dispatch Contract 需與本文件一致；若本文件調整派工規則，README 需同步更新。 |
 | 45 張 `tasks/TASK-RPT-*.task.md` 任務卡 | 每張任務卡應透過 `agent_team_plan` frontmatter 指向本文件，並在 Implementation Contract / Notes 中引用本文件。 | 任務卡正式接手前需檢查 role、reviewer、validator、human sign-off、ADR gate 與違規阻擋；若本文件升版，任務卡欄位與產卡模板需同步更新。 |
 
@@ -47,6 +50,8 @@ This document serves only the standalone ReportDemo simulation project and its f
 
 ## 4. M5-01 下載閘道派工範例
 
+本節為非規範性派工範例，用來示範 Agent Team 如何拆分輸入、輸出、完成定義、驗收方式與 reviewer。實際開工規格以 `tasks/README.md`、對應 `TASK-RPT-*` 任務卡與 `drills/分階段演練與驗收計畫.md` 為準。
+
 | Agent | 輸入 | 輸出 | 完成定義 | 驗收方式 | Reviewer |
 | --- | --- | --- | --- | --- | --- |
 | Captain / Coordinator | M5-01 任務卡、M4 PDF metadata、M8 權限模型、ADR 狀態。 | 派工單、scope 邊界、依賴與 gate 清單。 | 下載閘道拆工完成，human / ADR gate 標示清楚。 | 檢查任務卡、依賴、風險與 reviewer 指派。 | 人類 PM / Tech Lead |
@@ -56,6 +61,8 @@ This document serves only the standalone ReportDemo simulation project and its f
 | QA / Validation Agent | Golden Dataset、測試帳號、舊系統下載案例。 | 新舊下載行為比對與回歸報告。 | 合法下載成功，非法下載被拒，錯誤訊息不洩漏敏感資訊。 | 自動化測試與人工抽核。 | QA Lead |
 
 ## 5. M5-02 動態浮水印派工範例
+
+本節為非規範性派工範例，用來示範高風險 PDF 任務應如何納入 Security / Permission、Audit / Evidence 與 QA / Validation。實際開工規格以 `tasks/README.md`、對應 `TASK-RPT-*` 任務卡與 `drills/分階段演練與驗收計畫.md` 為準。
 
 | Agent | 輸入 | 輸出 | 完成定義 | 驗收方式 | Reviewer |
 | --- | --- | --- | --- | --- | --- |

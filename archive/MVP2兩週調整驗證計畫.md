@@ -1,3 +1,9 @@
+# 封存聲明
+
+本文件已封存並停止維護。有效內容已併入 `drills/分階段演練與驗收計畫.md` 的 MVP2 章節；請勿再以本文件作為 active source of truth。
+
+---
+
 # MVP2 兩週調整驗證計畫
 
 版本：v1.0  
@@ -64,4 +70,3 @@ MVP2 不是完整搬移，也不是正式上線候選；它的價值是盡早驗
 - 動態浮水印 PoC 不修改 PDF 主檔，且下載副本 hash 可重算。
 - 至少 10 條 validators 與 10 條 test cases 可重跑。
 - 若 PDF library、MariaDB mapping 或 audit fail-closed 無法成立，不得進入 Pilot。
-

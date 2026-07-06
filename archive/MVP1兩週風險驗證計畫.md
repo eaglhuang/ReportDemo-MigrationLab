@@ -1,3 +1,9 @@
+# 封存聲明
+
+本文件已封存並停止維護。有效內容已併入 `drills/分階段演練與驗收計畫.md` 的 MVP1 章節；請勿再以本文件作為 active source of truth。
+
+---
+
 # MVP1 兩週風險驗證計畫
 
 版本：v1.0  
@@ -68,4 +74,3 @@ MVP1 必須滿足：
 - 可產出 DB schema inventory 與基本 audit evidence。
 - 未使用正式資料。
 - 已確認 Qutora 作為本演練舊系統的限制，並由人類接受是否進入 MVP2。
-

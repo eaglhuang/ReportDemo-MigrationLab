@@ -1,16 +1,66 @@
 # 內部人員交易報表轉媒體儲存系統
 ## 版本異動摘要 Change Log
 
+## 2026-07-06：計畫文件包收斂與演練執行層重整
+
+範圍：文件包治理、演練計畫合併、runbook 新增、evidence 規則、任務卡開工 gate 與 archive 封存。不修改 Qutora submodule、不跑 migration、不重新產 PDF、不一次升級全部 45 張任務卡。
+
+## 新增
+
+| 異動 | 併入文件 / 章節或任務卡 |
+| --- | --- |
+| 新增唯一演練執行指南，合併 MVP1、MVP2、Pilot、Production Candidate、三人責任矩陣與 Gate 總表。 | `drills/分階段演練與驗收計畫.md` |
+| 新增 Qutora 啟動 runbook。 | `runbooks/RB-01-qutora-startup.md` |
+| 新增合成 PDF 與 metadata runbook。 | `runbooks/RB-02-seed-data-synthetic-pdf.md` |
+| 新增 evidence 命名、驗收與 Gate package 標準。 | `runbooks/RB-03-evidence-standard.md`、`evidence/README.md` |
+| 新增 rollback dry run runbook。 | `runbooks/RB-04-rollback-rehearsal.md` |
+| 新增 evidence stage 骨架。 | `evidence/MVP1/`、`evidence/MVP2/`、`evidence/Pilot/`、`evidence/ProductionCandidate/` |
+| 新增核心任務卡分批升級清單與 Stage 對照。 | `tasks/README.md` |
+
+## 修改
+
+| 異動 | 併入文件 / 章節或任務卡 |
+| --- | --- |
+| README 改為唯一入口，吸收原演練文件索引的文件權威順序、三人首讀清單與 12 步路線。 | `README.md` |
+| 《系統架構與治理計畫書》附錄 A 改為治理路線，細節指向功能里程碑與分階段演練計畫；附錄 C 補註本演練依 ADR-013 固定 MariaDB。 | `內部人員交易報表轉媒體儲存系統_系統架構與治理計畫書.md` 附錄 A / C |
+| 《功能里程碑計畫》補充唯一 Phase↔M 對照與演練執行層引用。 | `內部人員交易報表轉媒體儲存系統_功能里程碑計畫.md` §0 |
+| Agent Team 計畫書補明與 README、分階段演練計畫、tasks README、任務卡與 runbooks 的引用關係；派工範例標示為非規範性。 | `內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md` |
+| ADR-012、ADR-013、ADR-014 的影響範圍更新為新的單一演練計畫與 runbooks。 | `決策紀錄樣板ADR.md` |
+| 產卡模板補上 Stage、角色、evidence 與完整任務卡 gate 欄位。 | `tools/generate_reportdemo_task_cards.py` |
+
+## 刪除、封存或取代
+
+| 舊文件 / 舊說法 | 新位置 / 取代方式 |
+| --- | --- |
+| `drills/演練總計畫書.md` | 已移入 `archive/`；有效內容併入 `drills/分階段演練與驗收計畫.md`。 |
+| `drills/MVP1兩週風險驗證計畫.md` | 已移入 `archive/`；有效內容併入 `drills/分階段演練與驗收計畫.md` 的 MVP1 章節。 |
+| `drills/MVP2兩週調整驗證計畫.md` | 已移入 `archive/`；有效內容併入 `drills/分階段演練與驗收計畫.md` 的 MVP2 章節。 |
+| `drills/Pilot與平行作業驗證計畫.md` | 已移入 `archive/`；有效內容併入 `drills/分階段演練與驗收計畫.md` 的 Pilot 章節。 |
+| `drills/上線候選與Rollback計畫.md` | 已移入 `archive/`；有效內容併入 `drills/分階段演練與驗收計畫.md` 與 `runbooks/RB-04-rollback-rehearsal.md`。 |
+| `drills/演練文件索引與引用關係.md` | 已移入 `archive/`；權威順序改由 `README.md` 維護。 |
+| `drills/演練版本異動摘要ChangeLog.md` | 已移入 `archive/`；根目錄 `版本異動摘要ChangeLog.md` 為唯一 active ChangeLog。 |
+| 根目錄三份 PDF 快照 | 已移入 `archive/`；Markdown 穩定後再視需要重新產 PDF。 |
+| 「每份 drills 文件各自維護 Gate」 | 已 superseded。Gate 統一維護於 `drills/分階段演練與驗收計畫.md`。 |
+
+## 改列 ADR 或人類簽核
+
+| 事項 | 規則 |
+| --- | --- |
+| 修改 Qutora 原始碼 | 需另開 ADR 或人類簽核；本輪不修改。 |
+| 變更 MariaDB 作為本演練目標 DB | 需更新 ADR-013。 |
+| 任務卡未具備完整規格仍要開工 | 需 human sign-off；預設不得開工。 |
+| Production Candidate 進入正式 Go / No-Go | 需業務、稽核、資安、維運與 Tech Lead 共同簽核。 |
+
 ## 2026-07-03：演練文件群與 Qutora 舊系統定義
 
-本次新增 `drills/` 演練文件群，並將 Qutora 直接定義為本演練舊系統。原獨立 Qutora 對照表已刪除，內容併入演練總計畫與 MVP1 兩週風險驗證計畫。詳細異動請見 `drills/演練版本異動摘要ChangeLog.md`。
+本次新增 `drills/` 演練文件群，並將 Qutora 直接定義為本演練舊系統。原獨立 Qutora 對照表已刪除，內容併入演練總計畫與 MVP1 兩週風險驗證計畫。2026-07-06 後，本 repo 的唯一 active ChangeLog 為本文件；原 `drills/演練版本異動摘要ChangeLog.md` 已封存。
 
 | 異動 | 併入文件 / 章節 |
 | --- | --- |
 | 新增演練總計畫、MVP1、MVP2、Pilot、上線候選計畫、演練文件索引與演練 ChangeLog。 | `drills/` |
 | 新增 ADR-012「本演練舊系統採用 Qutora」、ADR-013「本演練目標資料庫採用 MariaDB」、ADR-014「兩週 MVP 節奏與完整任務卡開工 Gate」。 | `決策紀錄樣板ADR.md` |
 | README 與 tasks README 改為直接定義 Qutora 為本演練舊系統。 | `README.md`、`tasks/README.md` |
-| `runbooks/Qutora舊系統替身演練對照表.md` 已 superseded 並刪除。 | 內容併入 `drills/演練總計畫書.md` 與 `drills/MVP1兩週風險驗證計畫.md` |
+| 原獨立 Qutora 對照表已 superseded 並刪除。 | 內容已併入 `drills/分階段演練與驗收計畫.md` 與 `runbooks/RB-01-qutora-startup.md`。 |
 
 ## 2026-07-02：Agent Team 文件升版批次
 

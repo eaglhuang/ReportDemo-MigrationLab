@@ -1,3 +1,9 @@
+# 封存聲明
+
+本文件已封存並停止維護。有效內容已併入 `drills/分階段演練與驗收計畫.md` 的 Production Candidate 章節與 `runbooks/RB-04-rollback-rehearsal.md`；請勿再以本文件作為 active source of truth。
+
+---
+
 # 上線候選與 Rollback 計畫
 
 版本：v1.0  
@@ -68,4 +74,3 @@ Go 前必須具備：
 - 業務、資安、稽核、維運、Tech Lead 完成簽核。
 
 任一 P0/P1 風險未關閉，或證據不足以支持 rollback，均為 No-Go。
-
