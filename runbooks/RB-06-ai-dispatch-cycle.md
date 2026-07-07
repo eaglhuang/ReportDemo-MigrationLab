@@ -28,11 +28,11 @@
 
 ## Assignments
 
-| Person | AI role/session | Task | execution_mode | Expected artifact | Reviewer |
-| --- | --- | --- | --- | --- | --- |
-| Tech Lead / Captain |  |  | [AI] / [AI->HUMAN] / [HUMAN] / [GATE] |  |  |
-| Backend / DBA |  |  |  |  |  |
-| QA / Security / DevOps |  |  |  |  |  |
+| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer |
+| --- | --- | --- | --- | --- | --- | --- |
+| Tech Lead / Captain |  |  | [AI] / [AI->HUMAN] / [HUMAN] / [GATE] |  |  |  |
+| Backend / DBA |  |  |  |  |  |  |
+| QA / Security / DevOps |  |  |  |  |  |  |
 
 ## Human Gate Watchlist
 

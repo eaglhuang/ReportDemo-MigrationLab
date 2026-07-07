@@ -1,6 +1,19 @@
 # 內部人員交易報表轉媒體儲存系統
 ## 版本異動摘要 Change Log
 
+## 2026-07-07：每日作戰手冊與 preflight 入口註冊
+
+範圍：收斂每日開工入口，將 `docs/keep.summary.md` 與 `docs/daily-execution-plan.md` 納入文件權威順序；每日派工格式仍由 RB-06 單一維護，避免每日模板雙軌。
+
+| 異動 | 併入文件 / 章節 |
+| --- | --- |
+| 新增 `docs/keep.summary.md` 作為 AI 與人類開工 preflight 入口，整理固定事實、閱讀順序、任務卡閱讀規則與隊長決策邊界。 | `docs/keep.summary.md` |
+| 新增 `docs/daily-execution-plan.md` 作為每日開工靜態作戰手冊；每日實例規定落在 `evidence/<Stage>/daily-dispatch-YYYY-MM-DD.md`，不寫回計畫檔。 | `docs/daily-execution-plan.md` |
+| RB-06 的每日派工單格式補上 Main task、Today outcome、Evidence path 欄位，維持每日派工格式唯一 owner。 | `runbooks/RB-06-ai-dispatch-cycle.md` |
+| README 權威順序、三人首讀清單與 12 步路線註冊 docs 入口，明確區分新進入口、preflight 入口與每日開工入口。 | `README.md` |
+
+本次未執行：不新增自動化抽取腳本；先手動跑每日格式，穩定後再自動化。
+
 ## 2026-07-07：AI 主導三人併行排程補充
 
 範圍：加入「三人皆具 AI 開發環境、AI 主開發、人類監控決策與驗收、每日 8 小時、週末不工作」的排程前提，並將 Production Candidate 演練的 Base Plan 重估為 12 到 14 週。
