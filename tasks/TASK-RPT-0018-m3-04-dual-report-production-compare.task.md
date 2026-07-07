@@ -7,6 +7,7 @@ owner: project-captain
 priority: P0
 milestone: M3
 drill_stage: "Pilot"
+execution_mode: "ai-with-human-review"
 primary_role: "QA / Validation"
 support_roles:
   - "Backend / DBA"

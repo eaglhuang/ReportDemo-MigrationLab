@@ -17,13 +17,15 @@
 
 ## Rollback 七步驟
 
-1. 啟用 freeze：停止新的下載閘道、浮水印、Hash 或 migration job。
-2. 停止新系統寫入：暫停 MariaDB migration / staging import。
-3. 驗證 Qutora API 與 SQL Server 仍可用。
-4. 將使用者路徑切回 Qutora download path 或舊系統唯讀路徑。
-5. 記錄 rollback window 內的使用者影響、audit event 與 open issue。
-6. 驗證 MariaDB、PDF storage、設定與 audit backup 可 restore 到隔離環境。
-7. 產出 RTO / RPO 與 Go / No-Go 建議。
+| 步驟 | 執行標籤 | 內容 |
+| --- | --- | --- |
+| 1 | `[AI->HUMAN]` | 啟用 freeze：停止新的下載閘道、浮水印、Hash 或 migration job；需人類確認影響範圍。 |
+| 2 | `[AI->HUMAN]` | 停止新系統寫入：暫停 MariaDB migration / staging import；需人類確認無資料遺失風險。 |
+| 3 | `[AI]` | 驗證 Qutora API 與 SQL Server 仍可用，輸出 command-backed evidence。 |
+| 4 | `[HUMAN]` | 將使用者路徑切回 Qutora download path 或舊系統唯讀路徑；正式環境不得由 AI 自行切換。 |
+| 5 | `[AI->HUMAN]` | 記錄 rollback window 內的使用者影響、audit event 與 open issue。 |
+| 6 | `[AI]` | 驗證 MariaDB、PDF storage、設定與 audit backup 可 restore 到隔離環境。 |
+| 7 | `[HUMAN]` | 產出 RTO / RPO 接受結論與 Go / No-Go 建議。 |
 
 ## MariaDB Backup / Restore 命令
 
@@ -48,12 +50,14 @@ docker exec reportdemo-mariadb sh -c "mariadb -u`$MARIADB_USER -p`$MARIADB_PASSW
 
 ## Break-glass Dry Run
 
-1. Tech Lead / Captain 建立 break-glass request，指定目的、範圍、期限與風險。
-2. QA / Security / DevOps 以 Security proxy 身分核准或拒絕。
-3. Backend / DBA 只取得限時、限範圍 token 或操作窗口。
-4. 執行一個低風險維修動作，例如查詢 rollback 狀態，不得讀取報表內容。
-5. 到期後確認 token 或權限失效。
-6. 寫入 audit evidence：申請、核准、啟用、操作、到期、事後覆核。
+Break-glass 的 dual-control 本質上不可由 AI 代理簽核。AI 可協助產生 request 草稿、檢查清單與 evidence 摘要，但下列 6 步驟均需人類或指定人類代理確認：
+
+1. `[HUMAN]` Tech Lead / Captain 建立 break-glass request，指定目的、範圍、期限與風險。
+2. `[HUMAN]` QA / Security / DevOps 以 Security proxy 身分核准或拒絕。
+3. `[HUMAN]` Backend / DBA 只取得限時、限範圍 token 或操作窗口。
+4. `[HUMAN]` 執行一個低風險維修動作，例如查詢 rollback 狀態，不得讀取報表內容。
+5. `[AI->HUMAN]` 到期後確認 token 或權限失效，AI 可協助檢查，人類需接受結果。
+6. `[AI->HUMAN]` 寫入 audit evidence：申請、核准、啟用、操作、到期、事後覆核。
 
 阻擋條件：
 

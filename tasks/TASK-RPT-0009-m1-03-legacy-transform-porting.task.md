@@ -7,6 +7,7 @@ owner: backend-dba
 priority: P0
 milestone: M1
 drill_stage: "Backlog"
+execution_mode: "requires-full-spec-before-start"
 depends_on:
   - "TASK-RPT-0005"
   - "TASK-RPT-0008"

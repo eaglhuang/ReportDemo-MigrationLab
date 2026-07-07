@@ -7,6 +7,7 @@ owner: project-captain-devops
 priority: P0
 milestone: M9
 drill_stage: "Backlog"
+execution_mode: "requires-full-spec-before-start"
 depends_on:
   - "TASK-RPT-0004"
   - "TASK-RPT-0005"

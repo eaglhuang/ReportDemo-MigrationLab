@@ -7,6 +7,7 @@ owner: backend-frontend-qa
 priority: P1
 milestone: M6
 drill_stage: "Backlog"
+execution_mode: "requires-full-spec-before-start"
 depends_on:
   - "TASK-RPT-0017"
   - "TASK-RPT-0028"

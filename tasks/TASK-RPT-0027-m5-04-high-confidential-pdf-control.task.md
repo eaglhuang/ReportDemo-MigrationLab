@@ -7,6 +7,7 @@ owner: backend-security
 priority: P1
 milestone: M5
 drill_stage: "Backlog"
+execution_mode: "requires-full-spec-before-start"
 depends_on:
   - "TASK-RPT-0023"
   - "TASK-RPT-0024"

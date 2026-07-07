@@ -7,6 +7,7 @@ owner: project-captain
 priority: P0
 milestone: M7
 drill_stage: "Pilot"
+execution_mode: "ai-with-human-review"
 primary_role: "QA / Security / DevOps"
 support_roles:
   - "Audit / Evidence Agent"

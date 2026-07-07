@@ -2,6 +2,8 @@
 
 目的：建立不含正式資料、可重複產生的合成 PDF 與 metadata，作為 Qutora 舊系統 baseline、MariaDB 移轉、下載閘道與浮水印 PoC 的共同測試資料。
 
+AI 主導模式：本 runbook 可由 `[AI]` 產生資料與 evidence 草稿，但資料非正式性、hash 可重跑性與 Qutora 能力 gap 必須由 `[HUMAN]` reviewer 驗收。
+
 ## 原則
 
 - 不得使用未脫敏正式資料。

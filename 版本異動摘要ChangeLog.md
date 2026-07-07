@@ -1,6 +1,26 @@
 # 內部人員交易報表轉媒體儲存系統
 ## 版本異動摘要 Change Log
 
+## 2026-07-07：AI 主導三人併行排程補充
+
+範圍：加入「三人皆具 AI 開發環境、AI 主開發、人類監控決策與驗收、每日 8 小時、週末不工作」的排程前提，並將 Production Candidate 演練的 Base Plan 重估為 12 到 14 週。
+
+| 異動 | 併入文件 / 章節或任務卡 |
+| --- | --- |
+| 新增 AI 主導三人併行排程與缺口分析，定義 `[AI]`、`[AI->HUMAN]`、`[HUMAN]`、`[GATE]` 標籤、Best/Base/Risk 三段時程、14 週排程、每日節奏與缺口清單。 | `drills/AI主導三人併行排程與缺口分析.md` |
+| 新增 AI 派工循環 runbook，定義每日派工單、AI 回報格式、review checklist、blocker 升級、週末規則與 end-of-day checklist。 | `runbooks/RB-06-ai-dispatch-cycle.md` |
+| README 補上新排程文件的權威順序、首讀清單與 12 步路線引用。 | `README.md` |
+| 分階段演練計畫補上 AI 主導排程前提與 12-14 週 Base Plan / 16-18 週 fallback 說明。 | `drills/分階段演練與驗收計畫.md` §2、§2.0 |
+| tasks README 補上 `execution_mode` 與 AI / HUMAN / GATE 標籤規則。 | `tasks/README.md` |
+| 45 張任務卡新增 `execution_mode` frontmatter；核心卡標記 `ai-with-human-review` 或 `human-only`，Backlog 標記 `requires-full-spec-before-start`。 | `tasks/TASK-RPT-*.task.md` |
+| Agent Team 計畫書補上 AI 主導三人模式與不可越界邊界。 | `內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md` §2.1 |
+| 新增 ADR-016，接受本演練採 AI 主導三人併行模式，但 human / ADR gate 不得被 AI 取代。 | `決策紀錄樣板ADR.md` §19 |
+| RB-03 / RB-04 補上 AI producer、人類 reviewer、不得自審、rollback / break-glass 不可委派邊界。 | `runbooks/RB-03-evidence-standard.md`、`runbooks/RB-04-rollback-rehearsal.md` |
+| RB-01 / RB-02 / RB-05 補上 AI 可執行但需人類驗收的檔頭說明；MVP1 evidence index 範本補上 AI producer / human reviewer 規則。 | `runbooks/RB-01-qutora-startup.md`、`runbooks/RB-02-seed-data-synthetic-pdf.md`、`runbooks/RB-05-mariadb-environment.md`、`evidence/MVP1/.index-template.md` |
+| 產卡模板同步新增 `execution_mode` 與 ADR-016 / RB-06 引用，避免未來重產卡遺失 AI 主導治理欄位。 | `tools/generate_reportdemo_task_cards.py` |
+
+本次未執行：不把 Best Case 8 到 10 週作為正式承諾、不移除原穩健演練 Gate、不讓 AI 取代 human / ADR gate、不修改 Qutora submodule。
+
 ## 2026-07-07：執行層 Day 1 缺口補齊
 
 範圍：補齊三人小隊 Day 1 可執行與 MVP2 可落地的缺口，包含 Qutora `.env` / `--env-file` 啟動方式、MariaDB 演練環境、PoC 程式碼落點、合成 PDF 工具、evidence index 範本、Qutora 能力 fallback、MVP 兩週節奏與任務卡 scopePaths。

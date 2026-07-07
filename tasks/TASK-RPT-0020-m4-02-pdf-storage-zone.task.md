@@ -7,6 +7,7 @@ owner: backend-storage-devops
 priority: P1
 milestone: M4
 drill_stage: "Backlog"
+execution_mode: "requires-full-spec-before-start"
 depends_on:
   - "TASK-RPT-0004"
   - "TASK-RPT-0019"

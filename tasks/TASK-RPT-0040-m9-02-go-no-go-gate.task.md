@@ -7,6 +7,7 @@ owner: project-captain
 priority: P0
 milestone: M9
 drill_stage: "ProductionCandidate"
+execution_mode: "human-only"
 primary_role: "Tech Lead / Captain"
 support_roles:
   - "QA / Validation"

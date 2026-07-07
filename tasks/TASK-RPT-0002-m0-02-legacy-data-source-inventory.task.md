@@ -7,6 +7,7 @@ owner: project-captain
 priority: P0
 milestone: M0
 drill_stage: "MVP1"
+execution_mode: "ai-with-human-review"
 primary_role: "Backend / DBA"
 support_roles:
   - "Tech Lead / Captain"

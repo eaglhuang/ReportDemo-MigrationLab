@@ -2,6 +2,8 @@
 
 目的：提供 MVP2 / Pilot 可重複啟動的 MariaDB 目標資料庫環境，作為 Qutora SQL Server metadata 移轉、staging schema、下載閘道與 rollback restore 的共同基礎。
 
+AI 主導模式：本 runbook 可由 `[AI]` 執行環境建立、schema skeleton、dump / restore 命令，但 DB 邊界、資料一致性與 rollback 接受標準必須由 `[HUMAN]` reviewer 驗收。
+
 ## 決策邊界
 
 - 本 runbook 依 ADR-013，僅適用 ReportDemo 演練。

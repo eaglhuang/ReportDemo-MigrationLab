@@ -7,6 +7,7 @@ owner: project-captain
 priority: P0
 milestone: M8
 drill_stage: "ProductionCandidate"
+execution_mode: "human-only"
 primary_role: "Security / Permission Agent"
 support_roles:
   - "Audit / Evidence Agent"

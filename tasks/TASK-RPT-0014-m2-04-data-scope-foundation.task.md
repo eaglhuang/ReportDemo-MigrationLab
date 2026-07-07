@@ -7,6 +7,7 @@ owner: backend-qa-security
 priority: P0
 milestone: M2
 drill_stage: "MVP2"
+execution_mode: "ai-with-human-review"
 primary_role: "QA / Security / DevOps"
 support_roles:
   - "Tech Lead / Captain"

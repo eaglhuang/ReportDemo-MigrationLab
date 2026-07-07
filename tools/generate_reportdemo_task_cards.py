@@ -11,6 +11,7 @@ from pathlib import Path
 # evidence paths follow runbooks/RB-03-evidence-standard.md,
 # MariaDB drill setup follows runbooks/RB-05-mariadb-environment.md,
 # MVP2 PoC code belongs under poc/ or tools/ per ADR-015,
+# AI-led execution mode follows ADR-016 and RB-06,
 # and a task card must not start until its full design spec includes
 # 10 validators, 10 test cases, impact scope, rollback, reviewer,
 # human gate, and ADR references.
@@ -185,6 +186,14 @@ def primary_role(milestone: str) -> str:
     return PRIMARY_ROLE_BY_MILESTONE.get(milestone, "Tech Lead / Captain")
 
 
+def execution_mode(task_id: str) -> str:
+    if drill_stage(task_id) == "Backlog":
+        return "requires-full-spec-before-start"
+    if task_id in {"TASK-RPT-0038", "TASK-RPT-0040", "TASK-RPT-0043", "TASK-RPT-0044"}:
+        return "human-only"
+    return "ai-with-human-review"
+
+
 def support_roles(milestone: str) -> list[str]:
     if milestone in {"M5", "M7", "M8", "M9", "M10"}:
         return ["Tech Lead / Captain", "Backend / DBA", "QA / Security / DevOps"]
@@ -269,6 +278,7 @@ def task_card(seq: int, section: dict[str, object]) -> tuple[str, str]:
     task_id = f"TASK-RPT-{seq:04d}"
     milestone = code.split("-")[0]
     stage = drill_stage(task_id)
+    mode = execution_mode(task_id)
     role = primary_role(milestone)
     slug = SLUGS[code]
     filename = f"{task_id}-{code.lower()}-{slug}.task.md"
@@ -314,6 +324,7 @@ depends_on:{yaml_list(depends)}
 related_plan: "{RELATED_PLAN}"
 agent_team_plan: "{AGENT_TEAM_PLAN}"
 drill_stage: "{stage}"
+execution_mode: "{mode}"
 primary_role: "{role}"
 support_roles:{yaml_list(support_roles(milestone))}
 evidence_path: "evidence/{stage}/{task_id}/"
@@ -367,6 +378,7 @@ nonGoals:
 - 分階段演練、三人責任矩陣、validators、test cases 與 Gate 需依 `drills/分階段演練與驗收計畫.md` 執行。
 - Evidence 需依 `runbooks/RB-03-evidence-standard.md` 寫入 `evidence/{stage}/{task_id}/`。
 - MariaDB 演練環境需依 `runbooks/RB-05-mariadb-environment.md` 建立；MVP2 PoC 程式碼落點需依 ADR-015 放在 `poc/` 或 `tools/`。
+- 若採 AI 主導三人併行排程，需依 ADR-016 與 `runbooks/RB-06-ai-dispatch-cycle.md` 標示 `[AI]`、`[AI->HUMAN]`、`[HUMAN]` 或 `[GATE]`；AI 產出不得取代 human / ADR gate。
 
 ## Impact Scope
 
@@ -447,10 +459,12 @@ This directory turns the function milestone plan into dispatchable task cards fo
 - Evidence 標準：`runbooks/RB-03-evidence-standard.md`。
 - Rollback 演練：`runbooks/RB-04-rollback-rehearsal.md`。
 - MariaDB 演練環境：`runbooks/RB-05-mariadb-environment.md`。
+- AI 派工循環：`runbooks/RB-06-ai-dispatch-cycle.md`。
 - Qutora 作為本演練舊系統的決策依 ADR-012；不得再以獨立 Qutora 對照表維護。
 - MariaDB 作為本演練目標資料庫的決策依 ADR-013；此決策不取代正式專案最終 DB 選型。
 - 2 週 MVP 節奏與完整任務卡開工 Gate 依 ADR-014。
 - 演練 PoC 技術棧與程式碼落點依 ADR-015；正式實作技術棧仍需另行 ADR。
+- AI 主導三人併行排程依 ADR-016；週末不排正式工作，每人每日最多 8 小時。
 
 ## Agent Team Dispatch Contract
 

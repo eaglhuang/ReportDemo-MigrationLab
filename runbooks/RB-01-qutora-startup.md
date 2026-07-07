@@ -2,6 +2,8 @@
 
 目的：讓三人小隊能在乾淨環境中啟動本演練舊系統 Qutora，並產出可驗收的啟動 evidence。
 
+AI 主導模式：本 runbook 可由 `[AI]` 執行命令與整理 evidence，但啟動成功、敏感資訊遮罩與 MVP1 Gate 必須由 `[HUMAN]` reviewer 驗收。
+
 ## 前置條件
 
 - 已在 repo 根目錄執行。

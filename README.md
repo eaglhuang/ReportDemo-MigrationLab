@@ -25,8 +25,9 @@ Qutora 代表本次演練舊系統，用於驗證搬移流程、PDF 移轉、met
 | 4 | `決策紀錄樣板ADR.md` | 人類決策、ADR 狀態、Qutora、MariaDB、MVP 節奏與任務卡 gate。 |
 | 5 | `內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md` | Agent Team 派工、review、validator、human / ADR gate 與違規阻擋。 |
 | 6 | `drills/分階段演練與驗收計畫.md` | 三人小隊分階段執行、驗收、Gate 與 evidence package。 |
-| 7 | `runbooks/` | 可照做的操作手冊。 |
-| 8 | `tasks/` | 可派工任務卡與任務卡開工標準。 |
+| 7 | `drills/AI主導三人併行排程與缺口分析.md` | 三人皆具 AI 環境時的壓縮排程、AI / HUMAN 標籤、review WIP 與缺口清單。 |
+| 8 | `runbooks/` | 可照做的操作手冊。 |
+| 9 | `tasks/` | 可派工任務卡與任務卡開工標準。 |
 
 若文件衝突，先依架構治理與已簽核 ADR 判定邊界，再更新演練計畫、runbook 與任務卡。
 
@@ -34,7 +35,7 @@ Qutora 代表本次演練舊系統，用於驗證搬移流程、PDF 移轉、met
 
 | 角色 | 先讀 | 第二步 |
 | --- | --- | --- |
-| Tech Lead / Captain | 本 README、架構與治理計畫書、ADR | 讀 `drills/分階段演練與驗收計畫.md` 第 1 到 3 章，確認 Gate 與責任矩陣。 |
+| Tech Lead / Captain | 本 README、架構與治理計畫書、ADR | 讀 `drills/分階段演練與驗收計畫.md` 第 1 到 3 章，再讀 `drills/AI主導三人併行排程與缺口分析.md` 確認 AI 主導排程、WIP 與 Gate。 |
 | Backend / DBA | 功能里程碑計畫、ADR-012、ADR-013、ADR-015 | 讀 MVP1 / MVP2 階段、`RB-02-seed-data-synthetic-pdf.md` 與 `RB-05-mariadb-environment.md`。 |
 | QA / Security / DevOps | Agent Team 計畫書、`tasks/README.md` | 讀 `RB-01-qutora-startup.md`、`RB-03-evidence-standard.md`、`RB-04-rollback-rehearsal.md`。 |
 
@@ -45,7 +46,7 @@ Qutora 代表本次演練舊系統，用於驗證搬移流程、PDF 移轉、met
 3. 依 `runbooks/RB-01-qutora-startup.md` 啟動 Qutora 與 SQL Server。
 4. 依 `runbooks/RB-02-seed-data-synthetic-pdf.md` 建立合成 PDF 與 metadata。
 5. 依 `runbooks/RB-03-evidence-standard.md` 建立 evidence index。
-6. 執行 `drills/分階段演練與驗收計畫.md` 的 MVP1。
+6. 執行 `drills/分階段演練與驗收計畫.md` 的 MVP1；若三人皆具 AI 環境，依 `drills/AI主導三人併行排程與缺口分析.md` 採 Base Plan 12 到 14 週排程，並依 `runbooks/RB-06-ai-dispatch-cycle.md` 進行每日派工與 review。
 7. MVP1 Gate 通過後，依 `runbooks/RB-05-mariadb-environment.md` 建立 MariaDB 演練環境。
 8. 依 ADR-015 在 `poc/` 與 `tools/` 內執行 MVP2 PoC，不修改 Qutora 原始碼。
 9. MVP2 Gate 通過後，升級 Pilot 核心任務卡並執行 Pilot。

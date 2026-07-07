@@ -23,6 +23,7 @@ This document serves only the standalone ReportDemo simulation project and its f
 | 《系統架構與治理計畫書》v1.4 | 定義系統架構、資料流程、權限模型、PDF 儲存、浮水印、稽核、告警與治理原則；本文件只承接其治理邊界來設計 Agent Team 協作方式。 | 若架構、權限、稽核、PDF 或正式切換原則調整，本文件需同步檢查 Agent role、reviewer、validator 與 human / ADR gate 是否仍合理。 |
 | 《決策紀錄樣板ADR》v1.1 | 定義人類優先決策與 ADR-011；本文件引用 ADR-011 作為 Agent 自動決策、人類簽核與違規阻擋邊界的正式決策入口。 | 若 ADR-011 或其他高風險 ADR 狀態改為 Accepted / Rejected / Superseded，本文件的自動決策範圍與必簽項需同步更新。 |
 | `drills/分階段演練與驗收計畫.md` | 定義 MVP1、MVP2、Pilot、Production Candidate 的三人小隊執行、驗收、Gate 與 evidence package。 | Agent Team 派工需依演練階段與 Gate 安排 reviewer；不得繞過該文件的阻擋條件。 |
+| `drills/AI主導三人併行排程與缺口分析.md` | 定義三人皆具 AI 環境時的壓縮排程、`[AI]` / `[AI->HUMAN]` / `[HUMAN]` / `[GATE]` 標籤、review WIP 與缺口清單。 | 若採 AI 主導模式，Agent 派工需標示哪些由 AI 產出、哪些必須人類決策、哪些需共同 review；不得因 AI 加速而跳過 Gate。 |
 | `runbooks/` | 定義 Qutora 啟動、合成 PDF、evidence 標準與 rollback dry run。 | Agent 產出或驗收 evidence 時，需依 runbook 產生可重跑紀錄。 |
 | `tasks/README.md` | 是 45 張任務卡的索引與派工入口；README 應引用本文件作為任務派工 source of truth。 | README 的 Agent Team Dispatch Contract 需與本文件一致；若本文件調整派工規則，README 需同步更新。 |
 | 45 張 `tasks/TASK-RPT-*.task.md` 任務卡 | 每張任務卡應透過 `agent_team_plan` frontmatter 指向本文件，並在 Implementation Contract / Notes 中引用本文件。 | 任務卡正式接手前需檢查 role、reviewer、validator、human sign-off、ADR gate 與違規阻擋；若本文件升版，任務卡欄位與產卡模板需同步更新。 |
@@ -36,6 +37,19 @@ This document serves only the standalone ReportDemo simulation project and its f
 * 權限最小化：Agent 只處理任務卡 scope 內檔案與操作，不得自行擴權。
 * 證據導向：完成定義必須包含 command-backed evidence、review 記錄或可重跑驗證。
 * 人類可監督：所有關鍵決策、例外處理與 gate 結果要能被人類讀懂、追蹤、覆核與否決。
+
+### 2.1 AI 主導三人模式
+
+若三人皆具 AI 開發環境，本計畫採「AI 主開發、人類監控決策與驗收」模式：
+
+| 標籤 | 可交付內容 | 不可越界 |
+| --- | --- | --- |
+| `[AI]` | 程式碼、SQL、PoC、validator、測試、文件草稿、evidence 草稿、差異分析。 | 不得自行接受風險、放行 Gate、使用正式資料或改變治理邊界。 |
+| `[AI->HUMAN]` | AI 先產出，人類 review 後才算完成，例如負向測試、稽核 evidence、差異分類草稿。 | 未經人類 review 不得 closure。 |
+| `[HUMAN]` | ADR、資安 / 稽核例外、權限模型接受、Go / No-Go、簽核、驗收數據接受。 | 不得把 human gate 交給 AI 代簽。 |
+| `[GATE]` | 階段阻擋條件與 closure 判斷。 | 未通過不得以進度壓力繼續往後推。 |
+
+工時邊界：每人每日最多 8 小時、每週 5 個工作日、週末不排正式工作。週末 AI 自動產出只能作為草稿，需下一工作日由人類 review 後才可納入 evidence。每日派工與 review WIP 依 `runbooks/RB-06-ai-dispatch-cycle.md` 執行。
 
 ## 3. Agent 角色與責任
 

@@ -35,8 +35,8 @@ evidence/<Stage>/index.md
 | --- | --- |
 | task_id | 任務卡 ID |
 | artifact | 證據檔案 |
-| producer | 產出者 |
-| reviewer | 驗收者 |
+| producer | 產出者，可填人類、AI agent 或 AI session。 |
+| reviewer | 驗收者，必須是人類 reviewer 或指定人類代理；不得由同一個 producer 自審。 |
 | command | 可重跑命令或手動步驟 |
 | result | pass / fail / blocked |
 | reviewed_at | 驗收時間 |
@@ -50,12 +50,20 @@ evidence/MVP1/.index-template.md
 
 其他 Stage 也應沿用同一欄位；若任務涉及人類簽核、ADR 或 rollback，需在 `notes` 補上 ADR 編號、簽核人與 rollback evidence 路徑。
 
+若採 AI 主導三人併行模式，需額外遵守：
+
+- `producer` 可填 AI agent / session，但 `reviewer` 必須填人類 reviewer 或指定人類代理。
+- 產出該 evidence 的 AI session、Agent 或人類 producer 不得單獨擔任 reviewer。
+- AI 週末產出的草稿不得直接列為正式 evidence；需下一工作日由人類 review 後才可納入。
+- Gate summary 需補充 AI 產出占比、人類抽驗比例與 reviewer_conflict 是否存在。
+
 ## 驗收原則
 
 - 誰產出 evidence，誰不得單獨驗收。
 - Gate evidence 必須能讓 reviewer 重跑或追溯。
 - 權限、稽核、資料一致性與 rollback evidence 缺失時，不得進入下一階段。
 - 敏感資訊需遮罩；不得把未脫敏正式資料放入 repo。
+- AI 產出速度不得取代 reviewer 容量；未 review 的 AI 產出不得 closure。
 
 ## Gate Package
 
@@ -72,6 +80,8 @@ evidence/<Stage>/gate-summary.md
 - blocking issue。
 - 例外簽核。
 - 下一階段 Go / No-Go 建議。
+- AI 產出占比、人類抽驗比例與未 review 的 AI 產出清單。
+- reviewer_conflict 與第二層 review 結果。
 
 ## Production Candidate Sign-off Record
 

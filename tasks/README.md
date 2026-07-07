@@ -22,6 +22,7 @@ This directory turns the function milestone plan into dispatchable task cards fo
 - Evidence 路徑應依 `runbooks/RB-03-evidence-standard.md` 採 `evidence/<Stage>/<TASK-ID>/`。
 - MVP2 PoC 程式碼落點依 ADR-015，只能放在 `poc/` 與 `tools/`；不得修改 `open-source-sandbox/qutora-api` 作為第一階段原則。
 - MariaDB 演練環境依 `runbooks/RB-05-mariadb-environment.md` 建立，任務卡若涉及 M1 / M5 / migration 應在 `scopePaths` 納入對應 PoC 或 runbook。
+- 若採 AI 主導三人併行排程，任務卡 execution notes 需標示 `[AI]`、`[AI->HUMAN]`、`[HUMAN]` 或 `[GATE]`；AI 可產出實作與 evidence 草稿，但 human / ADR gate 不得由 AI 取代。
 
 ## Core Card Batches
 
@@ -39,6 +40,8 @@ This directory turns the function milestone plan into dispatchable task cards fo
 - 任務卡 frontmatter 後續升級時，應補 `drill_stage`、`primary_role`、`support_roles` 與 `evidence_path`。
 - `drill_stage` 只能使用 `MVP1`、`MVP2`、`Pilot`、`ProductionCandidate` 或 `Backlog`。
 - 非核心任務卡預設為 `Backlog`，直到被納入某一階段並補齊完整規格。
+- `execution_mode` 可使用 `ai-with-human-review`、`human-only` 或 `requires-full-spec-before-start`。
+- `ai-with-human-review` 表示 AI 可主開發，但需人類 review；`human-only` 表示任務本質涉及 human / ADR gate；`requires-full-spec-before-start` 表示任務未補齊完整規格前不得開工。
 
 ## Drill Plan Contract
 
@@ -50,6 +53,7 @@ This directory turns the function milestone plan into dispatchable task cards fo
 - MariaDB 作為本演練目標資料庫的決策依 ADR-013；此決策不取代正式專案最終 DB 選型。
 - 2 週 MVP 節奏與完整任務卡開工 Gate 依 ADR-014。
 - 演練 PoC 技術棧與程式碼落點依 ADR-015；正式實作技術棧仍需另行 ADR。
+- AI 主導三人併行排程依 ADR-016、`drills/AI主導三人併行排程與缺口分析.md` 與 `runbooks/RB-06-ai-dispatch-cycle.md`；週末不排正式工作，每人每日最多 8 小時。
 
 ## Agent Team Dispatch Contract
 
@@ -58,6 +62,7 @@ This directory turns the function milestone plan into dispatchable task cards fo
 - M5、M7、M8、M9 或涉及正式資料的任務卡，需額外納入 Security / Permission、Audit / Evidence、QA / Validation 或人類簽核。
 - 若 Agent 自動決策與資安、稽核或 ADR 衝突，任務卡不得 closure，需先升級人類或 ADR 裁決。
 - 違規阻擋機制至少包含：任務卡 scope、tool sandbox / CI scope check、validator / reviewer、command-backed evidence 與 closure gate。
+- AI 產出速度不得取代 reviewer 容量；producer 不得自審，且每週需保留 review / rework 容量。
 
 ## Task Roster
 

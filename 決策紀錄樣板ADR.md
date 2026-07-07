@@ -1,9 +1,9 @@
 # 內部人員交易報表轉媒體儲存系統 決策紀錄樣板 ADR
-## 版本 v1.3
+## 版本 v1.4
 
 ## 1. 文件目的
 
-本文件用於集中管理本計畫需要人類優先決策的 Top 15 關鍵點。這些決策會影響系統架構、資安邊界、權限治理、資料一致性、舊系統遷移、驗收 Gate、預算與時程，不應由工程團隊或 AI 在未授權情況下自行假設。
+本文件用於集中管理本計畫需要人類優先決策的 Top 16 關鍵點。這些決策會影響系統架構、資安邊界、權限治理、資料一致性、舊系統遷移、驗收 Gate、預算與時程，不應由工程團隊或 AI 在未授權情況下自行假設。
 
 本文件不是功能需求清單；功能拆分以「功能里程碑計畫」為準，系統架構與治理原則以「系統架構與治理計畫書」為準。
 
@@ -26,7 +26,7 @@
 | 驗收 Gate | 什麼條件達成才算決策落地。 |
 | 待補問題 | 尚未釐清的問題。 |
 
-## 3. 人類優先決策 Top 15
+## 3. 人類優先決策 Top 16
 
 | 優先 | ADR | 需要人類決策的關鍵點 | 為何優先 |
 | ---: | --- | --- | --- |
@@ -45,6 +45,7 @@
 | 13 | ADR-013 | 本演練目標資料庫採用 MariaDB | 影響 MVP2、Pilot、資料型別轉換、SQL 改寫、validator 與 rollback。 |
 | 14 | ADR-014 | 兩週 MVP 節奏與完整任務卡開工 Gate | 影響 drills 文件、核心任務卡升級順序、validators/test cases 與開工條件。 |
 | 15 | ADR-015 | 演練 PoC 技術棧與程式碼落點 | 影響 MVP2 下載閘道、浮水印、MariaDB migration、validator 與 `poc/` 目錄治理。 |
+| 16 | ADR-016 | AI 主導三人併行排程與人類監控邊界 | 影響壓縮排程、AI / HUMAN 標籤、review WIP、週末規則與 Gate 不可被 AI 取代的邊界。 |
 
 ## 4. ADR-001 資料庫最終選型與遷移路線
 
@@ -244,7 +245,22 @@
 | 驗收 Gate | MVP2 任務卡需能指向 `poc/` 或 `tools/` 的可執行落點；PoC 不得修改 Qutora submodule；所有輸出需寫入 RB-03 evidence path。 |
 | 待補問題 | 若 MVP2 需要真實浮水印 library，需在本 ADR 補充演練限定套件與 license 檢查。 |
 
-## 19. 決策狀態追蹤表
+## 19. ADR-016 AI 主導三人併行排程與人類監控邊界
+
+| 欄位 | 內容 |
+| --- | --- |
+| 決策狀態 | Accepted for drill |
+| 決策 owner | Tech Lead / Captain |
+| 參與角色 | 三人小隊、人類決策者、Agent Team Captain、Reviewer |
+| 背景 | 若三人皆有 AI 開發環境，AI 可顯著加速程式、腳本、測試與 evidence 產出；但人類仍需監控、決策、驗收數據與簽核。 |
+| 候選方案 | 維持 18 週人工作業排程、AI 主導 12 到 14 週排程、過度壓縮至 6 到 8 週。 |
+| 決策結論 | 採 AI 主導三人併行模式，Base Plan 目標為 12 到 14 週完成 Production Candidate 演練；Best Case 8 到 10 週僅作挑戰目標，Risk Buffer 為 16 到 18 週。每人每日最多 8 小時、週末不排正式工作；AI 產出需以 `[AI]`、`[AI->HUMAN]`、`[HUMAN]`、`[GATE]` 標籤區分責任。 |
+| 邊界聲明 | AI 可主開發與產出 evidence 草稿，但不得取代 human / ADR gate，不得自行接受資安、稽核、資料、權限或正式切換風險。 |
+| 影響範圍 | `drills/AI主導三人併行排程與缺口分析.md`、`drills/分階段演練與驗收計畫.md`、`runbooks/RB-06-ai-dispatch-cycle.md`、`tasks/README.md`、Agent Team 計畫書。 |
+| 驗收 Gate | W3 結束需有 MVP2 下載閘道、浮水印、hash 與 audit fail-closed 可重跑 evidence；否則退回 16 到 18 週保守排程。 |
+| 待補問題 | 若未來接入真實 CI / agent runtime，需補充自動化執行限制、credential policy 與 reviewer queue 上限。 |
+
+## 20. 決策狀態追蹤表
 
 | ADR | 決策狀態 | Owner | 目標決策時間 | 目前結論 | 待補問題 |
 | --- | --- | --- | --- | --- | --- |
@@ -263,3 +279,4 @@
 | ADR-013 | Accepted for drill | 專案 sponsor / Backend / DBA | 已決 | 本演練目標資料庫採用 MariaDB。 | 不取代正式專案最終 DB 選型。 |
 | ADR-014 | Accepted | 專案 sponsor / Tech Lead | 已決 | 採 2 週 MVP 節奏與完整任務卡開工 Gate。 | MVP1/MVP2 核心任務卡需後續逐張升級。 |
 | ADR-015 | Accepted for drill | Tech Lead / Captain | 已決 | 演練 PoC 採 Python 3 + shell / SQL，落點固定為 `poc/` 與 `tools/`。 | 若引入第三方 PDF library 或 MariaDB client，需補 license 與安裝方式。 |
+| ADR-016 | Accepted for drill | Tech Lead / Captain | 已決 | 採 AI 主導三人併行模式，Base Plan 目標為 12 到 14 週完成 Production Candidate 演練。 | 若 W3 MVP2 evidence 不足，退回 16 到 18 週保守排程。 |

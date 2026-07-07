@@ -7,6 +7,7 @@ owner: backend-dba
 priority: P0
 milestone: M1
 drill_stage: "MVP2"
+execution_mode: "ai-with-human-review"
 primary_role: "Backend / DBA"
 support_roles:
   - "Tech Lead / Captain"
