@@ -88,3 +88,22 @@ evidence/MVP2/TASK-RPT-0008/mariadb-environment.md
 - MariaDB 無法啟動：MVP2 不得開工。
 - charset / collation 不符：不得匯入 metadata。
 - dump / restore 失敗：不得進入 Pilot。
+## Teardown
+
+演練結束或需要重建 MariaDB staging 時，依下列步驟清理。Teardown 前必須確認 dump、restore evidence 與 mapping 檔案已保存。
+
+```powershell
+docker compose -f runbooks/docker-compose.mariadb.yml --env-file runbooks/.env.mariadb down
+```
+
+若需要連 MariaDB volume 一起清除，需先完成 `mariadb-dump` 並由 Captain / Backend / DBA 確認可重建：
+
+```powershell
+docker compose -f runbooks/docker-compose.mariadb.yml --env-file runbooks/.env.mariadb down -v
+```
+
+清理驗證：
+
+- `docker ps` 不應再看到 `reportdemo-mariadb`。
+- 若使用 `down -v`，下一次 MVP2 必須重新執行 RB-05、`TASK-RPT-0008` staging schema 與 `TASK-RPT-0007` batch import。
+- 不得刪除 `evidence/MVP2/**`、`evidence/Pilot/**` 或 dump / restore evidence，除非另有測試重置任務與人類核准。

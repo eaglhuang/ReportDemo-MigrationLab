@@ -3,7 +3,7 @@
 
 ## 1. 文件目的
 
-本文件用於集中管理本計畫需要人類優先決策的 Top 16 關鍵點。這些決策會影響系統架構、資安邊界、權限治理、資料一致性、舊系統遷移、驗收 Gate、預算與時程，不應由工程團隊或 AI 在未授權情況下自行假設。
+本文件用於集中管理本計畫需要人類優先決策的 Top 17 關鍵點。這些決策會影響系統架構、資安邊界、權限治理、資料一致性、舊系統遷移、驗收 Gate、預算與時程，不應由工程團隊或 AI 在未授權情況下自行假設。
 
 本文件不是功能需求清單；功能拆分以「功能里程碑計畫」為準，系統架構與治理原則以「系統架構與治理計畫書」為準。
 
@@ -26,7 +26,7 @@
 | 驗收 Gate | 什麼條件達成才算決策落地。 |
 | 待補問題 | 尚未釐清的問題。 |
 
-## 3. 人類優先決策 Top 16
+## 3. 人類優先決策 Top 17
 
 | 優先 | ADR | 需要人類決策的關鍵點 | 為何優先 |
 | ---: | --- | --- | --- |
@@ -46,6 +46,7 @@
 | 14 | ADR-014 | 兩週 MVP 節奏與完整任務卡開工 Gate | 影響 drills 文件、核心任務卡升級順序、validators/test cases 與開工條件。 |
 | 15 | ADR-015 | 演練 PoC 技術棧與程式碼落點 | 影響 MVP2 下載閘道、浮水印、MariaDB migration、validator 與 `poc/` 目錄治理。 |
 | 16 | ADR-016 | AI 主導三人併行排程與人類監控邊界 | 影響壓縮排程、AI / HUMAN 標籤、review WIP、週末規則與 Gate 不可被 AI 取代的邊界。 |
+| 17 | ADR-017 | 演練並行期間基準方與退出條件 | 影響 RB-07 平行作業差異判斷、W9 Pilot Gate、TASK-RPT-0043 舊系統下線 Gate 與是否可進 Production Candidate。 |
 
 ## 4. ADR-001 資料庫最終選型與遷移路線
 
@@ -260,7 +261,22 @@
 | 驗收 Gate | W3 結束需有 MVP2 下載閘道、浮水印、hash 與 audit fail-closed 可重跑 evidence；否則退回 16 到 18 週保守排程。 |
 | 待補問題 | 若未來接入真實 CI / agent runtime，需補充自動化執行限制、credential policy 與 reviewer queue 上限。 |
 
-## 20. 決策狀態追蹤表
+## 20. ADR-017 演練並行期間基準方與退出條件
+
+| 欄位 | 內容 |
+| --- | --- |
+| 決策狀態 | Accepted for drill |
+| 決策 owner | Tech Lead / Captain |
+| 參與角色 | Backend / DBA、QA / Security / DevOps、Audit / Evidence Agent、人類決策者 |
+| 背景 | Pilot 平行作業需要先定義「並行期間誰是基準方」與「何時可退出並行」。若沒有基準方，差異分類、accept / reject list 與 TASK-RPT-0043 舊系統下線 Gate 會變成主觀判斷。 |
+| 候選方案 | 以 Qutora 為基準、以新系統為基準、雙方均不為準而逐筆人工裁決。 |
+| 決策結論 | 本演練並行期間以 Qutora 作為 legacy authority / 基準方；MariaDB 與新系統輸出需對齊 Qutora 的合成資料、metadata、PDF hash 與可追溯行為。退出並行的演練門檻為連續 N=3 批次或 N=3 工作日的 P0 差異為 0、P1 差異皆有修復或人類簽核降級、P2/P3 差異皆有 owner 與處置期限。 |
+| 邊界聲明 | 此決策只限 ReportDemo Migration Lab 演練；不代表真實券商正式上線時一定以舊系統為法律或業務權威。正式專案需另行由業務、稽核、資安與維運簽核。 |
+| 影響範圍 | `runbooks/RB-07-parallel-run-operations.md`、`drills/每日任務卡排程.md` W6-W9、`TASK-RPT-0013`、`0018`、`0022`、`0043`。 |
+| 驗收 Gate | W9 Pilot Gate 必須附上 parallel run summary、差異分類表、N=3 通過紀錄、未關閉差異清單與 human / ADR gate 狀態。 |
+| 待補問題 | 正式專案需另行決定正式報表基準方、法律責任歸屬、正式並行期長度與舊系統下線條件。 |
+
+## 21. 決策狀態追蹤表
 
 | ADR | 決策狀態 | Owner | 目標決策時間 | 目前結論 | 待補問題 |
 | --- | --- | --- | --- | --- | --- |
@@ -280,3 +296,4 @@
 | ADR-014 | Accepted | 專案 sponsor / Tech Lead | 已決 | 採 2 週 MVP 節奏與完整任務卡開工 Gate。 | MVP1/MVP2 核心任務卡需後續逐張升級。 |
 | ADR-015 | Accepted for drill | Tech Lead / Captain | 已決 | 演練 PoC 採 Python 3 + shell / SQL，落點固定為 `poc/` 與 `tools/`。 | 若引入第三方 PDF library 或 MariaDB client，需補 license 與安裝方式。 |
 | ADR-016 | Accepted for drill | Tech Lead / Captain | 已決 | 採 AI 主導三人併行模式，Base Plan 目標為 12 到 14 週完成 Production Candidate 演練。 | 若 W3 MVP2 evidence 不足，退回 16 到 18 週保守排程。 |
+| ADR-017 | Accepted for drill | Tech Lead / Captain | 已決 | 演練並行期間以 Qutora 為基準方，退出條件為連續 N=3 批次或 N=3 工作日通過。 | 正式專案需另行決定法律 / 業務權威與正式並行期。 |

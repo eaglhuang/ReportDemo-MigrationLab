@@ -150,3 +150,22 @@ evidence/MVP1/TASK-RPT-0001/qutora-startup.md
 - DB 無法連線：不得產生 migration baseline。
 - admin 初始化失敗：保留 `system-status`、`initial-setup` HTTP status、container logs，先停在 MVP1。
 - 已初始化但無法登入：admin token 不可用，MVP1 Gate 不得通過。
+## Teardown
+
+演練結束或需要重建 Qutora baseline 時，依下列步驟清理。Teardown 不得刪除已納入 Gate 的 evidence；只清 container、volume 與暫存合成資料。
+
+```powershell
+docker compose --env-file runbooks/.env.qutora -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml down
+```
+
+若需要連 SQL Server volume 一起重建，需先確認 `evidence/MVP1/` 已保存 DB inventory、metadata export 與 PDF baseline hash，並由 Captain 核准：
+
+```powershell
+docker compose --env-file runbooks/.env.qutora -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml down -v
+```
+
+清理驗證：
+
+- `docker ps` 不應再看到 Qutora API / SQL Server container。
+- 若使用 `down -v`，下一次 MVP1 需重新執行 RB-01、RB-02 與 `TASK-RPT-0001` 到 `0003` 的 baseline evidence。
+- 不得刪除 `evidence/MVP1/**`，除非另有測試重置任務與人類核准。

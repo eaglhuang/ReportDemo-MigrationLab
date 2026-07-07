@@ -38,7 +38,7 @@ Qutora 代表本次演練舊系統，用於驗證搬移流程、PDF 移轉、met
 | --- | --- | --- |
 | Tech Lead / Captain | 本 README、架構與治理計畫書、ADR | 讀 `drills/分階段演練與驗收計畫.md` 第 1 到 3 章，再讀 `drills/AI主導三人併行排程與缺口分析.md` 與 `drills/每日任務卡排程.md` 確認 AI 主導排程、每日領卡、WIP 與 Gate。 |
 | Backend / DBA | 功能里程碑計畫、ADR-012、ADR-013、ADR-015 | 讀 MVP1 / MVP2 階段、`RB-02-seed-data-synthetic-pdf.md` 與 `RB-05-mariadb-environment.md`。 |
-| QA / Security / DevOps | Agent Team 計畫書、`tasks/README.md` | 讀 `RB-01-qutora-startup.md`、`RB-03-evidence-standard.md`、`RB-04-rollback-rehearsal.md`。 |
+| QA / Security / DevOps | Agent Team 計畫書、`tasks/README.md` | 讀 `RB-01-qutora-startup.md`、`RB-03-evidence-standard.md`、`RB-04-rollback-rehearsal.md`、`RB-07-parallel-run-operations.md`、`RB-09-backup-recovery-policy.md`。 |
 
 ## 12 步執行路線
 
@@ -52,8 +52,8 @@ Qutora 代表本次演練舊系統，用於驗證搬移流程、PDF 移轉、met
 8. 依 ADR-015 在 `poc/` 與 `tools/` 內執行 MVP2 PoC，不修改 Qutora 原始碼。
 9. MVP2 Gate 通過後，升級 Pilot 核心任務卡並執行 Pilot。
 10. Pilot Gate 通過後，準備 Production Candidate evidence package。
-11. 依 `runbooks/RB-04-rollback-rehearsal.md` 執行 rollback dry run，並依 ADR 與 Gate 總表完成 human sign-off。
-12. 若要正式上線或下線舊路徑，必須另行取得 Go / No-Go 簽核。
+11. 依 `runbooks/RB-04-rollback-rehearsal.md` 與 `runbooks/RB-09-backup-recovery-policy.md` 執行 backup / restore / rollback dry run，並依 ADR 與 Gate 總表完成 human sign-off。
+12. 若要正式上線或下線舊路徑，必須依 `runbooks/RB-08-cutover-runbook.md` 執行切換 rehearsal，並另行取得 Go / No-Go 簽核。
 
 ## 第一個命令
 

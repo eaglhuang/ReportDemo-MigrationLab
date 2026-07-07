@@ -22,6 +22,8 @@ scopePaths:
   - "evidence/ProductionCandidate/TASK-RPT-0041/**"
   - "runbooks/RB-03-evidence-standard.md"
   - "runbooks/RB-04-rollback-rehearsal.md"
+  - "runbooks/RB-08-cutover-runbook.md"
+  - "runbooks/RB-09-backup-recovery-policy.md"
   - "open-source-sandbox/qutora-api"
 deliverables:
   - "evidence/ProductionCandidate/TASK-RPT-0041/design-spec.md"

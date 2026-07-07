@@ -24,6 +24,7 @@ scopePaths:
   - "evidence/Pilot/TASK-RPT-0013/**"
   - "runbooks/RB-03-evidence-standard.md"
   - "runbooks/RB-04-rollback-rehearsal.md"
+  - "runbooks/RB-07-parallel-run-operations.md"
   - "open-source-sandbox/qutora-api"
 deliverables:
   - "evidence/Pilot/TASK-RPT-0013/design-spec.md"

@@ -7,6 +7,13 @@
 
 | 異動 | 併入文件 / 章節或任務卡 |
 | --- | --- |
+| 新增 ADR-017，將演練並行期間基準方定為 Qutora，退出條件定為連續 N=3 批次或 3 工作日通過，作為 RB-07 與 W9 Pilot Gate 前提。 | `決策紀錄樣板ADR.md` §20 |
+| 新增 RB-07 平行作業運轉細則，定義每日平行作業節奏、差異分類字典、accept / reject 判準、SLA 與退出條件。 | `runbooks/RB-07-parallel-run-operations.md` |
+| 新增 RB-08 cutover runbook，定義凍結點、最終同步、checksum、smoke test、hypercare 與回退判斷。 | `runbooks/RB-08-cutover-runbook.md` |
+| 新增 RB-09 備份與回復政策，定義備份範圍、保留、驗證頻率、DR 情境分級與事故應變一頁決策樹。 | `runbooks/RB-09-backup-recovery-policy.md` |
+| RB-01 / RB-05 補上 Teardown，避免 container、volume 或合成資料污染下一輪演練。 | `runbooks/RB-01-qutora-startup.md`、`runbooks/RB-05-mariadb-environment.md` |
+| Pilot 測試補上大檔 PDF 效能測法，要求 streaming hash、下載閘道、耗時、記憶體與 fail-closed evidence。 | `drills/分階段演練與驗收計畫.md` TC-PILOT-08 |
+| 任務卡 scopePaths 補上 RB-07 / RB-08 / RB-09，讓平行作業、Go / No-Go、Rollback、舊系統下線 Gate 開卡時能找到操作依據。 | `TASK-RPT-0013`、`0040`、`0041`、`0043` |
 | 新增每日任務卡排程，將 14 週 Base Plan 拆成每週 5 天、每天 3 人各至少 1 張主責任務卡；每格包含任務卡 ID、當日目標、操作步驟與下班驗收。 | `drills/每日任務卡排程.md` |
 | 每日排程明確標出新舊平行作業驗證、上線驗證、緊急備份回復措施、break-glass 與舊系統下線 Gate 的週次落點與不可壓縮條件。 | `drills/每日任務卡排程.md` §7 |
 | README、分階段演練計畫與 AI 主導排程文件新增每日 roster 引用，避免只停留在週級排程。 | `README.md`、`drills/分階段演練與驗收計畫.md`、`drills/AI主導三人併行排程與缺口分析.md` |
