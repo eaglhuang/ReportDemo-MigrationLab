@@ -3,11 +3,16 @@ task_id: TASK-RPT-0032
 source_milestone: M6-05
 title: "建立作廢流程"
 status: planned
-owner: backend-frontend-qa
+owner: "Backend / DBA"
 priority: P1
 milestone: M6
 drill_stage: "Backlog"
 execution_mode: "requires-full-spec-before-start"
+primary_role: "Backend / DBA"
+closure_reviewer: "Tech Lead / Captain"
+support_roles:
+  - "Tech Lead / Captain"
+  - "QA / Security / DevOps"
 depends_on:
   - "TASK-RPT-0017"
   - "TASK-RPT-0030"

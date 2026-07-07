@@ -3,11 +3,16 @@ task_id: TASK-RPT-0005
 source_milestone: M0-05
 title: "建立 SP / SQL 改造分類"
 status: planned
-owner: project-captain
+owner: "Tech Lead / Captain"
 priority: P0
 milestone: M0
 drill_stage: "Backlog"
 execution_mode: "requires-full-spec-before-start"
+primary_role: "Tech Lead / Captain"
+closure_reviewer: "QA / Security / DevOps"
+support_roles:
+  - "Backend / DBA"
+  - "QA / Security / DevOps"
 depends_on:
   - "TASK-RPT-0002"
   - "TASK-RPT-0004"

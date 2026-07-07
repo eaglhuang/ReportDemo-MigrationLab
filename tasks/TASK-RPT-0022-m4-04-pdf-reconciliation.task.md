@@ -3,15 +3,16 @@ task_id: TASK-RPT-0022
 source_milestone: M4-04
 title: "PDF reconciliation 檢核"
 status: planned
-owner: project-captain
+owner: "QA / Security / DevOps"
 priority: P0
 milestone: M4
 drill_stage: "Pilot"
 execution_mode: "ai-with-human-review"
-primary_role: "QA / Validation"
+primary_role: "QA / Security / DevOps"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
+  - "Tech Lead / Captain"
   - "Backend / DBA"
-  - "Audit / Evidence Agent"
 depends_on:
   - "TASK-RPT-0020"
   - "TASK-RPT-0021"
@@ -165,7 +166,7 @@ created -> listing -> matching -> exception_review -> closed; matching -> failed
 
 ## Reviewer / Human Gate / ADR
 
-- Reviewer：QA / Validation 與 Backend / DBA, Audit / Evidence Agent 交叉 review；產出者不得自我驗收。
+- Reviewer：QA / Security / DevOps 與 Backend / DBA, QA / Security / DevOps 交叉 review；產出者不得自我驗收。
 - Human Gate：缺檔或多檔的處置與資料修復策略需人類簽核。
 - ADR Gate：若變更 DB、Object Storage / WORM、SSO / API session、PDF library、稽核 fail-closed、Go / No-Go 或架構邊界，必須 ADR。
 

@@ -3,15 +3,16 @@ task_id: TASK-RPT-0040
 source_milestone: M9-02
 title: "Go / No-Go Gate"
 status: planned
-owner: project-captain
+owner: "Tech Lead / Captain"
 priority: P0
 milestone: M9
 drill_stage: "ProductionCandidate"
 execution_mode: "human-only"
 primary_role: "Tech Lead / Captain"
+closure_reviewer: "QA / Security / DevOps"
 support_roles:
-  - "QA / Validation"
-  - "Audit / Evidence Agent"
+  - "Backend / DBA"
+  - "QA / Security / DevOps"
 depends_on:
   - "TASK-RPT-0018"
   - "TASK-RPT-0039"
@@ -168,7 +169,7 @@ collecting -> ready_for_review -> approved -> go; ready_for_review -> no_go
 
 ## Reviewer / Human Gate / ADR
 
-- Reviewer：Tech Lead / Captain 與 QA / Validation, Audit / Evidence Agent 交叉 review；產出者不得自我驗收。
+- Reviewer：Tech Lead / Captain 與 QA / Security / DevOps, QA / Security / DevOps 交叉 review；產出者不得自我驗收。
 - Human Gate：Go / No-Go 最終決策必須人類業務、稽核、資安、維運簽核。
 - ADR Gate：若變更 DB、Object Storage / WORM、SSO / API session、PDF library、稽核 fail-closed、Go / No-Go 或架構邊界，必須 ADR。
 

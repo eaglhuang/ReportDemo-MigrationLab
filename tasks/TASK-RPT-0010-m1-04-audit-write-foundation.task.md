@@ -3,12 +3,13 @@ task_id: TASK-RPT-0010
 source_milestone: M1-04
 title: "建立稽核寫入基礎"
 status: planned
-owner: backend-dba
+owner: "QA / Security / DevOps"
 priority: P0
 milestone: M1
 drill_stage: "MVP2"
 execution_mode: "ai-with-human-review"
 primary_role: "QA / Security / DevOps"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
   - "Tech Lead / Captain"
   - "Backend / DBA"

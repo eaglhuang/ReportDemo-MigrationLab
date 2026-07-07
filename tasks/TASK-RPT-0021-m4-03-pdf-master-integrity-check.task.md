@@ -3,15 +3,16 @@ task_id: TASK-RPT-0021
 source_milestone: M4-03
 title: "PDF 主檔完整性檢查"
 status: planned
-owner: project-captain
+owner: "QA / Security / DevOps"
 priority: P0
 milestone: M4
 drill_stage: "Pilot"
 execution_mode: "ai-with-human-review"
 primary_role: "QA / Security / DevOps"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
+  - "Tech Lead / Captain"
   - "Backend / DBA"
-  - "Audit / Evidence Agent"
 depends_on:
   - "TASK-RPT-0019"
   - "TASK-RPT-0020"
@@ -166,7 +167,7 @@ queued -> scanning -> verified -> closed; scanning -> failed_closed
 
 ## Reviewer / Human Gate / ADR
 
-- Reviewer：QA / Security / DevOps 與 Backend / DBA, Audit / Evidence Agent 交叉 review；產出者不得自我驗收。
+- Reviewer：QA / Security / DevOps 與 Backend / DBA, QA / Security / DevOps 交叉 review；產出者不得自我驗收。
 - Human Gate：主檔完整性例外放行需資安與稽核簽核。
 - ADR Gate：若變更 DB、Object Storage / WORM、SSO / API session、PDF library、稽核 fail-closed、Go / No-Go 或架構邊界，必須 ADR。
 

@@ -3,12 +3,13 @@ task_id: TASK-RPT-0023
 source_milestone: M5-01
 title: "建立下載閘道"
 status: planned
-owner: backend-security
+owner: "Backend / DBA"
 priority: P0
 milestone: M5
 drill_stage: "MVP2"
 execution_mode: "ai-with-human-review"
 primary_role: "Backend / DBA"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
   - "Tech Lead / Captain"
   - "QA / Security / DevOps"

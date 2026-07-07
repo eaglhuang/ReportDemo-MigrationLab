@@ -3,11 +3,16 @@ task_id: TASK-RPT-0026
 source_milestone: M5-03A
 title: "建立下載副本保存策略"
 status: planned
-owner: backend-security
+owner: "Backend / DBA"
 priority: P1
 milestone: M5
 drill_stage: "Backlog"
 execution_mode: "requires-full-spec-before-start"
+primary_role: "Backend / DBA"
+closure_reviewer: "Tech Lead / Captain"
+support_roles:
+  - "Tech Lead / Captain"
+  - "QA / Security / DevOps"
 depends_on:
   - "TASK-RPT-0025"
 related_plan: "內部人員交易報表轉媒體儲存系統_功能里程碑計畫.md"

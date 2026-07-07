@@ -3,11 +3,16 @@ task_id: TASK-RPT-0015
 source_milestone: M3-01
 title: "建立報表模板版本"
 status: planned
-owner: backend-report-engineer
+owner: "Backend / DBA"
 priority: P1
 milestone: M3
 drill_stage: "Backlog"
 execution_mode: "requires-full-spec-before-start"
+primary_role: "Backend / DBA"
+closure_reviewer: "Tech Lead / Captain"
+support_roles:
+  - "Tech Lead / Captain"
+  - "QA / Security / DevOps"
 depends_on:
   - "TASK-RPT-0001"
   - "TASK-RPT-0013"

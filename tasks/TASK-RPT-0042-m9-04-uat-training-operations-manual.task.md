@@ -3,15 +3,16 @@ task_id: TASK-RPT-0042
 source_milestone: M9-04
 title: "UAT 訓練與操作手冊"
 status: planned
-owner: project-captain
+owner: "QA / Security / DevOps"
 priority: P0
 milestone: M9
 drill_stage: "ProductionCandidate"
 execution_mode: "ai-with-human-review"
-primary_role: "QA / Validation"
+primary_role: "QA / Security / DevOps"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
   - "Tech Lead / Captain"
-  - "Audit / Evidence Agent"
+  - "Backend / DBA"
 depends_on:
   - "TASK-RPT-0040"
   - "TASK-RPT-0041"
@@ -165,7 +166,7 @@ draft -> reviewed -> published -> acknowledged; reviewed -> rework
 
 ## Reviewer / Human Gate / ADR
 
-- Reviewer：QA / Validation 與 Tech Lead / Captain, Audit / Evidence Agent 交叉 review；產出者不得自我驗收。
+- Reviewer：QA / Security / DevOps 與 Tech Lead / Captain, QA / Security / DevOps 交叉 review；產出者不得自我驗收。
 - Human Gate：UAT 驗收、操作手冊發布與訓練簽收需人類簽核。
 - ADR Gate：若變更 DB、Object Storage / WORM、SSO / API session、PDF library、稽核 fail-closed、Go / No-Go 或架構邊界，必須 ADR。
 

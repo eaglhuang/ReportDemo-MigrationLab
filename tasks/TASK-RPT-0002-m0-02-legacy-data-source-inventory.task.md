@@ -3,12 +3,13 @@ task_id: TASK-RPT-0002
 source_milestone: M0-02
 title: "盤點既有資料來源"
 status: planned
-owner: project-captain
+owner: "Backend / DBA"
 priority: P0
 milestone: M0
 drill_stage: "MVP1"
 execution_mode: "ai-with-human-review"
 primary_role: "Backend / DBA"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
   - "Tech Lead / Captain"
   - "QA / Security / DevOps"

@@ -3,15 +3,16 @@ task_id: TASK-RPT-0025
 source_milestone: M5-03
 title: "下載副本 Hash"
 status: planned
-owner: backend-security
+owner: "QA / Security / DevOps"
 priority: P0
 milestone: M5
 drill_stage: "MVP2"
 execution_mode: "ai-with-human-review"
 primary_role: "QA / Security / DevOps"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
-  - "Backend / DBA"
   - "Tech Lead / Captain"
+  - "Backend / DBA"
 depends_on:
   - "TASK-RPT-0023"
   - "TASK-RPT-0024"
@@ -181,7 +182,7 @@ hashing -> failed_closed
 
 ## Reviewer / Human Gate / ADR
 
-- Reviewer：Audit / Evidence Agent、Security / Permission Agent。
+- Reviewer：QA / Security / DevOps、QA / Security / DevOps。
 - Human Gate：若要長期保存下載副本檔案本身，必須資安、稽核與資料保存 owner 簽核。
 - ADR Gate：WORM / Immutable Archive、下載副本保存年限、Hash DB 是否獨立於業務 DB 需 ADR。
 

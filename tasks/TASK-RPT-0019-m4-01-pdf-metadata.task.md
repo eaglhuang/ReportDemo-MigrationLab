@@ -3,12 +3,13 @@ task_id: TASK-RPT-0019
 source_milestone: M4-01
 title: "建立 PDF metadata"
 status: planned
-owner: backend-storage-devops
+owner: "Backend / DBA"
 priority: P0
 milestone: M4
 drill_stage: "MVP2"
 execution_mode: "ai-with-human-review"
 primary_role: "Backend / DBA"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
   - "Tech Lead / Captain"
   - "QA / Security / DevOps"

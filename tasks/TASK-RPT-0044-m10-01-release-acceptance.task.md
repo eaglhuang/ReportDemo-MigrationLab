@@ -3,15 +3,16 @@ task_id: TASK-RPT-0044
 source_milestone: M10-01
 title: "Release Acceptance"
 status: planned
-owner: project-captain
+owner: "Tech Lead / Captain"
 priority: P0
 milestone: M10
 drill_stage: "ProductionCandidate"
 execution_mode: "human-only"
 primary_role: "Tech Lead / Captain"
+closure_reviewer: "QA / Security / DevOps"
 support_roles:
-  - "QA / Validation"
-  - "Audit / Evidence Agent"
+  - "Backend / DBA"
+  - "QA / Security / DevOps"
 depends_on:
   - "TASK-RPT-0043"
 related_plan: "drills/分階段演練與驗收計畫.md"
@@ -164,7 +165,7 @@ draft -> frozen -> signed -> accepted; frozen -> rejected
 
 ## Reviewer / Human Gate / ADR
 
-- Reviewer：Tech Lead / Captain 與 QA / Validation, Audit / Evidence Agent 交叉 review；產出者不得自我驗收。
+- Reviewer：Tech Lead / Captain 與 QA / Security / DevOps, QA / Security / DevOps 交叉 review；產出者不得自我驗收。
 - Human Gate：Release acceptance 最終簽核需人類 owner 完成。
 - ADR Gate：若變更 DB、Object Storage / WORM、SSO / API session、PDF library、稽核 fail-closed、Go / No-Go 或架構邊界，必須 ADR。
 

@@ -3,12 +3,13 @@ task_id: TASK-RPT-0024
 source_milestone: M5-02
 title: "動態浮水印處理"
 status: planned
-owner: backend-security
+owner: "Backend / DBA"
 priority: P0
 milestone: M5
 drill_stage: "MVP2"
 execution_mode: "ai-with-human-review"
 primary_role: "Backend / DBA"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
   - "Tech Lead / Captain"
   - "QA / Security / DevOps"
@@ -173,7 +174,7 @@ rendering -> failed_closed
 
 ## Reviewer / Human Gate / ADR
 
-- Reviewer：Security / Permission Agent、Audit / Evidence Agent。
+- Reviewer：QA / Security / DevOps、QA / Security / DevOps。
 - Human Gate：若要把高機密報表從「拒絕下載」改成「可下載」，必須人類資安 / 稽核簽核。
 - ADR Gate：正式 PDF library、數位簽章、timestamp、極高機密安全預覽需 ADR。
 

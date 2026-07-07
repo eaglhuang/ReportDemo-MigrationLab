@@ -3,15 +3,16 @@ task_id: TASK-RPT-0028
 source_milestone: M6-01
 title: "報表查詢"
 status: planned
-owner: project-captain
+owner: "Backend / DBA"
 priority: P0
 milestone: M6
 drill_stage: "Pilot"
 execution_mode: "ai-with-human-review"
 primary_role: "Backend / DBA"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
+  - "Tech Lead / Captain"
   - "QA / Security / DevOps"
-  - "Security / Permission Agent"
 depends_on:
   - "TASK-RPT-0014"
   - "TASK-RPT-0017"
@@ -166,7 +167,7 @@ request -> authorize -> search -> return_metadata; authorize -> denied
 
 ## Reviewer / Human Gate / ADR
 
-- Reviewer：Backend / DBA 與 QA / Security / DevOps, Security / Permission Agent 交叉 review；產出者不得自我驗收。
+- Reviewer：Backend / DBA 與 QA / Security / DevOps, QA / Security / DevOps 交叉 review；產出者不得自我驗收。
 - Human Gate：高機密報表是否可被搜尋、搜尋結果是否遮罩需資安 / 業務簽核。
 - ADR Gate：若變更 DB、Object Storage / WORM、SSO / API session、PDF library、稽核 fail-closed、Go / No-Go 或架構邊界，必須 ADR。
 

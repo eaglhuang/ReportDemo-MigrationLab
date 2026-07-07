@@ -237,7 +237,7 @@
 | --- | --- |
 | 決策狀態 | Accepted for drill |
 | 決策 owner | Tech Lead / Captain |
-| 參與角色 | Backend / DBA、QA / Security / DevOps、Audit / Evidence Agent |
+| 參與角色 | Backend / DBA、QA / Security / DevOps、QA / Security / DevOps |
 | 背景 | MVP2 需要下載閘道 PoC、動態浮水印 PoC、MariaDB metadata migration 與 validator；若沒有技術棧與程式碼落點，任務卡只能寫 evidence，無法開工。 |
 | 候選方案 | Python PoC、.NET PoC、混合 shell / SQL PoC、等正式架構決策後再做。 |
 | 決策結論 | 演練 PoC 採 Python 3 + shell / SQL 命令；PDF synthetic generator 優先使用 Python 標準函式庫；MariaDB 操作優先使用 `docker exec mariadb` 與 SQL 檔。程式碼落點固定為 `poc/`，工具型腳本放 `tools/`。 |
@@ -257,7 +257,7 @@
 | 候選方案 | 維持 18 週人工作業排程、AI 主導 12 到 14 週排程、過度壓縮至 6 到 8 週。 |
 | 決策結論 | 採 AI 主導三人併行模式，Base Plan 目標為 12 到 14 週完成 Production Candidate 演練；Best Case 8 到 10 週僅作挑戰目標，Risk Buffer 為 16 到 18 週。每人每日最多 8 小時、週末不排正式工作；AI 產出需以 `[AI]`、`[AI->HUMAN]`、`[HUMAN]`、`[GATE]` 標籤區分責任。 |
 | 邊界聲明 | AI 可主開發與產出 evidence 草稿，但不得取代 human / ADR gate，不得自行接受資安、稽核、資料、權限或正式切換風險。 |
-| 影響範圍 | `drills/AI主導三人併行排程與缺口分析.md`、`drills/分階段演練與驗收計畫.md`、`runbooks/RB-06-ai-dispatch-cycle.md`、`tasks/README.md`、Agent Team 計畫書。 |
+| 影響範圍 | `drills/分階段演練與驗收計畫.md`、`runbooks/RB-06-ai-dispatch-cycle.md`、`tasks/README.md`、Agent Team 計畫書。 |
 | 驗收 Gate | W3 結束需有 MVP2 下載閘道、浮水印、hash 與 audit fail-closed 可重跑 evidence；否則退回 16 到 18 週保守排程。 |
 | 待補問題 | 若未來接入真實 CI / agent runtime，需補充自動化執行限制、credential policy 與 reviewer queue 上限。 |
 
@@ -267,7 +267,7 @@
 | --- | --- |
 | 決策狀態 | Accepted for drill |
 | 決策 owner | Tech Lead / Captain |
-| 參與角色 | Backend / DBA、QA / Security / DevOps、Audit / Evidence Agent、人類決策者 |
+| 參與角色 | Backend / DBA、QA / Security / DevOps、QA / Security / DevOps、人類決策者 |
 | 背景 | Pilot 平行作業需要先定義「並行期間誰是基準方」與「何時可退出並行」。若沒有基準方，差異分類、accept / reject list 與 TASK-RPT-0043 舊系統下線 Gate 會變成主觀判斷。 |
 | 候選方案 | 以 Qutora 為基準、以新系統為基準、雙方均不為準而逐筆人工裁決。 |
 | 決策結論 | 本演練並行期間以 Qutora 作為 legacy authority / 基準方；MariaDB 與新系統輸出需對齊 Qutora 的合成資料、metadata、PDF hash 與可追溯行為。退出並行的演練門檻為連續 N=3 批次或 N=3 工作日的 P0 差異為 0、P1 差異皆有修復或人類簽核降級、P2/P3 差異皆有 owner 與處置期限。 |

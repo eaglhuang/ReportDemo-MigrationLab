@@ -3,12 +3,13 @@ task_id: TASK-RPT-0003
 source_milestone: M0-03
 title: "建立舊系統結果基準"
 status: planned
-owner: project-captain
+owner: "QA / Security / DevOps"
 priority: P0
 milestone: M0
 drill_stage: "MVP1"
 execution_mode: "ai-with-human-review"
 primary_role: "QA / Security / DevOps"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
   - "Tech Lead / Captain"
   - "Backend / DBA"

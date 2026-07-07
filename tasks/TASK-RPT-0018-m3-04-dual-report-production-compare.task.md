@@ -3,15 +3,16 @@ task_id: TASK-RPT-0018
 source_milestone: M3-04
 title: "新舊報表雙製比對"
 status: planned
-owner: project-captain
+owner: "QA / Security / DevOps"
 priority: P0
 milestone: M3
 drill_stage: "Pilot"
 execution_mode: "ai-with-human-review"
-primary_role: "QA / Validation"
+primary_role: "QA / Security / DevOps"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
-  - "Backend / DBA"
   - "Tech Lead / Captain"
+  - "Backend / DBA"
 depends_on:
   - "TASK-RPT-0015"
   - "TASK-RPT-0016"
@@ -167,7 +168,7 @@ created -> producing -> comparing -> reviewed -> accepted; comparing -> failed_c
 
 ## Reviewer / Human Gate / ADR
 
-- Reviewer：QA / Validation 與 Backend / DBA, Tech Lead / Captain 交叉 review；產出者不得自我驗收。
+- Reviewer：QA / Security / DevOps 與 Backend / DBA, Tech Lead / Captain 交叉 review；產出者不得自我驗收。
 - Human Gate：正式 Pilot 前的雙製通過門檻與抽樣策略需人類簽核。
 - ADR Gate：若變更 DB、Object Storage / WORM、SSO / API session、PDF library、稽核 fail-closed、Go / No-Go 或架構邊界，必須 ADR。
 

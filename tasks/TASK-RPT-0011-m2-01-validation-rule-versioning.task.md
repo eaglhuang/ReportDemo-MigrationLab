@@ -3,11 +3,16 @@ task_id: TASK-RPT-0011
 source_milestone: M2-01
 title: "建立檢核規則版本"
 status: planned
-owner: backend-qa-security
+owner: "Backend / DBA"
 priority: P0
 milestone: M2
 drill_stage: "Backlog"
 execution_mode: "requires-full-spec-before-start"
+primary_role: "Backend / DBA"
+closure_reviewer: "Tech Lead / Captain"
+support_roles:
+  - "Tech Lead / Captain"
+  - "QA / Security / DevOps"
 depends_on:
   - "TASK-RPT-0003"
   - "TASK-RPT-0009"

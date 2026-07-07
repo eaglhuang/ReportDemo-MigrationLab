@@ -1,3 +1,14 @@
+# 2026-07-07 - 文件瘦身、DRI 收斂與 TASK-RPT-0004 workstream
+
+範圍：移除重複每日作戰手冊、封存過渡分析文件，將每日協作固定為 README / keep.summary / 每日 roster / RB-06 / 任務卡的單一路線。
+
+| 變更 | 影響文件 |
+| --- | --- |
+| 刪除 `docs/daily-execution-plan.md`；每日六步驟、派工單格式、AI 回報、review 與 EOD 統一由 RB-06 維護。 | `runbooks/RB-06-ai-dispatch-cycle.md` |
+| 封存 AI 主導三人併行排程分析；其有效規則已收斂到 ADR-016、RB-06 與每日任務卡排程。 | `archive/AI主導三人併行排程與缺口分析.md` |
+| README 新增三角色新人地圖與每日閱讀路線，不另開 ownership map 文件。 | `README.md` |
+| `primary_role` 正式定義為單一 DRI，新增 `closure_reviewer`；AI 不得擔任 DRI 或 closure reviewer。 | `tasks/README.md`、`tasks/TASK-RPT-*.task.md`、`tools/generate_reportdemo_task_cards.py` |
+| `TASK-RPT-0004` 保留為母任務卡，新增 0004a/0004b/0004c 卡內 workstream 與 evidence 命名；不建立正式子任務卡。 | `tasks/TASK-RPT-0004-m0-04-third-party-cross-platform-poc.task.md`、`evidence/MVP1/daily-dispatch-*.md` |
 # 內部人員交易報表轉媒體儲存系統
 ## 版本異動摘要 Change Log
 
@@ -185,7 +196,7 @@
 | 異動 | 併入文件 / 章節或任務卡 |
 | --- | --- |
 | 新增《Agent Team 計畫書 v1.0》，定義本任務 Agent Team 協作 source of truth。 | `內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md` |
-| 新增 Agent 角色：Captain / Coordinator、Implementer、Security / Permission、Audit / Evidence、QA / Validation、Reviewer。 | Agent Team 計畫書 §3 |
+| 新增 Agent 角色：Captain / Coordinator、Implementer、Security / Permission、Audit / Evidence、QA / Security / DevOps、Reviewer。 | Agent Team 計畫書 §3 |
 | 新增 M5-01 下載閘道與 M5-02 動態浮水印的 Agent 派工範例。 | Agent Team 計畫書 §4、§5 |
 | 新增 Agent 違規阻擋機制：任務卡 scope、Permission Broker、lease / fencing、tool sandbox、validator / reviewer、closure gate。 | Agent Team 計畫書 §8 |
 | 新增 ADR-011「Agent Team 自動決策、人類簽核與違規阻擋邊界」。 | `決策紀錄樣板ADR.md` §14 |

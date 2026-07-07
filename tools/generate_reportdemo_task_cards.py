@@ -119,17 +119,17 @@ DEPENDENCIES = {
 }
 
 OWNER_BY_MILESTONE = {
-    "M0": "project-captain",
-    "M1": "backend-dba",
-    "M2": "backend-qa-security",
-    "M3": "backend-report-engineer",
-    "M4": "backend-storage-devops",
-    "M5": "backend-security",
-    "M6": "backend-frontend-qa",
-    "M7": "security-sre",
-    "M8": "security-admin",
-    "M9": "project-captain-devops",
-    "M10": "project-captain-qa",
+    "M0": "Tech Lead / Captain",
+    "M1": "Backend / DBA",
+    "M2": "QA / Security / DevOps",
+    "M3": "Backend / DBA",
+    "M4": "Backend / DBA",
+    "M5": "Backend / DBA",
+    "M6": "Backend / DBA",
+    "M7": "QA / Security / DevOps",
+    "M8": "QA / Security / DevOps",
+    "M9": "Tech Lead / Captain",
+    "M10": "Tech Lead / Captain",
 }
 
 STAGE_BY_TASK = {
@@ -186,6 +186,12 @@ def primary_role(milestone: str) -> str:
     return PRIMARY_ROLE_BY_MILESTONE.get(milestone, "Tech Lead / Captain")
 
 
+def closure_reviewer(role: str) -> str:
+    if role == "Tech Lead / Captain":
+        return "QA / Security / DevOps"
+    return "Tech Lead / Captain"
+
+
 def execution_mode(task_id: str) -> str:
     if drill_stage(task_id) == "Backlog":
         return "requires-full-spec-before-start"
@@ -195,11 +201,8 @@ def execution_mode(task_id: str) -> str:
 
 
 def support_roles(milestone: str) -> list[str]:
-    if milestone in {"M5", "M7", "M8", "M9", "M10"}:
-        return ["Tech Lead / Captain", "Backend / DBA", "QA / Security / DevOps"]
-    if milestone in {"M1", "M2", "M3", "M4"}:
-        return ["Tech Lead / Captain", "QA / Security / DevOps"]
-    return ["Backend / DBA", "QA / Security / DevOps"]
+    role = primary_role(milestone)
+    return [candidate for candidate in ["Tech Lead / Captain", "Backend / DBA", "QA / Security / DevOps"] if candidate != role]
 
 
 def parse_sections() -> list[dict[str, object]]:
@@ -280,6 +283,7 @@ def task_card(seq: int, section: dict[str, object]) -> tuple[str, str]:
     stage = drill_stage(task_id)
     mode = execution_mode(task_id)
     role = primary_role(milestone)
+    reviewer = closure_reviewer(role)
     slug = SLUGS[code]
     filename = f"{task_id}-{code.lower()}-{slug}.task.md"
     owner = OWNER_BY_MILESTONE[milestone]
@@ -326,6 +330,7 @@ agent_team_plan: "{AGENT_TEAM_PLAN}"
 drill_stage: "{stage}"
 execution_mode: "{mode}"
 primary_role: "{role}"
+closure_reviewer: "{reviewer}"
 support_roles:{yaml_list(support_roles(milestone))}
 evidence_path: "evidence/{stage}/{task_id}/"
 scopePaths:{yaml_list(task_scope(code))}
@@ -409,7 +414,7 @@ nonGoals:
 
 ## Reviewer / Human Gate / ADR
 
-- Reviewer：依 `primary_role` 與 `support_roles` 指派，產出者不得自我驗收。
+- Reviewer：依 `closure_reviewer` 指派，且不得等於 `primary_role`；AI 不得擔任 DRI 或 closure reviewer。
 - Human Gate：正式資料、權限放寬、稽核例外、正式切換與舊系統下線必須人類簽核。
 - ADR Gate：DB、Object Storage / WORM、SSO / API session、PDF library、稽核 fail-closed、Go / No-Go 或架構邊界變更必須 ADR。
 
@@ -433,7 +438,7 @@ def readme(sections: list[dict[str, object]]) -> str:
         depends = ", ".join(DEPENDENCIES.get(code, [])) or "none"
         rows.append(f"| [{task_id}](./{filename}) | {code} | {milestone} | {title} | planned | {depends} |")
     return f"""---
-owner: project-captain
+owner: "Tech Lead / Captain"
 status: active
 related_plan: {RELATED_PLAN}
 agent_team_plan: {AGENT_TEAM_PLAN}
@@ -470,7 +475,7 @@ This directory turns the function milestone plan into dispatchable task cards fo
 
 - `Agent Team plan v1.0` is the task dispatch source of truth and does not depend on any external codebase or existing Team Agents runtime.
 - 正式接卡前需確認 Agent role、reviewer、validator、human sign-off 與 ADR gate。
-- M5、M7、M8、M9 或涉及正式資料的任務卡，需額外納入 Security / Permission、Audit / Evidence、QA / Validation 或人類簽核。
+- M5、M7、M8、M9 或涉及正式資料的任務卡，需額外納入 QA / Security / DevOps、QA / Security / DevOps、QA / Security / DevOps 或人類簽核。
 - 若 Agent 自動決策與資安、稽核或 ADR 衝突，任務卡不得 closure，需先升級人類或 ADR 裁決。
 - 違規阻擋機制至少包含：任務卡 scope、tool sandbox / CI scope check、validator / reviewer、command-backed evidence 與 closure gate。
 

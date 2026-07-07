@@ -3,11 +3,16 @@ task_id: TASK-RPT-0020
 source_milestone: M4-02
 title: "建立 PDF 儲存區"
 status: planned
-owner: backend-storage-devops
+owner: "Backend / DBA"
 priority: P1
 milestone: M4
 drill_stage: "Backlog"
 execution_mode: "requires-full-spec-before-start"
+primary_role: "Backend / DBA"
+closure_reviewer: "Tech Lead / Captain"
+support_roles:
+  - "Tech Lead / Captain"
+  - "QA / Security / DevOps"
 depends_on:
   - "TASK-RPT-0004"
   - "TASK-RPT-0019"

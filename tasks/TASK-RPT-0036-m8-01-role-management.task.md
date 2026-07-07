@@ -3,15 +3,16 @@ task_id: TASK-RPT-0036
 source_milestone: M8-01
 title: "角色管理"
 status: planned
-owner: project-captain
+owner: "QA / Security / DevOps"
 priority: P0
 milestone: M8
 drill_stage: "Pilot"
 execution_mode: "ai-with-human-review"
-primary_role: "Security / Permission Agent"
+primary_role: "QA / Security / DevOps"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
+  - "Tech Lead / Captain"
   - "Backend / DBA"
-  - "Audit / Evidence Agent"
 depends_on:
   - "TASK-RPT-0014"
   - "TASK-RPT-0033"
@@ -166,7 +167,7 @@ draft -> pending_review -> active -> disabled; pending_review -> rejected
 
 ## Reviewer / Human Gate / ADR
 
-- Reviewer：Security / Permission Agent 與 Backend / DBA, Audit / Evidence Agent 交叉 review；產出者不得自我驗收。
+- Reviewer：QA / Security / DevOps 與 Backend / DBA, QA / Security / DevOps 交叉 review；產出者不得自我驗收。
 - Human Gate：Admin 職責分離、雙人覆核與高權限角色清單需人類簽核。
 - ADR Gate：若變更 DB、Object Storage / WORM、SSO / API session、PDF library、稽核 fail-closed、Go / No-Go 或架構邊界，必須 ADR。
 

@@ -3,11 +3,16 @@ task_id: TASK-RPT-0016
 source_milestone: M3-02
 title: "建立報表產生任務"
 status: planned
-owner: backend-report-engineer
+owner: "Backend / DBA"
 priority: P1
 milestone: M3
 drill_stage: "Backlog"
 execution_mode: "requires-full-spec-before-start"
+primary_role: "Backend / DBA"
+closure_reviewer: "Tech Lead / Captain"
+support_roles:
+  - "Tech Lead / Captain"
+  - "QA / Security / DevOps"
 depends_on:
   - "TASK-RPT-0015"
 related_plan: "內部人員交易報表轉媒體儲存系統_功能里程碑計畫.md"

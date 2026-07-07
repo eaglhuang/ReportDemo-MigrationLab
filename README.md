@@ -1,66 +1,63 @@
 # ReportDemo Migration Lab
 
-本 repo 是「內部人員交易報表轉媒體儲存系統」的獨立模擬搬移實驗室，用來保存計畫書、任務卡、ADR、演練 runbook、驗收 evidence，以及以 Qutora 作為本演練舊系統的執行紀錄。
-
-## 固定事實
-
-| 項目 | 內容 |
-| --- | --- |
-| 本演練舊系統 | Qutora |
-| 舊系統位置 | `open-source-sandbox/qutora-api` |
-| 固定 commit | `de156e0eb72d58772a76e570eb711db344bedfc0` |
-| 舊系統 DB | Qutora SQL Server / `QutoraDB` |
-| 本演練目標 DB | MariaDB，依 ADR-013，僅限本演練路線 |
-| 正式資料原則 | 不得使用未脫敏正式資料 |
-
-Qutora 代表本次演練舊系統，用於驗證搬移流程、PDF 移轉、metadata、下載、權限、稽核與平行驗證；不宣稱涵蓋真實券商舊系統的全部業務規則、正式資料、法遵規則或報表計算邏輯。
+本 repo 是「內部人員交易報表轉媒體儲存系統」的遷移演練場，目標是用 Qutora、MariaDB、任務卡、runbook 與 evidence，把舊報表流程逐步驗證到可上線的節奏。
 
 ## 文件權威順序
 
-| 順序 | 文件 | 說了算的範圍 |
+| 順位 | 文件 | 用途 |
 | ---: | --- | --- |
-| 1 | `README.md` | 先讀什麼、什麼文件說了算、三人小隊如何開始。 |
-| 2 | `docs/keep.summary.md` | AI 與人類開工 preflight、固定事實、閱讀順序、任務卡閱讀規則與決策邊界。 |
-| 3 | `docs/daily-execution-plan.md` | 每日開工靜態作戰手冊；實例落在 evidence，格式 owner 仍是 RB-06。 |
-| 4 | `內部人員交易報表轉媒體儲存系統_系統架構與治理計畫書.md` | 架構、安全、權限、PDF、浮水印、稽核、告警、NFR 與治理邊界。 |
-| 5 | `內部人員交易報表轉媒體儲存系統_功能里程碑計畫.md` | 功能範圍、M0 到 M10 里程碑與驗收條件。 |
-| 6 | `決策紀錄樣板ADR.md` | 人類決策、ADR 狀態、Qutora、MariaDB、MVP 節奏與任務卡 gate。 |
-| 7 | `內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md` | Agent Team 派工、review、validator、human / ADR gate 與違規阻擋。 |
-| 8 | `drills/分階段演練與驗收計畫.md` | 三人小隊分階段執行、驗收、Gate 與 evidence package。 |
-| 9 | `drills/AI主導三人併行排程與缺口分析.md` | 三人皆具 AI 環境時的壓縮排程、AI / HUMAN 標籤、review WIP 與缺口清單。 |
-| 10 | `drills/每日任務卡排程.md` | 14 週每日三人任務卡 roster；每人每天至少 1 張主責卡，含目標、步驟與下班驗收。 |
-| 11 | `runbooks/` | 可照做的操作手冊；其中 RB-06 是每日派工單與 AI 回報格式唯一 owner。 |
-| 12 | `tasks/` | 可派工任務卡與任務卡開工標準。 |
+| 1 | `README.md` | 全 repo 入口、閱讀路線、角色地圖。 |
+| 2 | `docs/keep.summary.md` | 每次開工 preflight 摘要；只有要改共識才讀 `docs/keep.md` 全文。 |
+| 3 | `內部人員交易報表轉媒體儲存系統_架構暨功能規格書.md` | 系統範圍、Qutora/MariaDB/PDF/storage/security 規格。 |
+| 4 | `內部人員交易報表轉媒體儲存系統_功能階段計畫書.md` | M0 到 M10 里程碑與功能分期。 |
+| 5 | `決策紀錄樣板ADR.md` | 架構決策、AI 協作、人類 Gate 與不可逆決策。 |
+| 6 | `內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md` | 三人角色、review、validator、human / ADR gate。 |
+| 7 | `tasks/README.md` + `tasks/TASK-RPT-*.task.md` | 任務卡契約、單一 DRI、closure reviewer、實際交付邊界。 |
+| 8 | `drills/分階段演練與驗收計畫.md` | MVP1 / MVP2 / Pilot / Production Candidate 的 Gate 範圍。 |
+| 9 | `drills/每日任務卡排程.md` | 每日 WHAT/WHEN roster；今天誰做哪張卡。 |
+| 10 | `runbooks/RB-06-ai-dispatch-cycle.md` | 每日 HOW；派工單、六步驟、AI 回報、review、EOD。 |
+| 11 | `runbooks/` | 各主題操作手冊。 |
+| 12 | `evidence/` | 每日派工單、任務證據、Gate package。 |
+| 13 | `archive/` | 歷史分析與過渡文件；不能作為現行規則。 |
 
-若文件衝突，先依架構治理與已簽核 ADR 判定邊界，再更新演練計畫、runbook 與任務卡。
+## 每日閱讀路線
 
-## 三人小隊首讀清單
+每天開工只走這條：
 
-| 角色 | 先讀 | 第二步 |
-| --- | --- | --- |
-| Tech Lead / Captain | 本 README、`docs/keep.summary.md`、架構與治理計畫書、ADR | 讀 `docs/daily-execution-plan.md`、`drills/分階段演練與驗收計畫.md` 第 1 到 3 章，再讀 `drills/AI主導三人併行排程與缺口分析.md` 與 `drills/每日任務卡排程.md` 確認 AI 主導排程、每日領卡、WIP 與 Gate。 |
-| Backend / DBA | 功能里程碑計畫、ADR-012、ADR-013、ADR-015 | 讀 MVP1 / MVP2 階段、`RB-02-seed-data-synthetic-pdf.md` 與 `RB-05-mariadb-environment.md`。 |
-| QA / Security / DevOps | Agent Team 計畫書、`tasks/README.md` | 讀 `RB-01-qutora-startup.md`、`RB-03-evidence-standard.md`、`RB-04-rollback-rehearsal.md`、`RB-07-parallel-run-operations.md`、`RB-09-backup-recovery-policy.md`。 |
+1. 讀 `docs/keep.summary.md`，確認最高共識與 preflight。
+2. 讀 `drills/每日任務卡排程.md`，找今天的 WHAT/WHEN。
+3. 讀 `runbooks/RB-06-ai-dispatch-cycle.md`，照 HOW 產生或更新 `evidence/<Stage>/daily-dispatch-YYYY-MM-DD.md`。
+4. 讀當天涉及的 `tasks/TASK-RPT-*.task.md`，只讀任務卡內的 scope、deliverables、validators、evidence path。
+5. 收工時把 evidence 與 review 結果回填到派工單與任務卡指定位置。
 
-## 12 步執行路線
+## 角色新人地圖
 
-1. 讀本 README，確認固定事實與文件權威順序。
+| 情境 | Tech Lead / Captain | Backend / DBA | QA / Security / DevOps |
+| --- | --- | --- | --- |
+| 第一天理解全貌 | `README.md` -> `docs/keep.summary.md` -> 架構規格書 -> 功能階段計畫書 -> ADR | `README.md` -> `docs/keep.summary.md` -> 架構規格書的 DB / migration / PDF metadata 段落 -> ADR-012/013/015 | `README.md` -> `docs/keep.summary.md` -> Agent Team 計畫書 -> `tasks/README.md` -> RB-03/RB-04 |
+| 每日開工 | `drills/每日任務卡排程.md` -> RB-06 -> 今日 dispatch -> 任務卡 | 今日 dispatch -> 任務卡 -> 對應 DB / migration / storage runbook | 今日 dispatch -> 任務卡 -> RB-03 evidence -> 對應 validation/security runbook |
+| 建立派工單 | RB-06 -> 每日 roster -> 任務卡 `primary_role` / `closure_reviewer` | 只確認自己是 DRI 或 contributor，不自行改責任歸屬 | 確認 reviewer 不等於 producer，並檢查 evidence 可重現 |
+| 任務卡責任 | `primary_role` 是單一 DRI；Captain 只在卡片標示自己時負責 closure | 只對 `primary_role: Backend / DBA` 的卡負 closure | 只對 `primary_role: QA / Security / DevOps` 的卡負 closure |
+| Gate / ADR | ADR、Go / No-Go、scope cut、人類決策 | 提供技術證據與風險摘要 | 提供 validator、security、audit、rollback 證據 |
+| 找不到方向 | 回到 `docs/keep.summary.md` 與 RB-06 | 回到任務卡 `scopePaths` / `deliverables` | 回到 RB-03 與任務卡 `validators` |
+
+## 12 步啟動流程
+
+1. 讀本 README 與 `docs/keep.summary.md`。
 2. 執行 `git submodule update --init --recursive`，確認 Qutora commit。
 3. 依 `runbooks/RB-01-qutora-startup.md` 啟動 Qutora 與 SQL Server。
-4. 依 `runbooks/RB-02-seed-data-synthetic-pdf.md` 建立合成 PDF 與 metadata。
-5. 依 `runbooks/RB-03-evidence-standard.md` 建立 evidence index。
-6. 執行 `drills/分階段演練與驗收計畫.md` 的 MVP1；若三人皆具 AI 環境，依 `docs/daily-execution-plan.md`、`drills/AI主導三人併行排程與缺口分析.md`、`drills/每日任務卡排程.md` 與 `runbooks/RB-06-ai-dispatch-cycle.md` 進行每日領卡、派工、review 與 evidence 收口。
-7. MVP1 Gate 通過後，依 `runbooks/RB-05-mariadb-environment.md` 建立 MariaDB 演練環境。
-8. 依 ADR-015 在 `poc/` 與 `tools/` 內執行 MVP2 PoC，不修改 Qutora 原始碼。
-9. MVP2 Gate 通過後，升級 Pilot 核心任務卡並執行 Pilot。
-10. Pilot Gate 通過後，準備 Production Candidate evidence package。
-11. 依 `runbooks/RB-04-rollback-rehearsal.md` 與 `runbooks/RB-09-backup-recovery-policy.md` 執行 backup / restore / rollback dry run，並依 ADR 與 Gate 總表完成 human sign-off。
-12. 若要正式上線或下線舊路徑，必須依 `runbooks/RB-08-cutover-runbook.md` 執行切換 rehearsal，並另行取得 Go / No-Go 簽核。
+4. 依 `runbooks/RB-02-seed-data-synthetic-pdf.md` 建立測試 PDF 與 metadata。
+5. 依 `runbooks/RB-03-evidence-standard.md` 建 evidence index。
+6. 依 `drills/分階段演練與驗收計畫.md` 執行 MVP1。
+7. 每日依 `drills/每日任務卡排程.md`、RB-06 與任務卡開工。
+8. MVP1 Gate 通過後，依 `runbooks/RB-05-mariadb-environment.md` 建 MariaDB 環境。
+9. 依 ADR-015 在 `poc/` 與 `tools/` 做 MVP2 PoC，不改 Qutora 原始碼。
+10. Gate 通過後進 Pilot，再收斂 Production Candidate evidence package。
+11. 依 RB-04 與 RB-09 驗證 backup / restore / rollback dry run。
+12. 最終 Go / No-Go 只能由人類依 ADR 與 Gate evidence 決策。
 
-## 第一個命令
+## 常用命令
 
 ```powershell
 git submodule update --init --recursive
 ```
-
-完成後請依 `runbooks/RB-01-qutora-startup.md` 繼續。

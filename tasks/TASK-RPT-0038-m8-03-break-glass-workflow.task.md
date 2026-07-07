@@ -3,15 +3,16 @@ task_id: TASK-RPT-0038
 source_milestone: M8-03
 title: "break-glass 緊急維修流程"
 status: planned
-owner: project-captain
+owner: "QA / Security / DevOps"
 priority: P0
 milestone: M8
 drill_stage: "ProductionCandidate"
 execution_mode: "human-only"
-primary_role: "Security / Permission Agent"
+primary_role: "QA / Security / DevOps"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
-  - "Audit / Evidence Agent"
   - "Tech Lead / Captain"
+  - "Backend / DBA"
 depends_on:
   - "TASK-RPT-0035"
   - "TASK-RPT-0036"
@@ -166,7 +167,7 @@ requested -> approved -> active -> expired -> reviewed; requested -> rejected
 
 ## Reviewer / Human Gate / ADR
 
-- Reviewer：Security / Permission Agent 與 Audit / Evidence Agent, Tech Lead / Captain 交叉 review；產出者不得自我驗收。
+- Reviewer：QA / Security / DevOps 與 QA / Security / DevOps, Tech Lead / Captain 交叉 review；產出者不得自我驗收。
 - Human Gate：每次 break-glass 啟用、延長或事後放行都需人類簽核。
 - ADR Gate：若變更 DB、Object Storage / WORM、SSO / API session、PDF library、稽核 fail-closed、Go / No-Go 或架構邊界，必須 ADR。
 

@@ -3,12 +3,13 @@ task_id: TASK-RPT-0007
 source_milestone: M1-01
 title: "建立匯入批次管理"
 status: planned
-owner: backend-dba
+owner: "Backend / DBA"
 priority: P0
 milestone: M1
 drill_stage: "MVP2"
 execution_mode: "ai-with-human-review"
 primary_role: "Backend / DBA"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
   - "Tech Lead / Captain"
   - "QA / Security / DevOps"

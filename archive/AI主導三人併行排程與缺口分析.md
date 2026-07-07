@@ -121,3 +121,12 @@ Production Candidate: 3 週
 ```
 
 此 14 週是 AI 主導三人小隊的 Base Plan，不是保證時程。若 W3 結束時 MVP2 的下載閘道、浮水印、hash、audit fail-closed 任一項不能留下可重跑 evidence，需立即改採 16 到 18 週保守排程。
+# Archived Notice
+
+本文件已封存為歷史分析資料，不再作為每日派工或任務卡治理的執行準則。
+
+目前有效規則請讀：
+
+- `決策紀錄樣板ADR.md` 的 ADR-016：AI 主導、人類 Gate 與時間邊界。
+- `runbooks/RB-06-ai-dispatch-cycle.md`：每日 HOW，包含每日六步驟、派工單格式、AI 回報、review、EOD。
+- `drills/每日任務卡排程.md`：每日 WHAT/WHEN roster。

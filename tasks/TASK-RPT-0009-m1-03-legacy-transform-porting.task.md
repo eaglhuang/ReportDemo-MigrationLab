@@ -3,11 +3,16 @@ task_id: TASK-RPT-0009
 source_milestone: M1-03
 title: "移植或重寫舊資料轉換邏輯"
 status: planned
-owner: backend-dba
+owner: "Backend / DBA"
 priority: P0
 milestone: M1
 drill_stage: "Backlog"
 execution_mode: "requires-full-spec-before-start"
+primary_role: "Backend / DBA"
+closure_reviewer: "Tech Lead / Captain"
+support_roles:
+  - "Tech Lead / Captain"
+  - "QA / Security / DevOps"
 depends_on:
   - "TASK-RPT-0005"
   - "TASK-RPT-0008"

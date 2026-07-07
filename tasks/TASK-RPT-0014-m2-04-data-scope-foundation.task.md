@@ -3,12 +3,13 @@ task_id: TASK-RPT-0014
 source_milestone: M2-04
 title: "建立 Data Scope 基礎規則"
 status: planned
-owner: backend-qa-security
+owner: "QA / Security / DevOps"
 priority: P0
 milestone: M2
 drill_stage: "MVP2"
 execution_mode: "ai-with-human-review"
 primary_role: "QA / Security / DevOps"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
   - "Tech Lead / Captain"
   - "Backend / DBA"

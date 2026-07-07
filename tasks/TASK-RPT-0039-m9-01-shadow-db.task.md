@@ -3,11 +3,16 @@ task_id: TASK-RPT-0039
 source_milestone: M9-01
 title: "建立 Shadow DB"
 status: planned
-owner: project-captain-devops
+owner: "Tech Lead / Captain"
 priority: P0
 milestone: M9
 drill_stage: "Backlog"
 execution_mode: "requires-full-spec-before-start"
+primary_role: "Tech Lead / Captain"
+closure_reviewer: "QA / Security / DevOps"
+support_roles:
+  - "Backend / DBA"
+  - "QA / Security / DevOps"
 depends_on:
   - "TASK-RPT-0004"
   - "TASK-RPT-0005"

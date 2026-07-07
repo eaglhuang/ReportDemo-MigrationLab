@@ -3,11 +3,16 @@ task_id: TASK-RPT-0027
 source_milestone: M5-04
 title: "建立高機密 PDF 控制"
 status: planned
-owner: backend-security
+owner: "Backend / DBA"
 priority: P1
 milestone: M5
 drill_stage: "Backlog"
 execution_mode: "requires-full-spec-before-start"
+primary_role: "Backend / DBA"
+closure_reviewer: "Tech Lead / Captain"
+support_roles:
+  - "Tech Lead / Captain"
+  - "QA / Security / DevOps"
 depends_on:
   - "TASK-RPT-0023"
   - "TASK-RPT-0024"

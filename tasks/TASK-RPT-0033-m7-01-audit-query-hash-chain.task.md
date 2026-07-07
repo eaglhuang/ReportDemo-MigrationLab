@@ -3,15 +3,16 @@ task_id: TASK-RPT-0033
 source_milestone: M7-01
 title: "稽核查詢與 Hash Chain"
 status: planned
-owner: project-captain
+owner: "QA / Security / DevOps"
 priority: P0
 milestone: M7
 drill_stage: "Pilot"
 execution_mode: "ai-with-human-review"
-primary_role: "Audit / Evidence Agent"
+primary_role: "QA / Security / DevOps"
+closure_reviewer: "Tech Lead / Captain"
 support_roles:
+  - "Tech Lead / Captain"
   - "Backend / DBA"
-  - "QA / Security / DevOps"
 depends_on:
   - "TASK-RPT-0010"
   - "TASK-RPT-0022"
@@ -166,7 +167,7 @@ append -> checkpointed -> verified; verify -> mismatch_blocked
 
 ## Reviewer / Human Gate / ADR
 
-- Reviewer：Audit / Evidence Agent 與 Backend / DBA, QA / Security / DevOps 交叉 review；產出者不得自我驗收。
+- Reviewer：QA / Security / DevOps 與 Backend / DBA, QA / Security / DevOps 交叉 review；產出者不得自我驗收。
 - Human Gate：Hash Chain 範圍邊界、保存年限與匯出權限需稽核簽核。
 - ADR Gate：若變更 DB、Object Storage / WORM、SSO / API session、PDF library、稽核 fail-closed、Go / No-Go 或架構邊界，必須 ADR。
 

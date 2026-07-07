@@ -3,15 +3,32 @@ task_id: TASK-RPT-0004
 source_milestone: M0-04
 title: "建立第三方與跨平台 PoC"
 status: planned
-owner: project-captain
+owner: "Tech Lead / Captain"
 priority: P0
 milestone: M0
 drill_stage: "MVP1"
 execution_mode: "ai-with-human-review"
 primary_role: "Tech Lead / Captain"
+closure_reviewer: "QA / Security / DevOps"
 support_roles:
   - "Backend / DBA"
   - "QA / Security / DevOps"
+workstreams:
+  - id: "0004a"
+    title: "Qutora startup / admin / token PoC"
+    primary_role: "QA / Security / DevOps"
+    closure_reviewer: "Tech Lead / Captain"
+    evidence: "evidence/MVP1/TASK-RPT-0004/0004a-qutora-startup-poc.md"
+  - id: "0004b"
+    title: "DB provider compatibility"
+    primary_role: "Backend / DBA"
+    closure_reviewer: "Tech Lead / Captain"
+    evidence: "evidence/MVP1/TASK-RPT-0004/0004b-db-provider-compat.md"
+  - id: "0004c"
+    title: "PDF / storage / auth decision summary"
+    primary_role: "Tech Lead / Captain"
+    closure_reviewer: "QA / Security / DevOps"
+    evidence: "evidence/MVP1/TASK-RPT-0004/0004c-decision-summary.md"
 depends_on:
   - "TASK-RPT-0001"
   - "TASK-RPT-0002"
@@ -30,11 +47,9 @@ scopePaths:
   - "open-source-sandbox/qutora-api/Qutora.Database.MySQL/**"
   - "open-source-sandbox/qutora-api/Qutora.Database.PostgreSQL/**"
 deliverables:
-  - "evidence/MVP1/TASK-RPT-0004/qutora-startup-poc.md"
-  - "evidence/MVP1/TASK-RPT-0004/db-provider-compatibility.md"
-  - "evidence/MVP1/TASK-RPT-0004/pdf-library-risk.md"
-  - "evidence/MVP1/TASK-RPT-0004/storage-auth-poc.md"
-  - "evidence/MVP1/TASK-RPT-0004/poc-decision-summary.md"
+  - "evidence/MVP1/TASK-RPT-0004/0004a-qutora-startup-poc.md"
+  - "evidence/MVP1/TASK-RPT-0004/0004b-db-provider-compat.md"
+  - "evidence/MVP1/TASK-RPT-0004/0004c-decision-summary.md"
 validators:
   - "V-0004-01"
   - "V-0004-02"
@@ -60,6 +75,17 @@ nonGoals:
   - "完成正式跨平台部署"
   - "完成 MariaDB migration 實作"
 ---
+## Workstreams
+
+TASK-RPT-0004 remains one formal task card. Use internal workstreams for daily dispatch only:
+
+| Workstream | Owner role | Reviewer | Evidence |
+| --- | --- | --- | --- |
+| 0004a | QA / Security / DevOps | Tech Lead / Captain | `evidence/MVP1/TASK-RPT-0004/0004a-qutora-startup-poc.md` |
+| 0004b | Backend / DBA | Tech Lead / Captain | `evidence/MVP1/TASK-RPT-0004/0004b-db-provider-compat.md` |
+| 0004c | Tech Lead / Captain | QA / Security / DevOps | `evidence/MVP1/TASK-RPT-0004/0004c-decision-summary.md` |
+
+Do not create TASK-RPT-0004a / 0004b / 0004c as formal task cards unless each item becomes independently scheduled, independently gated, and independently closable; record that split in ChangeLog.
 # TASK-RPT-0004 - M0-04 建立第三方與跨平台 PoC
 
 ## 任務目標

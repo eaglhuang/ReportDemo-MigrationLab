@@ -3,12 +3,13 @@ task_id: TASK-RPT-0001
 source_milestone: M0-01
 title: "盤點既有報表"
 status: planned
-owner: project-captain
+owner: "Tech Lead / Captain"
 priority: P0
 milestone: M0
 drill_stage: "MVP1"
 execution_mode: "ai-with-human-review"
 primary_role: "Tech Lead / Captain"
+closure_reviewer: "QA / Security / DevOps"
 support_roles:
   - "Backend / DBA"
   - "QA / Security / DevOps"
