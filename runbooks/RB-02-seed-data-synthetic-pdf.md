@@ -44,6 +44,23 @@ python tools/generate_synthetic_pdf.py --count 20 --out evidence/Pilot/synthetic
 | legacy_document_id | 空值，待 Qutora 上傳後回填 | 舊系統 reference |
 | trace_id | `TRACE-SYN-0001` | 跨流程追蹤用 |
 
+## Qutora API 呼叫起手式
+
+Qutora 的文件上傳、查詢與下載 endpoint 以 Swagger（`http://localhost:8080/swagger`）為準；盤點出的實際 endpoint、request 欄位與回應格式屬於 `TASK-RPT-0001` 的盤點交付物，需記入 evidence。呼叫時以 RB-01 第 9 步取得的 token 帶入授權：
+
+```powershell
+$headers = @{ Authorization = "Bearer $($login.token)" }
+
+# 範例：查詢（實際路徑以 Swagger 為準）
+Invoke-RestMethod -Uri "http://localhost:8080/api/documents" -Headers $headers
+
+# 範例：multipart 檔案上傳（實際路徑與欄位名以 Swagger 為準）
+Invoke-RestMethod -Method Post -Uri "http://localhost:8080/api/documents" -Headers $headers `
+  -Form @{ file = Get-Item "evidence/MVP1/TASK-RPT-0003/synthetic-pdf/SYN-0001-RPT-INSIDER-001.pdf" }
+```
+
+注意：`-Form` 需要 PowerShell 7；若只有 Windows PowerShell 5.1，改用 Swagger UI 手動上傳並截圖記錄，或用 `curl.exe -F "file=@<path>"`（`-F` 不經 JSON，無引號剝除問題）。不要用 `curl.exe -d '{...}'` 帶 JSON。
+
 ## MVP1 操作流程
 
 1. 產生 3 份合成 PDF 與 metadata。

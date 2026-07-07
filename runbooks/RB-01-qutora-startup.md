@@ -39,6 +39,8 @@ if (-not (Test-Path runbooks/.env.qutora)) {
 docker compose --env-file runbooks/.env.qutora -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml config --quiet
 ```
 
+預期輸出：無錯誤即通過。會出現一行 `the attribute 'version' is obsolete` warning，這來自 Qutora 官方 compose 檔，屬預期輸出、不算失敗，不需要修改 submodule。
+
 5. 啟動 SQL Server 與 Qutora。
 
 ```powershell
@@ -62,18 +64,27 @@ docker compose --env-file runbooks/.env.qutora -f open-source-sandbox/qutora-api
 
 8. 初始化 admin user。
 
+注意：不要用 `curl.exe -d '{...}'` 直接帶 JSON。Windows PowerShell 傳參給原生執行檔時會剝除 JSON 內的雙引號，API 會收到不合法 JSON 而回 400。統一改用 PowerShell 原生 `Invoke-RestMethod`。
+
 先確認系統尚未初始化：
 
 ```powershell
-curl.exe http://localhost:8080/api/auth/system-status
+Invoke-RestMethod -Uri http://localhost:8080/api/auth/system-status
 ```
 
 預期尚未初始化時回傳 `isInitialized: false`。接著建立第一個 admin：
 
 ```powershell
-curl.exe -X POST http://localhost:8080/api/auth/initial-setup `
-  -H "Content-Type: application/json" `
-  -d '{ "email": "admin@qutora.local", "password": "AdminPassword123!", "firstName": "Admin", "lastName": "User", "organizationName": "ReportDemo Migration Lab" }'
+$setupBody = @{
+  email            = "admin@qutora.local"
+  password         = "AdminPassword123!"
+  firstName        = "Admin"
+  lastName         = "User"
+  organizationName = "ReportDemo Migration Lab"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Method Post -Uri http://localhost:8080/api/auth/initial-setup `
+  -ContentType "application/json" -Body $setupBody
 ```
 
 預期回應包含 `System setup completed successfully. Please log in.`。此 endpoint 只能執行一次；若回傳 already initialized，需改以登入驗證既有 admin 是否可用，不得刪除正式或有用的 Docker volume。
@@ -81,12 +92,33 @@ curl.exe -X POST http://localhost:8080/api/auth/initial-setup `
 9. 登入 admin，確認可取得 token。
 
 ```powershell
-curl.exe -X POST http://localhost:8080/api/auth/login `
-  -H "Content-Type: application/json" `
-  -d '{ "email": "admin@qutora.local", "password": "AdminPassword123!" }'
+$loginBody = @{
+  email    = "admin@qutora.local"
+  password = "AdminPassword123!"
+} | ConvertTo-Json
+
+$login = Invoke-RestMethod -Method Post -Uri http://localhost:8080/api/auth/login `
+  -ContentType "application/json" -Body $loginBody
+$login | Select-Object -Property * -ExcludeProperty *token* | Format-List
 ```
 
-登入回應需保存遮罩後的 evidence：可記錄 HTTP status、`success`、角色或 token 欄位是否存在，但不得把完整 JWT 或密碼寫入 repo。
+登入回應需保存遮罩後的 evidence：可記錄 HTTP status、`success`、角色或 token 欄位是否存在，但不得把完整 JWT 或密碼寫入 repo。後續呼叫 API 時以 `-Headers @{ Authorization = "Bearer $($login.token)" }` 帶入授權（實際 token 欄位名稱以回應為準）。
+
+## SQL Server 盤點命令
+
+供 `TASK-RPT-0002` 與 V-MVP1-09 使用。SQL Server 容器名稱固定為 `qutora-sqlserver`（見 compose 檔），2022 image 內建 `mssql-tools18`：
+
+```powershell
+docker exec qutora-sqlserver /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "<MSSQL_SA_PASSWORD>" -d QutoraDB -C -Q "SELECT name FROM sys.tables ORDER BY name"
+```
+
+匯出資料表清單到 evidence（密碼取自 `runbooks/.env.qutora`，不得寫入 evidence）：
+
+```powershell
+docker exec qutora-sqlserver /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "<MSSQL_SA_PASSWORD>" -d QutoraDB -C -s "," -W -Q "SELECT t.name AS table_name, c.name AS column_name, ty.name AS data_type, c.max_length, c.is_nullable FROM sys.tables t JOIN sys.columns c ON t.object_id = c.object_id JOIN sys.types ty ON c.user_type_id = ty.user_type_id ORDER BY t.name, c.column_id" > evidence/MVP1/TASK-RPT-0002/qutora-schema-inventory.csv
+```
+
+若 image 內找不到 `mssql-tools18`，改試 `/opt/mssql-tools/bin/sqlcmd`（省略 `-C`），並把實際可用路徑記入 evidence。
 
 ## Evidence
 
