@@ -23,32 +23,32 @@ git submodule status
 de156e0eb72d58772a76e570eb711db344bedfc0
 ```
 
-3. 準備 Qutora sample `.env`。
+3. 準備 Qutora `.env`（放在 repo 的 `runbooks/`，不放進 submodule，避免 submodule 出現 untracked 內容）。
 
 ```powershell
-if (-not (Test-Path open-source-sandbox/qutora-api/samples/.env)) {
-  Copy-Item open-source-sandbox/qutora-api/samples/env.sqlserver.example open-source-sandbox/qutora-api/samples/.env
+if (-not (Test-Path runbooks/.env.qutora)) {
+  Copy-Item open-source-sandbox/qutora-api/samples/env.sqlserver.example runbooks/.env.qutora
 }
 ```
 
-檢查 `open-source-sandbox/qutora-api/samples/.env` 至少包含 SQL Server、JWT 與 API 所需設定。密碼、JWT secret 與連線字串可保留在本機 `.env`，但不得把真實密碼、完整 token 或未遮罩連線字串寫入 evidence。
+檢查 `runbooks/.env.qutora` 至少包含 SQL Server、JWT 與 API 所需設定。密碼、JWT secret 與連線字串可保留在本機 `.env.qutora`，但不得把真實密碼、完整 token 或未遮罩連線字串寫入 evidence。`.env.qutora` 已被 `.gitignore` 排除，不得改名為未被排除的檔名。
 
 4. 檢查 Docker Compose。
 
 ```powershell
-docker compose --env-file open-source-sandbox/qutora-api/samples/.env -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml config --quiet
+docker compose --env-file runbooks/.env.qutora -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml config --quiet
 ```
 
 5. 啟動 SQL Server 與 Qutora。
 
 ```powershell
-docker compose --env-file open-source-sandbox/qutora-api/samples/.env -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml up -d
+docker compose --env-file runbooks/.env.qutora -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml up -d
 ```
 
 6. 記錄 container 狀態。
 
 ```powershell
-docker compose --env-file open-source-sandbox/qutora-api/samples/.env -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml ps
+docker compose --env-file runbooks/.env.qutora -f open-source-sandbox/qutora-api/samples/docker-compose.sqlserver.yml ps
 ```
 
 7. 確認存取端點。
@@ -98,9 +98,9 @@ evidence/MVP1/TASK-RPT-0001/qutora-startup.md
 
 至少包含：
 
-- submodule status。
-- `.env` 已由 sample 建立，敏感值已遮罩。
-- Docker Compose config 結果，需使用 `--env-file open-source-sandbox/qutora-api/samples/.env`。
+- submodule status（應為 clean，無 untracked 內容）。
+- `runbooks/.env.qutora` 已由 sample 建立，敏感值已遮罩。
+- Docker Compose config 結果，需使用 `--env-file runbooks/.env.qutora`。
 - container list。
 - API health 或 root endpoint 回應。
 - API / Swagger / SQL Server 端點可用性。
