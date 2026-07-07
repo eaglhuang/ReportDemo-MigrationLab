@@ -7,6 +7,9 @@
 
 | 異動 | 併入文件 / 章節或任務卡 |
 | --- | --- |
+| 新增每日任務卡排程，將 14 週 Base Plan 拆成每週 5 天、每天 3 人各至少 1 張主責任務卡；每格包含任務卡 ID、當日目標、操作步驟與下班驗收。 | `drills/每日任務卡排程.md` |
+| 每日排程明確標出新舊平行作業驗證、上線驗證、緊急備份回復措施、break-glass 與舊系統下線 Gate 的週次落點與不可壓縮條件。 | `drills/每日任務卡排程.md` §7 |
+| README、分階段演練計畫與 AI 主導排程文件新增每日 roster 引用，避免只停留在週級排程。 | `README.md`、`drills/分階段演練與驗收計畫.md`、`drills/AI主導三人併行排程與缺口分析.md` |
 | 新增 AI 主導三人併行排程與缺口分析，定義 `[AI]`、`[AI->HUMAN]`、`[HUMAN]`、`[GATE]` 標籤、Best/Base/Risk 三段時程、14 週排程、每日節奏與缺口清單。 | `drills/AI主導三人併行排程與缺口分析.md` |
 | 新增 AI 派工循環 runbook，定義每日派工單、AI 回報格式、review checklist、blocker 升級、週末規則與 end-of-day checklist。 | `runbooks/RB-06-ai-dispatch-cycle.md` |
 | README 補上新排程文件的權威順序、首讀清單與 12 步路線引用。 | `README.md` |

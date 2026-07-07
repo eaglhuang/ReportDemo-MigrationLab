@@ -8,6 +8,8 @@
 
 本文件在 `drills/分階段演練與驗收計畫.md` 之上，補充「三人皆具 AI 開發環境」時的壓縮排程與缺口分析。它不取代原演練計畫的 Gate、evidence、rollback、ADR 或 human sign-off；它只回答：AI 主開發後，三人小隊如何在每日 8 小時、週末不工作的限制下重排工作。
 
+每日早會實際發卡與下班驗收，依 `drills/每日任務卡排程.md` 執行。該文件要求三人小隊每人每天至少有 1 張主責任務卡，且每張卡需列出當日目標、操作步驟與驗收條件。
+
 ## 2. 執行前提
 
 | 前提 | 內容 |
@@ -58,6 +60,8 @@
 | W14 | 最終演練收斂 | `[AI]` 打包 final evidence、產生總結與交接清單。 | `[HUMAN]` 最終 Go / No-Go 演練決策；確認是否進真實專案下一階段。 | `[GATE]` Production Candidate evidence package 可審核、可重跑、可追溯。 |
 
 ## 6. 每日固定循環
+
+完整 14 週每日 roster 見 `drills/每日任務卡排程.md`；本章只定義每日時間盒與 review 節奏。
 
 | 時段 | Tech Lead / Captain | Backend / DBA | QA / Security / DevOps |
 | --- | --- | --- | --- |
