@@ -23,6 +23,7 @@
 | 分階段演練計畫補上 AI 主導排程前提與 12-14 週 Base Plan / 16-18 週 fallback 說明。 | `drills/分階段演練與驗收計畫.md` §2、§2.0 |
 | tasks README 補上 `execution_mode` 與 AI / HUMAN / GATE 標籤規則。 | `tasks/README.md` |
 | 45 張任務卡新增 `execution_mode` frontmatter；核心卡標記 `ai-with-human-review` 或 `human-only`，Backlog 標記 `requires-full-spec-before-start`。 | `tasks/TASK-RPT-*.task.md` |
+| 新增「演練範圍外任務卡與例外處理」：顯式列出 9 張不排入 14 週演練的任務卡（0005、0006、0009、0026、0027、0029-0032）與裁減理由；W14 驗收一律記為 documented exception 並彙整 next-phase recommendation；0027 高機密控制的裁減需於 W12 sign-off-record 的 conditions 欄顯式記載，缺此記載不得做出 conditional-go 以上結論。 | `drills/每日任務卡排程.md` §8、`TASK-RPT-0044`、`TASK-RPT-0045`、`決策紀錄樣板ADR.md` ADR-016 追蹤列 |
 | Agent Team 計畫書補上 AI 主導三人模式與不可越界邊界。 | `內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md` §2.1 |
 | 新增 ADR-016，接受本演練採 AI 主導三人併行模式，但 human / ADR gate 不得被 AI 取代。 | `決策紀錄樣板ADR.md` §19 |
 | RB-03 / RB-04 補上 AI producer、人類 reviewer、不得自審、rollback / break-glass 不可委派邊界。 | `runbooks/RB-03-evidence-standard.md`、`runbooks/RB-04-rollback-rehearsal.md` |

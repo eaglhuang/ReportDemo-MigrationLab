@@ -295,5 +295,5 @@
 | ADR-013 | Accepted for drill | 專案 sponsor / Backend / DBA | 已決 | 本演練目標資料庫採用 MariaDB。 | 不取代正式專案最終 DB 選型。 |
 | ADR-014 | Accepted | 專案 sponsor / Tech Lead | 已決 | 採 2 週 MVP 節奏與完整任務卡開工 Gate。 | MVP1/MVP2 核心任務卡需後續逐張升級。 |
 | ADR-015 | Accepted for drill | Tech Lead / Captain | 已決 | 演練 PoC 採 Python 3 + shell / SQL，落點固定為 `poc/` 與 `tools/`。 | 若引入第三方 PDF library 或 MariaDB client，需補 license 與安裝方式。 |
-| ADR-016 | Accepted for drill | Tech Lead / Captain | 已決 | 採 AI 主導三人併行模式，Base Plan 目標為 12 到 14 週完成 Production Candidate 演練。 | 若 W3 MVP2 evidence 不足，退回 16 到 18 週保守排程。 |
+| ADR-016 | Accepted for drill | Tech Lead / Captain | 已決 | 採 AI 主導三人併行模式，Base Plan 目標為 12 到 14 週完成 Production Candidate 演練。 | 若 W3 MVP2 evidence 不足，退回 16 到 18 週保守排程。演練範圍外 9 張任務卡依《每日任務卡排程》§8 處理；0027 高機密控制的裁減需於 W12 sign-off-record 顯式記載。 |
 | ADR-017 | Accepted for drill | Tech Lead / Captain | 已決 | 演練並行期間以 Qutora 為基準方，退出條件為連續 N=3 批次或 N=3 工作日通過。 | 正式專案需另行決定法律 / 業務權威與正式並行期。 |

@@ -172,3 +172,4 @@ draft -> frozen -> signed -> accepted; frozen -> rejected
 
 - 本卡依 Agent Team 計畫書分派 role、reviewer、validator、human sign-off 與 ADR gate。
 - Evidence 命名與保存依 `runbooks/RB-03-evidence-standard.md`。
+- 2026-07-07 | scoped | 驗收時對照 M10-01 母表，遇到 `drills/每日任務卡排程.md` §8「演練範圍外任務卡」所列 9 項（含 0027 高機密控制），一律記為 documented exception，不算 blocking finding；0027 需確認 W12 sign-off-record 已載明裁減條件。

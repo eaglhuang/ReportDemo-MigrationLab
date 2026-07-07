@@ -174,3 +174,4 @@ inventory -> mapped -> verified -> confirmed; verified -> exception_required
 
 - 本卡依 Agent Team 計畫書分派 role、reviewer、validator、human sign-off 與 ADR gate。
 - Evidence 命名與保存依 `runbooks/RB-03-evidence-standard.md`。
+- 2026-07-07 | scoped | 覆蓋矩陣必須逐項列出 `drills/每日任務卡排程.md` §8 的 9 張範圍外任務卡與裁減理由，作為「未覆蓋但已裁決」證據，並彙整進 next-phase recommendation，不得留白。
