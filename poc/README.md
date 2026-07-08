@@ -2,6 +2,8 @@
 
 本目錄是 ReportDemo 演練專用 PoC 程式碼落點，依 ADR-015 管理。
 
+> 2026-07-08 更新（ADR-018）：新平台功能（下載閘道、浮水印、hash、查詢、移植模組）改以 C# 直接在 `src/` 實作，不再先做 Python PoC 再重寫。本目錄降為輔助工具落點：合成資料、validator、比對腳本、migration CSV 管線。
+
 ## 邊界
 
 - 僅用於演練下載閘道、動態浮水印、MariaDB metadata migration 與 validator。

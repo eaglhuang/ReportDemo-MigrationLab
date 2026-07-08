@@ -1,6 +1,25 @@
 # 內部人員交易報表轉媒體儲存系統
 ## 版本異動摘要 Change Log
 
+## 2026-07-08：新平台技術假設與 Qutora 代碼轉換軌（ADR-018）
+
+範圍：因無法取得真實 ASP.NET 舊系統，以 Qutora 固定 commit 的 ASP.NET 代碼作為轉換來源標的；新平台假設為 HTML5 + .NET server（ASP.NET Core, C#）。已知真實系統進場後會返工，由 W14 next-phase recommendation 承接。
+
+| 異動 | 併入文件 / 章節或任務卡 |
+| --- | --- |
+| 新增 ADR-018「演練新平台技術假設與 Qutora 代碼轉換軌」：HTML5 + ASP.NET Core (C#)、`src/` 落點、轉換深度（核心功能面）、W5 檢查點與 re-baseline 條件；ADR-015 的 Python 降為輔助工具。 | `決策紀錄樣板ADR.md` §21、追蹤表 |
+| 新增 `src/` 新平台程式碼落點與模組結構建議（DownloadGateway / Watermark / Documents / Web / Shared）。 | `src/README.md` |
+| `TASK-RPT-0005` 解除裁減：目標改為 Qutora 元件改造分類（四式），交付 conversion map；`drill_stage: Pilot`。 | `tasks/TASK-RPT-0005-*.task.md` |
+| `TASK-RPT-0009` 解除裁減：承接 conversion map 殘餘模組的 C# 移植（document CRUD / categories），每模組附雙製比對 evidence；`drill_stage: Pilot`。 | `tasks/TASK-RPT-0009-*.task.md` |
+| 每日排程 §8 範圍外清單由 9 張改為 7 張，0005 / 0009 移入轉換軌並註明落點；W4D2 / W4D5 / W5D5 / W7D2 / W8D4 / W9D1 插入轉換軌併行工作與 W5 檢查點。 | `drills/每日任務卡排程.md` §5、§8 |
+| MVP v1 Must Do 加入轉換軌；Stage 對照表 Pilot 列加入 0005 / 0009。 | `drills/分階段演練與驗收計畫.md` §0、§3 |
+| Pilot 核心卡批次加入 0005 / 0009；Drill Plan Contract 加 ADR-018 邊界。 | `tasks/README.md` |
+| 0023 / 0024 / 0025 / 0028 scopePaths 加入 `src/**`（C# 實作計入轉換軌）。 | 對應任務卡 |
+| README 文件邊界表加入轉換軌一列；12 步流程第 9 步改為 `src/` C# 實作。 | `README.md` |
+| `poc/` 降為輔助工具落點聲明。 | `poc/README.md` |
+
+本次未執行：不修改 Qutora 原始碼、不展延 12+2 baseline（由 W5 檢查點決定是否 re-baseline）、不取代 ADR-001 / ADR-007 正式選型、不宣稱 Qutora 轉換等價於真實券商系統轉換。
+
 # 2026-07-08 - 文件必要性審查、12+2 定義與落地缺口原地補強
 
 本次依馬斯克五步驟先做必要性審查：不新增 MVP 閱讀總包，也不新增 ownership map。可承載的缺口一律補回既有 source of truth。

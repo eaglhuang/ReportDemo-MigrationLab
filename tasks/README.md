@@ -33,7 +33,7 @@ Daily dispatch may reference a workstream as `TASK-RPT-0004 / 0004b contributor`
 | --- | --- | --- | --- |
 | 1 | MVP1 | `TASK-RPT-0001`, `TASK-RPT-0002`, `TASK-RPT-0003`, `TASK-RPT-0004` | Qutora capability, data source, Golden Dataset, third-party PoC. |
 | 2 | MVP2 | `TASK-RPT-0007`, `TASK-RPT-0008`, `TASK-RPT-0010`, `TASK-RPT-0014`, `TASK-RPT-0019`, `TASK-RPT-0023`, `TASK-RPT-0024`, `TASK-RPT-0025` | MariaDB, staging, audit, Data Scope, PDF metadata, download / watermark / hash. |
-| 3 | Pilot | `TASK-RPT-0013`, `TASK-RPT-0018`, `TASK-RPT-0021`, `TASK-RPT-0022`, `TASK-RPT-0028`, `TASK-RPT-0033`, `TASK-RPT-0035`, `TASK-RPT-0036`, `TASK-RPT-0037` | Parallel validation, PDF integrity, search, audit, role/data scope. |
+| 3 | Pilot | `TASK-RPT-0005`, `TASK-RPT-0009`（轉換軌，ADR-018）, `TASK-RPT-0013`, `TASK-RPT-0018`, `TASK-RPT-0021`, `TASK-RPT-0022`, `TASK-RPT-0028`, `TASK-RPT-0033`, `TASK-RPT-0035`, `TASK-RPT-0036`, `TASK-RPT-0037` | Parallel validation, PDF integrity, search, audit, role/data scope, Qutora conversion track. |
 | 4 | Production Candidate | `TASK-RPT-0038`, `TASK-RPT-0040`, `TASK-RPT-0041`, `TASK-RPT-0042`, `TASK-RPT-0043`, `TASK-RPT-0044`, `TASK-RPT-0045` | Break-glass, Go / No-Go, rollback, UAT, release acceptance. |
 
 ## Stage Contract
@@ -74,6 +74,7 @@ Daily dispatch may reference a workstream as `TASK-RPT-0004 / 0004b contributor`
 - MariaDB boundary: ADR-013.
 - MVP PoC boundary: ADR-015.
 - AI collaboration boundary: ADR-016.
+- New-platform assumption and Qutora conversion track: ADR-018（HTML5 + ASP.NET Core C#，落點 `src/`；0005 分類、0009 殘餘移植；既有 MVP2/Pilot 卡的 C# 實作計入轉換軌）。
 
 ## Agent Team Dispatch Contract
 

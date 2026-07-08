@@ -21,6 +21,7 @@ related_plan: "drills/分階段演練與驗收計畫.md"
 agent_team_plan: "內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md"
 evidence_path: "evidence/Pilot/TASK-RPT-0028/"
 scopePaths:
+  - "src/**"
   - "tasks/TASK-RPT-0028-m6-01-report-search.task.md"
   - "evidence/Pilot/TASK-RPT-0028/**"
   - "runbooks/RB-03-evidence-standard.md"

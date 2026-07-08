@@ -6,8 +6,9 @@ status: planned
 owner: "Backend / DBA"
 priority: P0
 milestone: M1
-drill_stage: "Backlog"
+drill_stage: "Pilot"
 execution_mode: "requires-full-spec-before-start"
+evidence_path: "evidence/Pilot/TASK-RPT-0009/"
 primary_role: "Backend / DBA"
 closure_reviewer: "Tech Lead / Captain"
 support_roles:
@@ -56,6 +57,16 @@ nonGoals:
 ## Goal
 
 完成 `M1-03` 對應功能，並能證明新系統涵蓋舊系統必要行為；未知舊系統程式碼先以象徵性代號標記，後續盤點時替換為真實名稱。
+
+## 2026-07-08 轉換軌重新定義（ADR-018）
+
+本卡解除範圍外裁減，承接 `TASK-RPT-0005` conversion map 中「未被既有卡覆蓋的殘餘模組」移植：
+
+- 目標：把 conversion map 標為「移植」且不屬於 0023/0024/0025/0028 範圍的 Qutora 模組（預期為 document CRUD / versioning API surface、category tree），以 ASP.NET Core (C#) 移植到 `src/ReportDemo.Documents/`。
+- 每個移植模組必附**雙製比對 evidence**：同一輸入在 Qutora 舊路徑與 `src/` 新路徑的輸出比對，差異依 RB-07 字典分類；P0 差異未關閉不得 closure。
+- 分工：Backend / DBA 為 DRI，AI 主力產 C# 代碼與比對腳本；QA / Security / DevOps 驗證比對 evidence 可重跑（closure reviewer）；Tech Lead 裁決「沿用 vs 移植」邊界爭議。
+- HTML5 最小前端不在本卡，掛 `TASK-RPT-0028`。
+- 完整規格（10 validators / 10 test cases）依排程於 W5-W6 升級後才可開工；排程落點 W7-W9 併行。
 
 ## Legacy Coverage
 

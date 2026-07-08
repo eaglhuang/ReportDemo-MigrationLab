@@ -22,6 +22,7 @@ agent_team_plan: "內部人員交易報表轉媒體儲存系統_Agent Team計畫
 drill_plan: "drills/分階段演練與驗收計畫.md"
 evidence_path: "evidence/MVP2/TASK-RPT-0023/"
 scopePaths:
+  - "src/**"
   - "tasks/TASK-RPT-0023-m5-01-download-gateway.task.md"
   - "evidence/MVP2/TASK-RPT-0023/**"
   - "runbooks/RB-05-mariadb-environment.md"

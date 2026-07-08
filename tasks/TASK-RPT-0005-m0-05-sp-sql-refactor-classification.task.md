@@ -6,8 +6,9 @@ status: planned
 owner: "Tech Lead / Captain"
 priority: P0
 milestone: M0
-drill_stage: "Backlog"
+drill_stage: "Pilot"
 execution_mode: "requires-full-spec-before-start"
+evidence_path: "evidence/Pilot/TASK-RPT-0005/"
 primary_role: "Tech Lead / Captain"
 closure_reviewer: "QA / Security / DevOps"
 support_roles:
@@ -56,6 +57,16 @@ nonGoals:
 ## Goal
 
 完成 `M0-05` 對應功能，並能證明新系統涵蓋舊系統必要行為；未知舊系統程式碼先以象徵性代號標記，後續盤點時替換為真實名稱。
+
+## 2026-07-08 轉換軌重新定義（ADR-018）
+
+本卡解除範圍外裁減，轉換來源具體化為 Qutora ASP.NET 代碼（固定 commit，唯讀）：
+
+- 目標：把 Qutora 的 controllers / services / entities / storage providers / 查詢邏輯，逐項分類為 **沿用（演練期呼叫舊 API）/ 封裝（adapter）/ 移植（port 到 `src/` C#）/ 重寫**，引用功能里程碑 §0 四式。
+- 交付物：`evidence/Pilot/TASK-RPT-0005/qutora-component-conversion-map.md`——每列含 Qutora 元件、分類、理由、對應任務卡（既有 MVP2/Pilot 卡的 C# 實作計入轉換軌）、殘餘項歸入 `TASK-RPT-0009`。
+- 分工：Backend / DBA 以 AI 產分析草稿；Tech Lead / Captain 裁決分類（DRI）；QA / Security / DevOps 驗證分類表可追溯（closure reviewer）。
+- W5 檢查點：conversion map 定案時評估工作量；超出「既有卡吸收 + 0009 一週併行」則依每日排程 §9 觸發 re-baseline。
+- 完整規格（10 validators / 10 test cases）依排程於 W4 升級後才可開工。
 
 ## Legacy Coverage
 

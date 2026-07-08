@@ -13,6 +13,7 @@
 | M5-01 下載閘道 API / DB / 狀態 / fail-closed | `tasks/TASK-RPT-0023-m5-01-download-gateway.task.md` | 任務卡是實作契約 |
 | M5-02 動態浮水印欄位 / 主副本流程 / Hash 時點 | `tasks/TASK-RPT-0024-m5-02-dynamic-watermark.task.md` 與 `TASK-RPT-0025` | 0024 管浮水印，0025 管下載副本 Hash |
 | MariaDB 環境、MSSQL -> MariaDB 改造與回復 | `runbooks/RB-05-mariadb-environment.md` | runbook 管 HOW |
+| Qutora 代碼轉換軌（新平台 HTML5 + ASP.NET Core C#） | ADR-018、`tasks/TASK-RPT-0005`、`0009`、`src/README.md` | 轉換來源唯讀；`src/` 是新平台落點；`poc/` 降為輔助工具 |
 | 單一 Owner、reviewer、validators、evidence path | `tasks/README.md` 與各任務卡 | 不另建 ownership map |
 
 簡單分工：`docs` 是長期共識與入口，`drills` 是演練節奏，`runbooks` 是怎麼做，`tasks` 是單一 Owner 的交付契約，`evidence` 是證據，`archive` 是歷史。
@@ -86,7 +87,7 @@
 6. 依 `drills/分階段演練與驗收計畫.md` 執行 MVP1。
 7. 每日依 `drills/每日任務卡排程.md`、RB-06 與任務卡開工。
 8. MVP1 Gate 通過後，依 `runbooks/RB-05-mariadb-environment.md` 建 MariaDB 環境。
-9. 依 ADR-015 在 `poc/` 與 `tools/` 做 MVP2 PoC，不改 Qutora 原始碼。
+9. 依 ADR-018 在 `src/` 以 C# 實作新平台功能（閘道 / 浮水印 / 查詢 / 移植模組）；輔助腳本依 ADR-015 放 `poc/` 與 `tools/`；不改 Qutora 原始碼。
 10. Gate 通過後進 Pilot，再收斂 Production Candidate evidence package。
 11. 依 RB-04 與 RB-09 驗證 backup / restore / rollback dry run。
 12. 最終 Go / No-Go 只能由人類依 ADR 與 Gate evidence 決策。
