@@ -81,6 +81,16 @@ Daily dispatch may reference a workstream as `TASK-RPT-0004 / 0004b contributor`
 - Agent Team plan v1.0 is a human role and review model, not a separate runtime dependency.
 - Every task must keep producer, DRI, and closure reviewer distinguishable.
 - Security, audit, formal data, rollback, release, and Go / No-Go remain human-gated.
+
+## Source Code Contract
+
+Any task whose `scopePaths` include `src/**` must follow `src/README.md`.
+
+- Minimum commands: `dotnet restore src/ReportDemo.sln`, `dotnet build src/ReportDemo.sln --no-restore`, and `dotnet test src/ReportDemo.sln --no-build`.
+- Build and test output must be saved or summarized under that task's evidence path.
+- AI may write C# code and tests, but closure still requires the human `closure_reviewer`.
+- A `src/` task cannot be marked `done` if the solution does not build, tests cannot run, or the task lacks evidence explaining why a test is intentionally deferred.
+- Qutora conversion tasks must link code changes to `TASK-RPT-0005` conversion map and, when applicable, `TASK-RPT-0009` module porting comparison report.
 ## Task Roster
 
 | Task ID | Source | Milestone | Title | Status | Depends |

@@ -31,6 +31,7 @@ deliverables:
   - "evidence/MVP2/TASK-RPT-0025/download-copy-hash-model.md"
   - "evidence/MVP2/TASK-RPT-0025/hash-calculation-points.md"
   - "evidence/MVP2/TASK-RPT-0025/hash-validation-result.md"
+  - "evidence/MVP2/TASK-RPT-0025/src-build-test-result.md"
 evidence:
   required: command-backed
 rollback:
@@ -149,6 +150,7 @@ hashing -> failed_closed
 - 3 份合成 PDF 下載副本皆可產生 `SHA-256` Hash。
 - 同一主檔不同下載副本因浮水印欄位不同而產生不同 `copy_hash`。
 - Hash 計算、保存、查詢、驗證皆留下 command-backed evidence。
+- `src/ReportDemo.Watermark` 與 hash handoff 實作需通過 `src/README.md` 的 build / test contract。
 - Validators 與 Test Cases 各 10 條皆有 evidence。
 
 ## Validators

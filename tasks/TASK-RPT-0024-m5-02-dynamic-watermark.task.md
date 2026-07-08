@@ -32,6 +32,7 @@ deliverables:
   - "evidence/MVP2/TASK-RPT-0024/watermark-field-policy.md"
   - "evidence/MVP2/TASK-RPT-0024/watermark-processing-flow.md"
   - "evidence/MVP2/TASK-RPT-0024/watermark-poc-result.md"
+  - "evidence/MVP2/TASK-RPT-0024/src-build-test-result.md"
 evidence:
   required: command-backed
 rollback:
@@ -141,6 +142,7 @@ rendering -> failed_closed
 - 至少 3 份合成 PDF 可產出含動態浮水印副本。
 - 每份副本可從查核碼反查 `download_id` 與使用者上下文。
 - 未通過下載閘道授權、浮水印失敗、查核碼失敗、稽核失敗時皆 fail-closed。
+- `src/ReportDemo.Watermark` 實作需通過 `src/README.md` 的 build / test contract。
 - Validators 與 Test Cases 各 10 條皆有 evidence。
 
 ## Validators

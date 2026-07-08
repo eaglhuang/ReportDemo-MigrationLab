@@ -29,6 +29,7 @@ scopePaths:
   - "open-source-sandbox/qutora-api"
 deliverables:
   - "evidence/Pilot/TASK-RPT-0028/design-spec.md"
+  - "evidence/Pilot/TASK-RPT-0028/src-build-test-result.md"
   - "evidence/Pilot/TASK-RPT-0028/validation-result.md"
   - "evidence/Pilot/TASK-RPT-0028/review-and-signoff.md"
 evidence:
@@ -132,6 +133,7 @@ request -> authorize -> search -> return_metadata; authorize -> denied
 ## 完成定義
 
 - 本卡所有 deliverables 已產生並放在 `evidence/Pilot/TASK-RPT-0028/`。
+- `src/ReportDemo.Web` 與相關 service projects 通過 `src/README.md` 的 build / test contract。
 - 10 條 validators 與 10 條 test cases 皆有可重跑 evidence。
 - reviewer 已確認產出與 evidence，且產出者不得自我驗收。
 - 若觸發 human gate 或 ADR gate，必須有簽核或決策紀錄後才可 closure。

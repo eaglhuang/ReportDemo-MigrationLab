@@ -21,4 +21,47 @@ src/
 └─ ReportDemo.Shared/              # audit / auth / storage 共用元件
 ```
 
-實際專案結構由各任務卡開工時定案；每個模組的 evidence 依 RB-03 落在對應任務卡 evidence path。
+## Engineering Start Contract
+
+所有涉及 `src/` 的任務卡，都以本節作為最低工程契約。
+
+| 項目 | 定義 |
+| --- | --- |
+| Solution | `src/ReportDemo.sln` |
+| Target framework | .NET 10 / ASP.NET Core 10 |
+| Restore command | `dotnet restore src/ReportDemo.sln` |
+| Build command | `dotnet build src/ReportDemo.sln --no-restore` |
+| Test command | `dotnet test src/ReportDemo.sln --no-build` |
+| Warnings | `src/Directory.Build.props` 設定 `TreatWarningsAsErrors=true` |
+
+## Project Map
+
+| Project | 任務卡 | 責任 |
+| --- | --- | --- |
+| `ReportDemo.Shared` | shared | audit、operation result、共用 value object |
+| `ReportDemo.DownloadGateway` | `TASK-RPT-0023` | 下載閘道狀態、錯誤碼、fail-closed decision |
+| `ReportDemo.Watermark` | `TASK-RPT-0024` / `0025` | 浮水印 payload、render policy、hash handoff |
+| `ReportDemo.Documents` | `TASK-RPT-0005` / `0009` | Qutora conversion map、document CRUD / categories 移植 |
+| `ReportDemo.Web` | `TASK-RPT-0028` | HTML5 最小查詢 / 下載頁與 API facade |
+| `ReportDemo.Tests` | all `src/` cards | task-level unit tests and regression tests |
+
+## AI Code Change Checklist
+
+AI 或人類修改 `src/` 時，closure 前至少要留下：
+
+1. 對應任務卡 ID。
+2. 修改的 project / module。
+3. `dotnet build src/ReportDemo.sln --no-restore` 結果。
+4. `dotnet test src/ReportDemo.sln --no-build` 結果。
+5. 任務卡指定的 evidence path。
+6. reviewer 非 producer 的 review note。
+
+## Module Done Definition
+
+一個 `src/` 模組只有在下列條件都滿足時，才可回報 done：
+
+- 對應任務卡的 `scopePaths`、deliverables、validators 已更新或引用。
+- 至少一個正向測試與一個 blocking / fail-closed 測試已存在，若任務性質不適用需在 evidence 說明。
+- `ReportDemo.Tests` 可重跑。
+- 若模組是 Qutora 移植項，必須能連回 `TASK-RPT-0005` conversion map；若屬 `TASK-RPT-0009`，還要連回 module porting comparison report。
+- 未完成或未移植項不得偽裝完成，必須交給 `TASK-RPT-0045` 的 `unported-qutora-api-list.md` 收口。

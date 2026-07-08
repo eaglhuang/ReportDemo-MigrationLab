@@ -7,6 +7,7 @@
 
 | 異動 | 併入文件 / 章節或任務卡 |
 | --- | --- |
+| 補齊 `src/` 工程開工骨架：新增 `ReportDemo.sln`、ASP.NET Core / class library / xUnit test projects、共用 build 設定、最小可測的下載閘道 fail-closed、浮水印 payload、conversion map validator 與 Web health endpoint；`dotnet build` / `dotnet test` 均通過。 | `src/`, `src/README.md`, `tasks/README.md`, `TASK-RPT-0009`, `TASK-RPT-0023`, `TASK-RPT-0024`, `TASK-RPT-0025`, `TASK-RPT-0028` |
 | 補齊 ADR-018 收口缺口：keep.summary 同步 `src/` / ADR-018 口徑；每日排程 §6 摘要補入 W4-W9 轉換軌；0005 / 0009 evidence path 收斂到 Pilot 任務卡目錄；0045 升級為 Qutora API / module 全功能覆蓋矩陣、未移植項清單與 `real-aspnet-intake-startup-pack.md` 的收口卡；ADR-016 / 018 追蹤列修正 7 張裁減與具名啟動包。 | `docs/keep.summary.md`, `drills/每日任務卡排程.md`, `TASK-RPT-0005`, `TASK-RPT-0009`, `TASK-RPT-0045`, `決策紀錄樣板ADR.md` |
 | 新增 ADR-018「演練新平台技術假設與 Qutora 代碼轉換軌」：HTML5 + ASP.NET Core (C#)、`src/` 落點、轉換深度（核心功能面）、W5 檢查點與 re-baseline 條件；ADR-015 的 Python 降為輔助工具。 | `決策紀錄樣板ADR.md` §21、追蹤表 |
 | 新增 `src/` 新平台程式碼落點與模組結構建議（DownloadGateway / Watermark / Documents / Web / Shared）。 | `src/README.md` |

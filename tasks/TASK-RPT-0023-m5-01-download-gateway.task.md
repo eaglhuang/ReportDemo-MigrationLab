@@ -32,6 +32,7 @@ deliverables:
   - "evidence/MVP2/TASK-RPT-0023/download-gateway-api.md"
   - "evidence/MVP2/TASK-RPT-0023/download-state-machine.md"
   - "evidence/MVP2/TASK-RPT-0023/fail-closed-test-result.md"
+  - "evidence/MVP2/TASK-RPT-0023/src-build-test-result.md"
 validators:
   - "V-0023-01"
   - "V-0023-02"
@@ -104,6 +105,7 @@ nonGoals:
 - 所有下載都有 download_id 與 audit。
 - 未授權、audit fail、watermark fail 不得回傳 PDF。
 - 主檔不可被直接下載。
+- `src/ReportDemo.DownloadGateway` 實作需通過 `src/README.md` 的 build / test contract。
 
 ## Validators
 

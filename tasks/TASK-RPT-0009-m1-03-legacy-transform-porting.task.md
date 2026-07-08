@@ -34,7 +34,8 @@ deliverables:
   - Target system implementation artifacts: code, DB migration, tests, and operation docs
 validators:
   - "git diff --check"
-  - After target implementation location is created, add: dotnet test or equivalent automated tests
+  - "dotnet build src/ReportDemo.sln --no-restore"
+  - "dotnet test src/ReportDemo.sln --no-build"
   - After target implementation location is created, add: Golden Dataset / Shadow Validation comparison command
 evidence:
   required: command-backed
@@ -67,6 +68,7 @@ nonGoals:
 - 目標：把 conversion map 標為「移植」且不屬於 0023/0024/0025/0028 範圍的 Qutora 模組（預期為 document CRUD / versioning API surface、category tree），以 ASP.NET Core (C#) 移植到 `src/ReportDemo.Documents/`。
 - 每個移植模組必附**雙製比對 evidence**：同一輸入在 Qutora 舊路徑與 `src/` 新路徑的輸出比對，差異依 RB-07 字典分類；P0 差異未關閉不得 closure。
 - 交付物 `module-porting-comparison-report.md` 每列需含：Qutora 元件、`src/` 模組路徑、輸入樣本、Qutora 輸出摘要、新平台輸出摘要、差異等級、處置、owner、reviewer、evidence link。
+- C# 實作需通過 `src/README.md` 的 Engineering Start Contract；build / test 結果需保存到本卡 evidence path。
 - 分工：Backend / DBA 為 DRI，AI 主力產 C# 代碼與比對腳本；QA / Security / DevOps 驗證比對 evidence 可重跑（closure reviewer）；Tech Lead 裁決「沿用 vs 移植」邊界爭議。
 - HTML5 最小前端不在本卡，掛 `TASK-RPT-0028`。
 - 完整規格（10 validators / 10 test cases）依排程於 W5-W6 升級後才可開工；排程落點 W7-W9 併行。
@@ -101,7 +103,8 @@ nonGoals:
 ## Validators
 
 - `git diff --check`
-- After target implementation location is created, add: dotnet test or equivalent automated tests
+- `dotnet build src/ReportDemo.sln --no-restore`
+- `dotnet test src/ReportDemo.sln --no-build`
 - After target implementation location is created, add: Golden Dataset / Shadow Validation comparison command
 
 ## Acceptance Criteria

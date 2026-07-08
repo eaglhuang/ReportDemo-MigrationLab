@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReportDemo.Shared\ReportDemo.Shared.csproj" />
+    <ProjectReference Include="..\ReportDemo.DownloadGateway\ReportDemo.DownloadGateway.csproj" />
+    <ProjectReference Include="..\ReportDemo.Watermark\ReportDemo.Watermark.csproj" />
+    <ProjectReference Include="..\ReportDemo.Documents\ReportDemo.Documents.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>
