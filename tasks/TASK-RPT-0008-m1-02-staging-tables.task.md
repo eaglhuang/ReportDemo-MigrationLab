@@ -87,6 +87,22 @@ nonGoals:
 | 稽核欄位 | created_by、created_at、source_batch_id、source_hash、row_hash。 |
 | fail-closed | legacy reference、row hash、required metadata 缺失時，不得進入下載 / 浮水印 PoC。 |
 
+## Execution Steps
+
+本卡是 MariaDB staging 的執行入口；實際命令由 RB-05 與 `poc/README.md` 維護，避免任務卡與 runbook 重複漂移。
+
+| Step | 操作 | 照做文件 / 段落 | Evidence |
+| ---: | --- | --- | --- |
+| 1 | 建立或確認 MariaDB 環境檔 | `runbooks/RB-05-mariadb-environment.md` §1「建立環境檔」 | `evidence/MVP2/TASK-RPT-0008/mariadb-environment.md` |
+| 2 | 啟動 MariaDB container 並確認狀態 | RB-05 §2「啟動 MariaDB」 | `evidence/MVP2/TASK-RPT-0008/mariadb-environment.md` |
+| 3 | 驗證 MariaDB 連線、版本、charset、collation | RB-05 §3「連線驗證」 | `evidence/MVP2/TASK-RPT-0008/mariadb-environment.md` |
+| 4 | 建立 MVP2 staging schema skeleton | RB-05 §4「建立 MVP2 staging schema skeleton」；本卡「落地設計」資料表清單 | `evidence/MVP2/TASK-RPT-0008/mariadb-schema-v0.md` |
+| 5 | 建立 Qutora -> MariaDB 欄位 mapping 與 validation rules | 本卡「舊系統覆蓋」、「完成定義」、「Validators」V-0008-01 到 V-0008-09 | `evidence/MVP2/TASK-RPT-0008/qutora-to-mariadb-mapping.md`、`staging-validation-rules.md` |
+| 6 | 若要先跑輔助 PoC，將合成 metadata 投影成 staging CSV | `poc/README.md`「最小可跑 smoke path」的 `build_metadata_projection.py` 命令 | `evidence/MVP2/poc-smoke/staging/report_metadata_staging.csv` |
+| 7 | 驗證 staging 筆數、required fields、row_hash / source_hash 規則 | 本卡「Test Cases」TC-0008-01 到 TC-0008-09；`poc/README.md` smoke validator 可作輔助 evidence | `evidence/MVP2/TASK-RPT-0008/staging-validation-rules.md`、`evidence/MVP2/poc-smoke/validation-result.json` |
+| 8 | 做 dump / restore dry run，證明 staging 可回復 | RB-05 §5「Dump / Restore」 | `evidence/MVP2/TASK-RPT-0008/mariadb-dump.sql`、`evidence/MVP2/TASK-RPT-0008/restore-result.md` |
+| 9 | reviewer 檢查 evidence path、mapping 可追溯、權限分離與 fail-closed | 本卡「Reviewer / Human Gate / ADR」；RB-03 evidence standard | `evidence/MVP2/TASK-RPT-0008/review-and-signoff.md` |
+
 ## 影響範圍
 
 - 影響 MVP2 MariaDB migration、下載閘道 PoC、metadata 查詢與 PDF hash。

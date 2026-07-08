@@ -83,6 +83,19 @@ nonGoals:
 | 稽核欄位 | batch_id、source_system、requested_by、started_at、finished_at、status、item_count、source_hash。 |
 | fail-closed | audit 寫入失敗、來源範圍不明、批次 hash 不可重算時，批次不得 close。 |
 
+## Execution Steps
+
+本卡只定義批次管理與抽取邊界；具體 MariaDB 操作在 `TASK-RPT-0008` 與 RB-05。執行時依下表讀文件，不在本卡重複貼命令。
+
+| Step | 操作 | 照做文件 / 段落 | Evidence |
+| ---: | --- | --- | --- |
+| 1 | 確認 MVP1 baseline 已有 Qutora DB inventory、metadata export、PDF hash manifest | `drills/每日任務卡排程.md` W1D3-W1D5；`tasks/TASK-RPT-0002-*`；`tasks/TASK-RPT-0003-*` | `evidence/MVP1/TASK-RPT-0002/`、`evidence/MVP1/TASK-RPT-0003/` |
+| 2 | 定義本批來源範圍、batch id、operator、item_count、source_hash | 本卡「落地設計」與「Validators」V-0007-01 到 V-0007-04 | `evidence/MVP2/TASK-RPT-0007/qutora-extract-batch-plan.md` |
+| 3 | 定義狀態轉移與錯誤碼，確保失敗會停在 `failed` 且重跑使用新 batch id | 本卡「落地設計」狀態機 / 錯誤碼；「Test Cases」TC-0007-02 到 TC-0007-08 | `evidence/MVP2/TASK-RPT-0007/import-batch-state-design.md` |
+| 4 | 定義 rollback：failed batch 丟棄 staging，不污染下一批 | 本卡 `rollback` frontmatter；本卡「Validators」V-0007-09；RB-05「Teardown」只在需要重建 MariaDB staging 時使用 | `evidence/MVP2/TASK-RPT-0007/retry-and-rollback-notes.md` |
+| 5 | 若要先跑輔助 PoC smoke path，產生合成 metadata 並投影 staging CSV | `poc/README.md`「最小可跑 smoke path」前兩個命令 | `evidence/MVP2/poc-smoke/synthetic/metadata-export.json`、`evidence/MVP2/poc-smoke/staging/report_metadata_staging.csv` |
+| 6 | 把本卡輸出交給 `TASK-RPT-0008` 建 schema / mapping / staging validation | `tasks/TASK-RPT-0008-m1-02-staging-tables.task.md`「Execution Steps」 | `evidence/MVP2/TASK-RPT-0008/` |
+
 ## 影響範圍
 
 - 影響 `TASK-RPT-0008` MariaDB staging table 設計。
