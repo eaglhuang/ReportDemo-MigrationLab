@@ -284,7 +284,7 @@
 | 決策狀態 | Accepted for drill |
 | 決策 owner | Tech Lead / Captain |
 | 參與角色 | Backend / DBA、QA / Security / DevOps、人類決策者 |
-| 背景 | 目前無法取得真實券商 ASP.NET 舊系統，但演練仍需要「舊代碼 → 新平台」的轉換標的，否則轉換方法論（功能里程碑 §0 四式、架構書附錄 A strangler / adapter）只有骨架、沒有可執行對象。已知真實系統進場後勢必返工；返工由 W14 next-phase recommendation 承接。 |
+| 背景 | 目前無法取得真實券商 ASP.NET 舊系統，但演練仍需要「舊代碼 → 新平台」的轉換標的，否則轉換方法論（功能里程碑 §0 四式、架構書附錄 A strangler / adapter）只有骨架、沒有可執行對象。已知真實系統進場後勢必返工；返工由 `TASK-RPT-0045` 的 `real-aspnet-intake-startup-pack.md` 承接。 |
 | 候選方案 | 等真實系統進場再演練轉換、以 Qutora 代碼為轉換來源、只做資料搬移不碰代碼轉換。 |
 | 決策結論 | 演練新平台技術假設為 **HTML5 前端 + .NET server（ASP.NET Core, C#）**。轉換來源為 `open-source-sandbox/qutora-api` 固定 commit 的 ASP.NET 代碼（唯讀，不修改，依 ADR-012）。新平台程式碼落點為 `src/`。MVP2 起，下載閘道（0023）、浮水印（0024）、下載副本 hash（0025）、查詢（0028）等新系統功能直接以 C# 在 `src/` 實作，不再先做 Python PoC 再重寫；ADR-015 的 Python + shell / SQL 降為輔助工具（合成資料、validator、比對腳本、migration CSV 管線），落點仍為 `poc/` 與 `tools/`。 |
 | 轉換深度 | 核心功能面 = Documents API、Metadata、Categories、Auth / Permission、Audit、Storage Provider。**既有 MVP2 / Pilot 核心卡的 C# 實作計入轉換軌交付**（由 0005 的 conversion map 對應）；0009 只承接未被既有卡覆蓋的殘餘模組（如 document CRUD / versioning API surface、category tree）。HTML5 前端只做最小查詢 / 下載頁，掛 `TASK-RPT-0028`。全 API 覆蓋由 `TASK-RPT-0045` 覆蓋矩陣管理，未移植項記 documented exception。 |
@@ -292,7 +292,7 @@
 | 邊界聲明 | 此假設僅限演練；與架構書附錄 C 的 ASP.NET Core 建議方向一致，但不取代 ADR-001（DB）、ADR-007（PDF library）等正式選型；不宣稱 Qutora 轉換經驗等價於真實券商系統轉換。 |
 | 影響範圍 | `TASK-RPT-0005`、`0009`、`0023`、`0024`、`0025`、`0028`、`0045`、`src/`、`poc/README.md`、`drills/每日任務卡排程.md` W4-W9、`tasks/README.md`。 |
 | 驗收 Gate | 0005 產出 Qutora 元件分類表（沿用 / 封裝 / 移植 / 重寫 四式，含 owner 與對應卡）；0009 移植的每個模組附雙製比對 evidence（引用 RB-07 差異字典）；`src/` 內 C# 服務通過對應任務卡 validators；W14 的 0045 覆蓋矩陣列出全部未移植項與理由。 |
-| 待補問題 | 真實 ASP.NET 系統進場後，本 ADR 的轉換經驗如何映射到真實代碼（code archaeology 啟動包），由 W14 next-phase recommendation 承接；HTML5 前端框架選型（純 HTML5 / 輕量框架）於 0028 開工前由 Tech Lead 裁決。 |
+| 待補問題 | 真實 ASP.NET 系統進場後，本 ADR 的轉換經驗如何映射到真實代碼，由 `TASK-RPT-0045` 的 `real-aspnet-intake-startup-pack.md` 具名承接；HTML5 前端框架選型（純 HTML5 / 輕量框架）於 0028 開工前由 Tech Lead 裁決。 |
 
 ## 22. 決策狀態追蹤表
 
@@ -313,6 +313,6 @@
 | ADR-013 | Accepted for drill | 專案 sponsor / Backend / DBA | 已決 | 本演練目標資料庫採用 MariaDB。 | 不取代正式專案最終 DB 選型。 |
 | ADR-014 | Accepted | 專案 sponsor / Tech Lead | 已決 | 採 2 週 MVP 節奏與完整任務卡開工 Gate。 | MVP1/MVP2 核心任務卡需後續逐張升級。 |
 | ADR-015 | Accepted for drill | Tech Lead / Captain | 已決 | 演練 PoC 採 Python 3 + shell / SQL，落點固定為 `poc/` 與 `tools/`。 | 若引入第三方 PDF library 或 MariaDB client，需補 license 與安裝方式。 |
-| ADR-016 | Accepted for drill | Tech Lead / Captain | 已決 | 採 AI 主導三人併行模式，Base Plan 目標為 12 到 14 週完成 Production Candidate 演練。 | 若 W3 MVP2 evidence 不足，退回 16 到 18 週保守排程。演練範圍外 9 張任務卡依《每日任務卡排程》§8 處理；0027 高機密控制的裁減需於 W12 sign-off-record 顯式記載。 |
+| ADR-016 | Accepted for drill | Tech Lead / Captain | 已決 | 採 AI 主導三人併行模式，Base Plan 目標為 12+2：12 週 baseline 加 2 週 buffer / hardening / documented exception closure。 | 若 W3 MVP2 evidence 不足，退回 16 到 18 週保守排程。演練範圍外 7 張任務卡依《每日任務卡排程》§8 處理；0005 / 0009 已由 ADR-018 納入轉換軌；0027 高機密控制的裁減需於 W12 sign-off-record 顯式記載。 |
 | ADR-017 | Accepted for drill | Tech Lead / Captain | 已決 | 演練並行期間以 Qutora 為基準方，退出條件為連續 N=3 批次或 N=3 工作日通過。 | 正式專案需另行決定法律 / 業務權威與正式並行期。 |
-| ADR-018 | Accepted for drill | Tech Lead / Captain | 已決 | 演練新平台假設為 HTML5 + ASP.NET Core (C#)，以 Qutora 代碼為轉換來源；`src/` 為新平台落點；0005 / 0009 解除裁減納入轉換軌。 | W5 檢查點評估工作量；真實系統進場後的 code archaeology 啟動包由 W14 next-phase recommendation 承接。 |
+| ADR-018 | Accepted for drill | Tech Lead / Captain | 已決 | 演練新平台假設為 HTML5 + ASP.NET Core (C#)，以 Qutora 代碼為轉換來源；`src/` 為新平台落點；0005 / 0009 解除裁減納入轉換軌。 | W5 檢查點評估工作量；真實系統進場後的 code archaeology 啟動包由 `TASK-RPT-0045` 的 `real-aspnet-intake-startup-pack.md` 承接。 |

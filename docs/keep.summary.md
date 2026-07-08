@@ -21,7 +21,8 @@
 
 - Qutora 是參考平台，鎖定 `open-source-sandbox/qutora-api` 的既定 commit。
 - 目標資料庫採 MariaDB，決策依 ADR-013。
-- PoC 只落在 `poc/` 與 `tools/`，決策依 ADR-015。
+- 新平台演練假設為 HTML5 + ASP.NET Core (C#)，程式碼落點為 `src/`，決策依 ADR-018。
+- `poc/` 與 `tools/` 僅作輔助工具落點（合成資料、validator、比對腳本、migration CSV 管線），決策依 ADR-015。
 - Evidence 標準依 `runbooks/RB-03-evidence-standard.md`。
 - 任務卡入口依 `tasks/README.md`。
 - 每日 WHAT/WHEN 依 `drills/每日任務卡排程.md`。
@@ -65,7 +66,7 @@
 
 - MVP1：Qutora 盤點、資料源盤點、Golden Dataset、第三方 PoC。
 - MVP2：MariaDB、staging、audit、Data Scope、PDF metadata、download / watermark / hash。
-- Pilot：平行驗證、PDF 完整性、查詢、安全、audit、role/data scope。
+- Pilot：Qutora 代碼轉換軌（0005 conversion map、0009 殘餘移植）、平行驗證、PDF 完整性、查詢、安全、audit、role/data scope。
 - Production Candidate：break-glass、Go / No-Go、rollback、UAT、release acceptance。
 - Backlog：只在被 dispatch 或 Gate 指定時讀。
 
