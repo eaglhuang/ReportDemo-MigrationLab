@@ -47,5 +47,16 @@ public sealed class DownloadGatewayDecisionServiceTests
         Assert.False(result.CanReturnFile);
         Assert.Equal("AUDIT_FAILED", result.Code);
     }
-}
 
+    [Fact]
+    public void CanTransition_AllowsReadyToExpired()
+    {
+        Assert.True(DownloadStateMachine.CanTransition(DownloadStatus.Ready, DownloadStatus.Expired));
+    }
+
+    [Fact]
+    public void CanTransition_BlocksDeliveredToReady()
+    {
+        Assert.False(DownloadStateMachine.CanTransition(DownloadStatus.Delivered, DownloadStatus.Ready));
+    }
+}

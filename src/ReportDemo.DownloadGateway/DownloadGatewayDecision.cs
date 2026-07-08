@@ -102,3 +102,26 @@ public sealed class DownloadGatewayDecisionService
     }
 }
 
+public static class DownloadStateMachine
+{
+    private static readonly HashSet<(DownloadStatus From, DownloadStatus To)> AllowedTransitions =
+    [
+        (DownloadStatus.Requested, DownloadStatus.Authorized),
+        (DownloadStatus.Authorized, DownloadStatus.WatermarkPending),
+        (DownloadStatus.WatermarkPending, DownloadStatus.Hashing),
+        (DownloadStatus.Hashing, DownloadStatus.Ready),
+        (DownloadStatus.Ready, DownloadStatus.Delivered),
+        (DownloadStatus.Requested, DownloadStatus.Denied),
+        (DownloadStatus.Authorized, DownloadStatus.FailedClosed),
+        (DownloadStatus.WatermarkPending, DownloadStatus.FailedClosed),
+        (DownloadStatus.Hashing, DownloadStatus.FailedClosed),
+        (DownloadStatus.Ready, DownloadStatus.Expired),
+        (DownloadStatus.Requested, DownloadStatus.Cancelled),
+        (DownloadStatus.Authorized, DownloadStatus.Cancelled)
+    ];
+
+    public static bool CanTransition(DownloadStatus from, DownloadStatus to)
+    {
+        return AllowedTransitions.Contains((from, to));
+    }
+}

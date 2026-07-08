@@ -81,8 +81,8 @@ nonGoals:
 | --- | --- |
 | API | `POST /api/download-requests` 建立請求；`GET /api/download-requests/{id}/file` 取檔。 |
 | 資料表 | `download_request`、`download_decision`、`download_error`。 |
-| 狀態機 | `requested`、`authorized`、`watermark_pending`、`ready`、`delivered`、`denied`、`failed_closed`。 |
-| 錯誤碼 | `AUTH_DENIED`、`SCOPE_DENIED`、`PDF_NOT_READY`、`AUDIT_FAILED`、`WATERMARK_FAILED`、`HASH_FAILED`。 |
+| 狀態機 | `requested`、`authorized`、`watermark_pending`、`hashing`、`ready`、`delivered`、`denied`、`failed_closed`、`expired`、`cancelled`。 |
+| 錯誤碼 | `AUTH_REQUIRED`、`AUTH_DENIED`、`SCOPE_DENIED`、`PDF_NOT_READY`、`AUDIT_FAILED`、`WATERMARK_FAILED`、`HASH_FAILED`、`RATE_LIMITED`、`REQUEST_EXPIRED`、`REQUEST_CANCELLED`、`STATE_CONFLICT`。 |
 | 權限檢查 | 先驗 session / role，再驗 Data Scope，再驗機密等級，再驗 audit writable。 |
 | 稽核欄位 | download_id、user_id、ip、user_agent、pdf_id、version、decision、reason、correlation_id。 |
 | fail-closed | 權限不明、metadata invalid、audit fail、watermark fail、hash fail 時不得回傳 PDF。 |
