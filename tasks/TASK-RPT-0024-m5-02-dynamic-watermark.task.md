@@ -180,5 +180,62 @@ rendering -> failed_closed
 
 ## Notes
 
+## 2026-07-08 落地補強：M5-02 動態浮水印
+
+本卡是 M5-02 的唯一實作契約；Hash 持久化由 `TASK-RPT-0025` 承擔。
+
+### Watermark Fields
+
+| 欄位 | 來源 | 必填 |
+| --- | --- | --- |
+| viewer_name / viewer_id | session user profile | Yes |
+| department | user attribute 或 Data Scope context | Yes |
+| role_names | authorization context | Yes |
+| download_time | server time | Yes |
+| source_ip | request context | Yes |
+| download_id | `TASK-RPT-0023` | Yes |
+| report_code / report_version | PDF metadata | Yes |
+| confidentiality_level | PDF metadata | Yes |
+| check_code / QR payload | `generateCheckCode(download_id)` | Yes |
+| environment_marker | config：dev / test / pilot / prod | Yes |
+
+### Master / Copy Flow
+
+```text
+master_pdf immutable
+  -> authorize by download gateway
+  -> create transient working copy
+  -> render watermark using server-side fields
+  -> write watermarked copy
+  -> hand off stream to TASK-RPT-0025 for copy_hash
+  -> deliver only after audit + copy_hash success
+```
+
+- master PDF 不得被覆寫。
+- 未浮水印副本不得被傳回 client。
+- working copy 若未完成 hash 與 audit，必須清理或標記 `failed_closed`。
+
+### Hash Timing
+
+| Hash | 計算時點 | Owner |
+| --- | --- | --- |
+| `master_hash` | PDF ingest / baseline 建立時 | `TASK-RPT-0019` / `TASK-RPT-0021` |
+| `watermark_payload_hash` | watermark job 開始前，針對欄位 payload | `TASK-RPT-0024` |
+| `copy_hash` | 浮水印渲染完成後、交付前 | `TASK-RPT-0025` |
+| `audit_payload_hash` | audit event 寫入前 | `TASK-RPT-0010` / `TASK-RPT-0025` |
+
+### Failure Handling
+
+- policy missing、font missing、render failed、check code failed、audit failed、hash handoff failed：一律 `failed_closed`，不得輸出 PDF。
+- 使用者看見安全錯誤碼；內部錯誤細節只寫入 evidence / audit reference，不回傳 stack trace。
+- 同一 master PDF 被同一使用者下載兩次，也應產生不同 `download_id` 與可追蹤副本；若 `copy_hash` 相同，必須記錄 watermark payload 完全相同的原因。
+
+### Performance Considerations
+
+- PDF 以 stream 處理，避免整檔載入記憶體。
+- 大檔或批次下載走 async job；`GET /file` 只取 `ready` 狀態。
+- 字型與 watermark template 可快取，但 watermark payload 不可跨請求共用。
+- MVP2 至少要有 3 份一般 PDF 與 1 次大檔 / 批次壓力證據；Pilot 補 50MB 或 20 files batch 證據。
+
 - PDF 浮水印只能提高移除成本、降低外流意願、留下追蹤線索與支援竄改偵測，不得寫成絕對防竄改。
 - 本卡依 Agent Team 計畫書分派 role、reviewer、validator、human sign-off 與 ADR gate。

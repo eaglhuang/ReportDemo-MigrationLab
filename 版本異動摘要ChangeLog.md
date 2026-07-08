@@ -1,3 +1,28 @@
+# 內部人員交易報表轉媒體儲存系統
+## 版本異動摘要 Change Log
+
+# 2026-07-08 - 文件必要性審查、12+2 定義與落地缺口原地補強
+
+本次依馬斯克五步驟先做必要性審查：不新增 MVP 閱讀總包，也不新增 ownership map。可承載的缺口一律補回既有 source of truth。
+
+| 缺口 | 處理方式 | 文件 |
+| --- | --- | --- |
+| README 入口品質硬傷 | 修正不存在檔名引用、去除日期化章節，補角色章節級閱讀路線與情境觸發表 | `README.md`, `docs/keep.summary.md` |
+| docs / drills 分工不清 | 補 README、keep.summary、每日 roster 的邊界說明 | `README.md`, `docs/keep.summary.md`, `drills/每日任務卡排程.md` |
+| 12 週與 14 週誤解 | 統一定義為 `12+2`：12 週 baseline，+2 是 buffer，不是開發期 | `README.md`, `docs/keep.summary.md`, `drills/分階段演練與驗收計畫.md`, `drills/每日任務卡排程.md` |
+| 第一版 MVP 可落地範圍與 10 項剛需對照 | 補到階段演練文件，不另開總包 | `drills/分階段演練與驗收計畫.md` |
+| M5-01 下載閘道 API / tables / state / error / fail-closed | 補回 M5-01 任務卡 | `tasks/TASK-RPT-0023-m5-01-download-gateway.task.md` |
+| M5-02 浮水印欄位、主副本流程、Hash 時點、失敗與效能 | 補回 M5-02 任務卡 | `tasks/TASK-RPT-0024-m5-02-dynamic-watermark.task.md` |
+| MSSQL -> MariaDB 改造點、風險、驗證、回復 | 補回 MariaDB runbook | `runbooks/RB-05-mariadb-environment.md` |
+| P0-P3 風險語言不統一 | 補全域 finding 嚴重度字典與 risk-blocker-log 慣例 | `runbooks/RB-03-evidence-standard.md` |
+| RB-07 平行作業差異分類需對齊全域字典 | 補註明 P0-P3 以 RB-03 為準，RB-07 只保留特化例子 | `runbooks/RB-07-parallel-run-operations.md` |
+| 每日 blocker 缺少聚合落點 | 補 EOD 入簿規則與週五 Gate risk sweep | `runbooks/RB-06-ai-dispatch-cycle.md` |
+| 任務卡狀態生命週期未定義 | 補 `planned -> in-progress -> blocked -> done / exception` 規則 | `tasks/README.md` |
+| 三人小隊缺席替補未定義 | 補代理順序與 producer / reviewer 限制 | `drills/分階段演練與驗收計畫.md` |
+| 一般性排程漂移未定義 | 補 >=3 天 re-baseline 與 >=5 天 fallback 評估規則 | `drills/每日任務卡排程.md` |
+| 第 8 項風險與取捨缺少靜態 top-10 表 | 補前 10 大落地風險與取捨，並修正 §0 對照表指向 | `drills/分階段演練與驗收計畫.md` |
+| ChangeLog 檔頭順序錯位 | 將文件主標題移回第 1 行 | `版本異動摘要ChangeLog.md` |
+
 # 2026-07-07 - 文件瘦身、DRI 收斂與 TASK-RPT-0004 workstream
 
 範圍：移除重複每日作戰手冊、封存過渡分析文件，將每日協作固定為 README / keep.summary / 每日 roster / RB-06 / 任務卡的單一路線。
@@ -9,9 +34,6 @@
 | README 新增三角色新人地圖與每日閱讀路線，不另開 ownership map 文件。 | `README.md` |
 | `primary_role` 正式定義為單一 DRI，新增 `closure_reviewer`；AI 不得擔任 DRI 或 closure reviewer。 | `tasks/README.md`、`tasks/TASK-RPT-*.task.md`、`tools/generate_reportdemo_task_cards.py` |
 | `TASK-RPT-0004` 保留為母任務卡，新增 0004a/0004b/0004c 卡內 workstream 與 evidence 命名；不建立正式子任務卡。 | `tasks/TASK-RPT-0004-m0-04-third-party-cross-platform-poc.task.md`、`evidence/MVP1/daily-dispatch-*.md` |
-# 內部人員交易報表轉媒體儲存系統
-## 版本異動摘要 Change Log
-
 ## 2026-07-07：每日作戰手冊與 preflight 入口註冊
 
 範圍：收斂每日開工入口，將 `docs/keep.summary.md` 與 `docs/daily-execution-plan.md` 納入文件權威順序；每日派工格式仍由 RB-06 單一維護，避免每日模板雙軌。

@@ -1,5 +1,47 @@
 # RB-03 Evidence Standard
 
+## 0. 2026-07-08 全域 Finding 嚴重度與 Risk / Blocker Log
+
+本 runbook 是全 repo 的 evidence 與 finding 嚴重度 source of truth。各任務卡、daily dispatch、RB-07 平行作業差異、Gate summary 若使用 P0-P3，均以本節定義為準。
+
+### 全域 Finding 嚴重度字典
+
+| Severity | 定義 | Gate 規則 | 典型例子 |
+| --- | --- | --- | --- |
+| P0 | 資安、資料完整性、權限、audit、rollback 或正式資料邊界出現不可接受缺失 | 立即停止當前 Gate；不得以 workaround 放行 | 越權下載成功、audit fail-open、hash mismatch 未阻擋、rollback 無法回復 |
+| P1 | 核心功能錯誤且沒有可接受 workaround | 阻擋當前 Gate，必須修復或 human sign-off 降級 | 下載閘道 happy path 不穩、MariaDB mapping 影響核心欄位、Pilot 差異不可解釋 |
+| P2 | 有 workaround 或可限期修復，不阻擋當日工作但需 owner 與目標關閉日 | 可進下一日，但不得在 Gate package 留白 | 非核心欄位格式差異、可重跑的 validator flake、文件 evidence 缺截圖 |
+| P3 | 改善項、文件品質、下一階段優化 | 不阻擋 Gate；進 next-phase recommendation | wording、附錄補強、非關鍵效能優化 |
+
+### Risk / Blocker Log 慣例
+
+風險與 blocker 不新增 docs；執行時累積在 evidence：
+
+```text
+evidence/<Stage>/risk-blocker-log.md
+```
+
+建議欄位：
+
+| 欄位 | 說明 |
+| --- | --- |
+| id | 穩定 ID，例如 `RISK-MVP2-0001` |
+| date | 首次發現日期 |
+| source | daily dispatch、task id、validator、Gate review |
+| severity | P0 / P1 / P2 / P3 |
+| owner | 單一 human owner |
+| status | open / investigating / mitigated / closed / accepted |
+| target_close_date | 目標關閉日 |
+| action | 下一步處置 |
+| evidence_ref | 對應 evidence 或 task path |
+| closed_at | 關閉時間；未關閉留空 |
+
+規則：
+
+- 任何 P0/P1 finding 或 `[GATE]` blocker 必須當日入簿。
+- `blocked` 任務卡必須引用 risk-blocker-log 的 id。
+- 每週五 Gate day 由 Tech Lead / Captain 檢查未關閉項；W12 risk register 只能從本簿收斂，不得臨時重造。
+
 目的：統一演練 evidence 命名、保存、驗收與 Gate package 格式，避免每個任務各寫各的證據。
 
 ## 路徑規則

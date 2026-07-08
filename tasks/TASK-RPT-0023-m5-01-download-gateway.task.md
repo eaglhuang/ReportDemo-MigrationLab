@@ -144,4 +144,59 @@ nonGoals:
 
 ## Notes
 
+## 2026-07-08 落地補強：M5-01 下載閘道
+
+本卡是 M5-01 的唯一實作契約。階段計畫與每日派工單只引用本卡，不重貼本段。
+
+### API Contract
+
+| API | 用途 | 必要檢查 |
+| --- | --- | --- |
+| `POST /api/download-requests` | 建立下載請求並回傳 `download_id` | session、role、Data Scope、PDF metadata ready、audit writable |
+| `GET /api/download-requests/{download_id}` | 查詢狀態 | requester 或具 audit / admin 權限 |
+| `GET /api/download-requests/{download_id}/file` | 只在 `ready` 狀態交付浮水印副本 | request ownership、copy_hash recorded、audit pre-delivery written |
+| `POST /api/download-requests/{download_id}/cancel` | 取消尚未交付的請求 | request ownership、狀態仍可取消 |
+
+### Tables
+
+| Table | Required Fields |
+| --- | --- |
+| `download_request` | `download_id`, `pdf_id`, `requester_user_id`, `role_ids`, `data_scope_id`, `status`, `correlation_id`, `created_at`, `expires_at` |
+| `download_decision` | `decision_id`, `download_id`, `decision`, `reason_code`, `decided_by`, `decided_at`, `payload_hash` |
+| `download_error` | `error_id`, `download_id`, `error_code`, `safe_message`, `internal_detail_ref`, `created_at` |
+| `download_audit_event` | `event_id`, `download_id`, `event_type`, `user_id`, `ip`, `user_agent`, `pdf_id`, `report_code`, `report_version`, `decision`, `reason_code`, `master_hash`, `copy_hash`, `correlation_id`, `payload_hash`, `created_at` |
+
+### State Machine
+
+```text
+requested -> authorized -> watermark_pending -> hashing -> ready -> delivered
+requested -> denied
+authorized -> failed_closed
+watermark_pending -> failed_closed
+hashing -> failed_closed
+ready -> expired
+requested -> cancelled
+authorized -> cancelled
+```
+
+### Error Codes
+
+`AUTH_REQUIRED`, `AUTH_DENIED`, `SCOPE_DENIED`, `PDF_NOT_READY`, `AUDIT_FAILED`, `WATERMARK_FAILED`, `HASH_FAILED`, `RATE_LIMITED`, `REQUEST_EXPIRED`, `REQUEST_CANCELLED`, `STATE_CONFLICT`.
+
+### Fail-Closed Rules
+
+- 權限未知、role / Data Scope 無法判定、PDF metadata 缺漏、master hash 缺漏、audit writer 不可用、watermark policy 不可用、watermark job 失敗、copy hash 未完成或 mismatch：一律不得輸出檔案。
+- `GET /file` 不得直接讀 master PDF；只能讀已完成浮水印且已記錄 `copy_hash` 的副本。
+- 任何 denied / failed_closed 都必須先寫 audit；audit 寫入失敗時只回錯誤碼，不回檔案。
+
+### Blocking Test Cases
+
+| ID | Input | 執行方式 | 預期結果 | 阻擋上線條件 |
+| --- | --- | --- | --- | --- |
+| TC-0023-B01 | 合法使用者、scope 內 PDF | `POST` 建請求後 `GET /file` | `delivered`，有 audit、watermark、copy_hash | 任一證據缺漏 |
+| TC-0023-B02 | 未登入 | `POST /api/download-requests` | `AUTH_REQUIRED`，無檔案 | 回傳下載或建立 request |
+| TC-0023-B03 | role 不符 | `POST /api/download-requests` | `AUTH_DENIED`，有 denied audit | 越權成功 |
+| TC-0023-B04 | Data Scope 外 PDF | `POST /api/download-requests` | `SCOPE_DENIED`，有 denied audit | 越權成功 |
+| TC-0023-B05 | audit writer unavailable | 建請求或取檔 | `AUDIT_FAILED`，無檔案 | audit fail 仍可下載 |
+
 - 2026-07-07 | upgraded | MVP2 核心卡完整格式升級，evidence 改為 `evidence/MVP2/TASK-RPT-0023/`。

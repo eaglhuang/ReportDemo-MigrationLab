@@ -105,6 +105,25 @@
 
 ## 8. End-of-day Checklist
 
+每日 EOD 必須把風險從 daily dispatch 收斂到 stage-level risk log；daily dispatch 不是長期風險登錄簿。
+
+新增檢查項：
+
+- 今日 P0/P1 finding 或 `[GATE]` blocker 已寫入 `evidence/<Stage>/risk-blocker-log.md`。
+- 若任務卡標為 `blocked`，已在 blocker 欄位或 Notes 引用 risk-blocker-log id。
+- 若同一 blocker 連續三個工作日未關閉，隔日 dispatch 必須排入 Tech Lead / Captain triage。
+
+## 9. Weekly Gate Risk Sweep
+
+每週五 Gate day 由 Tech Lead / Captain 彙整：
+
+- `evidence/<Stage>/risk-blocker-log.md` 的 open / investigating 項。
+- 本週 daily dispatch 的 blocked / carry_over / reviewer_conflict。
+- 任務卡 `status: blocked` 且缺少 risk id 的違規項。
+- 累積三天以上未關閉的同一 blocker。
+
+若存在 P0/P1 open finding，該 Gate 不得標記 pass；若要降級，必須有 human sign-off、原因、owner、target close date 與 evidence reference。
+
 - 收齊 AI Work Report。
 - 確認 evidence path 存在且可追溯。
 - 確認 reviewer 不等於 producer / DRI。

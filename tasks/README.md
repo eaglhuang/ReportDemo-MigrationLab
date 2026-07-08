@@ -44,6 +44,25 @@ Daily dispatch may reference a workstream as `TASK-RPT-0004 / 0004b contributor`
 - `human-only` means AI may only prepare context or evidence drafts; final action is human-only.
 - `requires-full-spec-before-start` means the task cannot start until a concrete spec / runbook / gate is added.
 
+## Task Status Lifecycle
+
+任務卡狀態由 DRI 在 EOD 更新 frontmatter；狀態只反映任務卡本身，不取代 daily dispatch 或 evidence。
+
+| Status | 使用時機 | 必填條件 |
+| --- | --- | --- |
+| `planned` | 尚未開始或尚未排入今日主責 | 可保持預設 |
+| `in-progress` | DRI 已開始產出 deliverables / evidence | Notes 記錄開始日期或 dispatch ref |
+| `blocked` | 因 P0/P1、缺前置、缺 human decision、環境不可用而無法推進 | 必須引用 `evidence/<Stage>/risk-blocker-log.md` 的 id |
+| `done` | deliverables、validators、evidence 已完成且 closure reviewer 通過 | Notes 必須記錄 reviewer、review date、evidence ref |
+| `exception` | 依 MVP v1 scope cut 或 documented exception 不納入 baseline | 必須引用 Gate / ChangeLog / ADR 或 W14 exception evidence |
+
+規則：
+
+- DRI 可把 `planned` 改為 `in-progress` 或 `blocked`。
+- `done` 只能在 closure_reviewer 完成 review 後設定；producer 不得自審。
+- `exception` 不代表完成，只代表本輪 baseline 顯式裁減。
+- daily roster 若顯示完成，但任務卡仍是 `planned`，以任務卡為待更新狀態，EOD 必須補正。
+
 ## Drill Plan Contract
 
 - Stage Gate scope: `drills/分階段演練與驗收計畫.md`.
