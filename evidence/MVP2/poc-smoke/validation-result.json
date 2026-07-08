@@ -1,0 +1,16 @@
+{
+  "result": "pass",
+  "checks": {
+    "metadata_rows_match_staging": true,
+    "download_authorized": true,
+    "watermark_has_check_code": true,
+    "qutora_controllers_19": true,
+    "qutora_endpoints_173": true
+  },
+  "counts": {
+    "metadata_rows": 3,
+    "staging_rows": 3,
+    "qutora_controllers": 19,
+    "qutora_endpoints": 173
+  }
+}

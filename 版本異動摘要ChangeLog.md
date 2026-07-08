@@ -31,10 +31,10 @@
 | 對齊 M5-01 下載閘道契約與程式骨架：`TASK-RPT-0023` 前段落地設計同步為 10 態狀態機與完整錯誤碼；`ReportDemo.DownloadGateway` 補 `DownloadStateMachine` 與 transition tests，避免文件 / 代碼漂移。 | `tasks/TASK-RPT-0023-m5-01-download-gateway.task.md`, `src/ReportDemo.DownloadGateway`, `src/ReportDemo.Tests` |
 | 補齊 `src/` 工程開工骨架：新增 `ReportDemo.sln`、ASP.NET Core / class library / xUnit test projects、共用 build 設定、最小可測的下載閘道 fail-closed、浮水印 payload、conversion map validator 與 Web health endpoint；`dotnet build` / `dotnet test` 均通過。 | `src/`, `src/README.md`, `tasks/README.md`, `TASK-RPT-0009`, `TASK-RPT-0023`, `TASK-RPT-0024`, `TASK-RPT-0025`, `TASK-RPT-0028` |
 | 補齊 ADR-018 收口缺口：keep.summary 同步 `src/` / ADR-018 口徑；每日排程 §6 摘要補入 W4-W9 轉換軌；0005 / 0009 evidence path 收斂到 Pilot 任務卡目錄；0045 升級為 Qutora API / module 全功能覆蓋矩陣、未移植項清單與 `real-aspnet-intake-startup-pack.md` 的收口卡；ADR-016 / 018 追蹤列修正 7 張裁減與具名啟動包。 | `docs/keep.summary.md`, `drills/每日任務卡排程.md`, `TASK-RPT-0005`, `TASK-RPT-0009`, `TASK-RPT-0045`, `決策紀錄樣板ADR.md` |
-| 新增 ADR-018「演練新平台技術假設與 Qutora 代碼轉換軌」：HTML5 + ASP.NET Core (C#)、`src/` 落點、轉換深度（核心功能面）、W5 檢查點與 re-baseline 條件；ADR-015 的 Python 降為輔助工具。 | `決策紀錄樣板ADR.md` §21、追蹤表 |
+| 新增 ADR-018「演練新平台技術假設與 Qutora 代碼轉換軌」：HTML5 + ASP.NET Core (C#)、`src/` 落點、全功能轉換深度（19 controllers / 173 endpoints）、W5 檢查點與 re-baseline 條件；ADR-015 的 Python 降為輔助工具。 | `決策紀錄樣板ADR.md` §21、追蹤表 |
 | 新增 `src/` 新平台程式碼落點與模組結構建議（DownloadGateway / Watermark / Documents / Web / Shared）。 | `src/README.md` |
 | `TASK-RPT-0005` 解除裁減：目標改為 Qutora 元件改造分類（四式），交付 conversion map；`drill_stage: Pilot`。 | `tasks/TASK-RPT-0005-*.task.md` |
-| `TASK-RPT-0009` 解除裁減：承接 conversion map 殘餘模組的 C# 移植（document CRUD / categories），每模組附雙製比對 evidence；`drill_stage: Pilot`。 | `tasks/TASK-RPT-0009-*.task.md` |
+| `TASK-RPT-0009` 解除裁減：承接 conversion map 標為移植且未被既有卡承接的模組，以 0009a-0009d workstreams 移植，每 workstream 附雙製比對 evidence；`drill_stage: Pilot`。 | `tasks/TASK-RPT-0009-*.task.md` |
 | 每日排程 §8 範圍外清單由 9 張改為 7 張，0005 / 0009 移入轉換軌並註明落點；W4D2 / W4D5 / W5D5 / W7D2 / W8D4 / W9D1 插入轉換軌併行工作與 W5 檢查點。 | `drills/每日任務卡排程.md` §5、§8 |
 | MVP v1 Must Do 加入轉換軌；Stage 對照表 Pilot 列加入 0005 / 0009。 | `drills/分階段演練與驗收計畫.md` §0、§3 |
 | Pilot 核心卡批次加入 0005 / 0009；Drill Plan Contract 加 ADR-018 邊界。 | `tasks/README.md` |

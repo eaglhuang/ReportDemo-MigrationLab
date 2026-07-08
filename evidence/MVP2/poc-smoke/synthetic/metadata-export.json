@@ -1,0 +1,38 @@
+[
+  {
+    "sample_serial": "SYN-0001",
+    "report_code": "RPT-INSIDER-001",
+    "report_name": "ReportDemo synthetic insider trading report",
+    "data_date": "2026-07-08",
+    "confidentiality": "internal",
+    "owner_department": "Compliance",
+    "legacy_document_id": "",
+    "trace_id": "TRACE-SYN-0001",
+    "file_name": "SYN-0001-RPT-INSIDER-001.pdf",
+    "sha256": "e2c92416214e0c253a70c44e2fba5df51e640a823a121c8c76e9dee761a70559"
+  },
+  {
+    "sample_serial": "SYN-0002",
+    "report_code": "RPT-INSIDER-002",
+    "report_name": "ReportDemo synthetic insider trading report",
+    "data_date": "2026-07-08",
+    "confidentiality": "confidential",
+    "owner_department": "Compliance",
+    "legacy_document_id": "",
+    "trace_id": "TRACE-SYN-0002",
+    "file_name": "SYN-0002-RPT-INSIDER-002.pdf",
+    "sha256": "68926ab7ecf4f9944952e61440dbc9ad9a58ed474af76ba517025c3db61391fb"
+  },
+  {
+    "sample_serial": "SYN-0003",
+    "report_code": "RPT-INSIDER-003",
+    "report_name": "ReportDemo synthetic insider trading report",
+    "data_date": "2026-07-08",
+    "confidentiality": "high",
+    "owner_department": "Compliance",
+    "legacy_document_id": "",
+    "trace_id": "TRACE-SYN-0003",
+    "file_name": "SYN-0003-RPT-INSIDER-003.pdf",
+    "sha256": "7eec784f53322255e059b8bc5e46796032fabb39ec977c349a3b6cf9f93164d0"
+  }
+]

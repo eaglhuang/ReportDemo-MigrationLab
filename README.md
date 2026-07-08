@@ -14,6 +14,7 @@
 | M5-02 動態浮水印欄位 / 主副本流程 / Hash 時點 | `tasks/TASK-RPT-0024-m5-02-dynamic-watermark.task.md` 與 `TASK-RPT-0025` | 0024 管浮水印，0025 管下載副本 Hash |
 | MariaDB 環境、MSSQL -> MariaDB 改造與回復 | `runbooks/RB-05-mariadb-environment.md` | runbook 管 HOW |
 | Qutora 代碼轉換軌（新平台 HTML5 + ASP.NET Core C#） | ADR-018、`tasks/TASK-RPT-0005`、`0009`、`src/README.md` | **全功能轉換**：19 controllers / 173 endpoints 全部要有下落（移植或 documented exception，0045 對帳）；轉換來源唯讀；`src/` 是新平台落點；`poc/` 降為輔助工具 |
+| PoC 輔助工具與 smoke path | `poc/README.md`、`evidence/MVP2/poc-smoke/validation-result.json` | 不取代 `src/` C# 實作；用來快速產生合成資料、metadata projection、download decision、watermark payload 與 validator evidence |
 | 每日 hands-on TC 與每週五 Demo Day（結果制雙層驗收） | `runbooks/RB-06-ai-dispatch-cycle.md`、ADR-016 | 每人每日親手跑 1 條 test case；週五目視 4 種最終結果；格式唯一出處是 RB-06 |
 | 單一 Owner、reviewer、validators、evidence path | `tasks/README.md` 與各任務卡 | 不另建 ownership map |
 
@@ -74,6 +75,7 @@
 | 權限、角色、資料範圍不清楚 | 架構書 §5、`TASK-RPT-0014`、`TASK-RPT-0036`、`TASK-RPT-0037` |
 | 要動 DB、mapping、MSSQL -> MariaDB | RB-05、ADR-013、功能里程碑 M1、`TASK-RPT-0008` |
 | 下載閘道或浮水印設計卡住 | `TASK-RPT-0023`、`TASK-RPT-0024`、`TASK-RPT-0025`、架構書 §6 |
+| 想先確認 PoC 輔助流程能不能跑 | `poc/README.md` 的最小 smoke path；結果看 `evidence/MVP2/poc-smoke/validation-result.json` |
 | 平行作業差異吵不出結論 | RB-07、ADR-017、`TASK-RPT-0013` |
 | evidence 格式或 Gate package 不確定 | RB-03、`drills/分階段演練與驗收計畫.md` §9 |
 | 要改共識、scope、ADR 或 Go / No-Go | `docs/keep.summary.md`、`決策紀錄樣板ADR.md`、ChangeLog |
@@ -91,6 +93,7 @@
 7. 每日依 `drills/每日任務卡排程.md`、RB-06 與任務卡開工；每人每日親手跑 1 條 hands-on TC，每週五依 RB-06 Demo Day 驗收 4 種最終結果。
 8. MVP1 Gate 通過後，依 `runbooks/RB-05-mariadb-environment.md` 建 MariaDB 環境。
 9. 依 ADR-018 在 `src/` 以 C# 實作新平台功能（閘道 / 浮水印 / 查詢 / 移植模組）；輔助腳本依 ADR-015 放 `poc/` 與 `tools/`；不改 Qutora 原始碼。
+   - 若只想先跑輔助 PoC，依 `poc/README.md` 的最小 smoke path 產出 `evidence/MVP2/poc-smoke/validation-result.json`。
 10. Gate 通過後進 Pilot，再收斂 Production Candidate evidence package。
 11. 依 RB-04 與 RB-09 驗證 backup / restore / rollback dry run。
 12. 最終 Go / No-Go 只能由人類依 ADR 與 Gate evidence 決策。

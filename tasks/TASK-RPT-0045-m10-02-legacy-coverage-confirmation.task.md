@@ -153,7 +153,7 @@ inventory -> mapped -> verified -> confirmed; verified -> exception_required
 
 完整性對帳（可執行檢核，差一筆即 blocked）：
 
-- `Get-ChildItem -Directory open-source-sandbox/qutora-api/Qutora.API/Controllers | Measure-Object | Select-Object -ExpandProperty Count` 必須等於對帳表 controller 數（現為 19）。
+- `Get-ChildItem -File -Filter '*.cs' open-source-sandbox/qutora-api/Qutora.API/Controllers | Measure-Object | Select-Object -ExpandProperty Count` 必須等於對帳表 controller 數（現為 19）。
 - `Select-String -Path open-source-sandbox/qutora-api/Qutora.API/Controllers/*.cs -Pattern '\[Http(Get|Post|Put|Delete|Patch)' | Measure-Object | Select-Object -ExpandProperty Count` 必須等於對帳表 endpoint 列數（現為 173）。
 
 ## 真實 ASP.NET 系統進場啟動包
@@ -190,7 +190,7 @@ inventory -> mapped -> verified -> confirmed; verified -> exception_required
 | V-0045-06 | 驗證所有關鍵操作都有 audit event 與 correlation_id。 | `evidence/ProductionCandidate/TASK-RPT-0045/V-0045-06.md` |
 | V-0045-07 | 驗證 evidence 依 RB-03 放在本卡指定目錄。 | `evidence/ProductionCandidate/TASK-RPT-0045/V-0045-07.md` |
 | V-0045-08 | 驗證 reviewer 與產出者不可為同一人。 | `evidence/ProductionCandidate/TASK-RPT-0045/V-0045-08.md` |
-| V-0045-09 | 驗證 controller 數檢核等於 19：`Get-ChildItem -Directory open-source-sandbox/qutora-api/Qutora.API/Controllers | Measure-Object | Select-Object -ExpandProperty Count`。 | `evidence/ProductionCandidate/TASK-RPT-0045/V-0045-09.md` |
+| V-0045-09 | 驗證 controller 數檢核等於 19：`Get-ChildItem -File -Filter '*.cs' open-source-sandbox/qutora-api/Qutora.API/Controllers | Measure-Object | Select-Object -ExpandProperty Count`。 | `evidence/ProductionCandidate/TASK-RPT-0045/V-0045-09.md` |
 | V-0045-10 | 驗證 endpoint 數檢核等於 173：`Select-String -Path open-source-sandbox/qutora-api/Qutora.API/Controllers/*.cs -Pattern '\[Http(Get\|Post\|Put\|Delete\|Patch)' | Measure-Object | Select-Object -ExpandProperty Count`；並驗證真實 ASP.NET 系統進場啟動包包含進場清單、Qutora 映射、必返工項、第一週 code archaeology 派工與阻擋條件。 | `evidence/ProductionCandidate/TASK-RPT-0045/V-0045-10.md` |
 
 ## Test Cases

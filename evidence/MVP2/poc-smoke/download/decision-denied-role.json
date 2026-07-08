@@ -1,0 +1,19 @@
+{
+  "download_id": "DL-RPT-INSIDER-001-user-002",
+  "report_code": "RPT-INSIDER-001",
+  "user": "user-002",
+  "decision": "failed_closed",
+  "checks": {
+    "metadata_ready": true,
+    "role_allowed": false,
+    "scope_allowed": true,
+    "audit_writable": true,
+    "watermark_ready": true
+  },
+  "denied_reasons": [
+    "role_allowed"
+  ],
+  "file_name": "SYN-0001-RPT-INSIDER-001.pdf",
+  "sha256": "e2c92416214e0c253a70c44e2fba5df51e640a823a121c8c76e9dee761a70559",
+  "decided_at": "2026-07-08T07:26:52.928967+00:00"
+}

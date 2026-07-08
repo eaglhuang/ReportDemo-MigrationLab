@@ -33,7 +33,7 @@ deliverables:
   - Target system implementation artifacts: code, DB migration, tests, and operation docs
 validators:
   - "git diff --check"
-  - "Get-ChildItem -Directory open-source-sandbox/qutora-api/Qutora.API/Controllers | Measure-Object | Select-Object -ExpandProperty Count # expected: 19"
+  - "Get-ChildItem -File -Filter '*.cs' open-source-sandbox/qutora-api/Qutora.API/Controllers | Measure-Object | Select-Object -ExpandProperty Count # expected: 19"
   - "Select-String -Path open-source-sandbox/qutora-api/Qutora.API/Controllers/*.cs -Pattern '\\[Http(Get|Post|Put|Delete|Patch)' | Measure-Object | Select-Object -ExpandProperty Count # expected: 173"
   - After target implementation location is created, add: dotnet test or equivalent automated tests
   - After target implementation location is created, add: Golden Dataset / Shadow Validation comparison command
@@ -101,7 +101,7 @@ nonGoals:
 ## Validators
 
 - `git diff --check`
-- `Get-ChildItem -Directory open-source-sandbox/qutora-api/Qutora.API/Controllers | Measure-Object | Select-Object -ExpandProperty Count` must equal 19
+- `Get-ChildItem -File -Filter '*.cs' open-source-sandbox/qutora-api/Qutora.API/Controllers | Measure-Object | Select-Object -ExpandProperty Count` must equal 19
 - `Select-String -Path open-source-sandbox/qutora-api/Qutora.API/Controllers/*.cs -Pattern '\[Http(Get|Post|Put|Delete|Patch)' | Measure-Object | Select-Object -ExpandProperty Count` must equal 173
 - After target implementation location is created, add: dotnet test or equivalent automated tests
 - After target implementation location is created, add: Golden Dataset / Shadow Validation comparison command
