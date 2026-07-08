@@ -14,6 +14,23 @@ closure_reviewer: "Tech Lead / Captain"
 support_roles:
   - "Tech Lead / Captain"
   - "QA / Security / DevOps"
+workstreams:
+  - id: "0009a"
+    title: "Documents CRUD / versioning 移植"
+    dri: "Backend / DBA"
+    closure_reviewer: "Tech Lead / Captain"
+  - id: "0009b"
+    title: "Approval 工作流移植（Qutora 5 個 Approval services）"
+    dri: "Backend / DBA"
+    closure_reviewer: "QA / Security / DevOps"
+  - id: "0009c"
+    title: "Shares + Email 通知移植"
+    dri: "Backend / DBA"
+    closure_reviewer: "QA / Security / DevOps"
+  - id: "0009d"
+    title: "Admin / Settings / ApiKeys 殘餘移植"
+    dri: "Backend / DBA"
+    closure_reviewer: "Tech Lead / Captain"
 depends_on:
   - "TASK-RPT-0005"
   - "TASK-RPT-0008"
@@ -52,7 +69,7 @@ outOfScope:
   - "未完成舊系統覆蓋比對即切換正式流程"
   - "繞過 Admin、Data Scope、稽核與告警要求"
 nonGoals:
-  - "一次性重寫所有舊系統功能"
+  - "未經 conversion map、workstream 與 evidence 對帳就一次性重寫所有舊系統功能"
   - "在未完成 PoC / Gate 前承諾最終技術選型"
 ---
 # TASK-RPT-0009 - M1-03 移植或重寫舊資料轉換邏輯
@@ -63,14 +80,33 @@ nonGoals:
 
 ## 2026-07-08 轉換軌重新定義（ADR-018）
 
-本卡解除範圍外裁減，承接 `TASK-RPT-0005` conversion map 中「未被既有卡覆蓋的殘餘模組」移植：
+本卡解除範圍外裁減，承接 `TASK-RPT-0005` conversion map 中「標為移植且未被 0023/0024/0025/0028 承接」的**全部** Qutora 模組（ADR-018 全功能轉換口徑）：
 
-- 目標：把 conversion map 標為「移植」且不屬於 0023/0024/0025/0028 範圍的 Qutora 模組（預期為 document CRUD / versioning API surface、category tree），以 ASP.NET Core (C#) 移植到 `src/ReportDemo.Documents/`。
+- 範圍以卡內 workstreams 分工，不新增正式子卡。每日派工單引用格式如 `TASK-RPT-0009 / 0009b`；evidence 檔名用 `0009a-*.md` 前綴（沿用 0004 慣例）。
+
+```yaml
+workstreams:
+  - id: "0009a"
+    title: "Documents CRUD / versioning"
+    dri: "Backend / DBA"
+  - id: "0009b"
+    title: "Approval 工作流（5 services）"
+    dri: "Backend / DBA"
+  - id: "0009c"
+    title: "Shares + Email 通知"
+    dri: "Backend / DBA"
+  - id: "0009d"
+    title: "Admin / Settings / ApiKeys 殘餘"
+    dri: "Backend / DBA"
+```
+- 注意：Qutora 的 Approval / Shares 是**文件審批與分享**功能，屬本卡轉換軌；與 M6 報表覆核/重產/作廢卡（0030/0031/0032，維持裁減）是不同的東西，不得混淆。
+- workstream 的中間驗收由 AI reviewer（獨立 session）依 RB-06 決策包模式完成；人類驗收走每日 hands-on TC + 週五 Demo Day（結果制雙層，ADR-016）。workstream 完成不等於整卡完成；整卡 closure 仍需 `closure_reviewer` 確認。
+- 目標：以 ASP.NET Core (C#) 移植到 `src/`；Documents / Approval / Shares / Admin / Auth 相關行為都必須有下落。
 - 每個移植模組必附**雙製比對 evidence**：同一輸入在 Qutora 舊路徑與 `src/` 新路徑的輸出比對，差異依 RB-07 字典分類；P0 差異未關閉不得 closure。
 - 交付物 `module-porting-comparison-report.md` 每列需含：Qutora 元件、`src/` 模組路徑、輸入樣本、Qutora 輸出摘要、新平台輸出摘要、差異等級、處置、owner、reviewer、evidence link。
 - C# 實作需通過 `src/README.md` 的 Engineering Start Contract；build / test 結果需保存到本卡 evidence path。
 - 分工：Backend / DBA 為 DRI，AI 主力產 C# 代碼與比對腳本；QA / Security / DevOps 驗證比對 evidence 可重跑（closure reviewer）；Tech Lead 裁決「沿用 vs 移植」邊界爭議。
-- HTML5 最小前端不在本卡，掛 `TASK-RPT-0028`。
+- HTML5 19 功能域前端不在本卡，掛 `TASK-RPT-0028`。
 - 完整規格（10 validators / 10 test cases）依排程於 W5-W6 升級後才可開工；排程落點 W7-W9 併行。
 
 ## Legacy Coverage

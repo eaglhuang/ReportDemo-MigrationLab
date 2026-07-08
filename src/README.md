@@ -16,8 +16,8 @@ src/
 ├─ README.md
 ├─ ReportDemo.DownloadGateway/     # TASK-RPT-0023
 ├─ ReportDemo.Watermark/           # TASK-RPT-0024 / 0025
-├─ ReportDemo.Documents/           # TASK-RPT-0009 移植模組（document CRUD / categories）
-├─ ReportDemo.Web/                 # TASK-RPT-0028 HTML5 最小查詢 / 下載頁
+├─ ReportDemo.Documents/           # TASK-RPT-0009 移植模組（Documents / Approval / Shares / Admin）
+├─ ReportDemo.Web/                 # TASK-RPT-0028 HTML5 19 功能域 UI
 └─ ReportDemo.Shared/              # audit / auth / storage 共用元件
 ```
 
@@ -41,8 +41,8 @@ src/
 | `ReportDemo.Shared` | shared | audit、operation result、共用 value object |
 | `ReportDemo.DownloadGateway` | `TASK-RPT-0023` | 下載閘道狀態、錯誤碼、fail-closed decision |
 | `ReportDemo.Watermark` | `TASK-RPT-0024` / `0025` | 浮水印 payload、render policy、hash handoff |
-| `ReportDemo.Documents` | `TASK-RPT-0005` / `0009` | Qutora conversion map、document CRUD / categories 移植 |
-| `ReportDemo.Web` | `TASK-RPT-0028` | HTML5 最小查詢 / 下載頁與 API facade |
+| `ReportDemo.Documents` | `TASK-RPT-0005` / `0009` | Qutora conversion map、0009 workstreams 移植 |
+| `ReportDemo.Web` | `TASK-RPT-0028` | HTML5 19 功能域 UI 與 API facade |
 | `ReportDemo.Tests` | all `src/` cards | task-level unit tests and regression tests |
 
 ## AI Code Change Checklist
@@ -57,6 +57,8 @@ AI 或人類修改 `src/` 時，closure 前至少要留下：
 6. reviewer 非 producer 的 review note。
 
 ## Module Done Definition
+
+卡片層 closure 依 ADR-016 結果制雙層驗收：AI reviewer（獨立 session）驗中間 evidence，人類以每日 hands-on TC 與週五 Demo Day 驗最終結果；安全關鍵模組（DownloadGateway fail-closed、break-glass 相關）維持人類逐卡 closure，不得由 AI reviewer 加速。
 
 一個 `src/` 模組只有在下列條件都滿足時，才可回報 done：
 

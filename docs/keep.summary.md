@@ -21,7 +21,8 @@
 
 - Qutora 是參考平台，鎖定 `open-source-sandbox/qutora-api` 的既定 commit。
 - 目標資料庫採 MariaDB，決策依 ADR-013。
-- 新平台演練假設為 HTML5 + ASP.NET Core (C#)，程式碼落點為 `src/`，決策依 ADR-018。
+- 新平台演練假設為 HTML5 + ASP.NET Core (C#)，程式碼落點為 `src/`，決策依 ADR-018；轉換口徑為**全功能**——Qutora 19 controllers / 173 endpoints 全部要有下落（移植或 documented exception，`TASK-RPT-0045` 對帳）。
+- 驗收採**結果制雙層**（ADR-016）：中間 evidence 由獨立 AI reviewer 驗；人類每日親手跑 1 條 hands-on TC、每週五 Demo Day 目視 4 種最終結果；安全關鍵卡（0023/0024 負向、0038、[GATE] 卡）維持人類逐卡 closure。
 - `poc/` 與 `tools/` 僅作輔助工具落點（合成資料、validator、比對腳本、migration CSV 管線），決策依 ADR-015。
 - Evidence 標準依 `runbooks/RB-03-evidence-standard.md`。
 - 任務卡入口依 `tasks/README.md`。
@@ -51,7 +52,7 @@
 3. 讀 `內部人員交易報表轉媒體儲存系統_系統架構與治理計畫書.md`，只抓 Qutora、MariaDB、PDF、storage、security 的邊界。
 4. 讀 `內部人員交易報表轉媒體儲存系統_功能里程碑計畫.md`，理解 M0 到 M10 的順序。
 5. 讀 `tasks/README.md`，理解任務卡、DRI、closure reviewer、evidence path。
-6. 若今天要開工，照 `drills/每日任務卡排程.md` -> RB-06 -> 任務卡。
+6. 若今天要開工，照 `drills/每日任務卡排程.md` -> RB-06 -> 任務卡；每日 1 條親手 TC、週五 Demo Day，格式依 RB-06。
 
 ## 深讀分流
 
@@ -66,7 +67,7 @@
 
 - MVP1：Qutora 盤點、資料源盤點、Golden Dataset、第三方 PoC。
 - MVP2：MariaDB、staging、audit、Data Scope、PDF metadata、download / watermark / hash。
-- Pilot：Qutora 代碼轉換軌（0005 conversion map、0009 殘餘移植）、平行驗證、PDF 完整性、查詢、安全、audit、role/data scope。
+- Pilot：Qutora 代碼轉換軌（0005 conversion map、0009 workstreams 全功能移植）、平行驗證、PDF 完整性、19 功能域前端查詢 / 操作、安全、audit、role/data scope。
 - Production Candidate：break-glass、Go / No-Go、rollback、UAT、release acceptance。
 - Backlog：只在被 dispatch 或 Gate 指定時讀。
 

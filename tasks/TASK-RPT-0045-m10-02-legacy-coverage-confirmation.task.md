@@ -56,14 +56,14 @@ nonGoals:
 
 ## 真實功能帶入場景
 
-確認 Qutora 作為本演練舊系統的必要功能已被新系統覆蓋或有明確例外，包含上傳、metadata、下載、audit、權限、資料搬移與 ADR-018 轉換軌的代碼移植結果。
+確認 Qutora 作為本演練舊系統的 19 controllers / 173 endpoints 已被新系統覆蓋或有明確例外，包含上傳、metadata、下載、audit、權限、資料搬移與 ADR-018 轉換軌的代碼移植結果。
 
 ## 舊系統覆蓋
 
 - 本演練舊系統採用 Qutora，覆蓋範圍以 Qutora 的文件、metadata、下載、audit、SQL Server DB 與權限相關行為為主。
 - 本卡不得假設新系統可以忽略舊系統輸入、輸出、排序、狀態與例外案例。
 - 若本卡新增 Qutora 原本沒有的控管，需在 evidence 中標示為治理強化，而非舊系統差異錯誤。
-- ADR-018 轉換軌需在本卡收口：每個 Qutora API / controller / service / entity / storage provider 至少標示為 `ported`、`wrapped`、`reused`、`rewritten`、`documented_exception` 之一，並連回 `TASK-RPT-0005` conversion map 或 `TASK-RPT-0009` porting comparison report。
+- ADR-018 轉換軌需在本卡收口：每個 Qutora controller / endpoint / service / entity / storage provider 至少標示為 `ported`、`wrapped`、`reused`、`rewritten`、`retired_with_reason`、`documented_exception` 之一，並連回 `TASK-RPT-0005` conversion map、`TASK-RPT-0009` porting comparison report 或 `TASK-RPT-0028` 19 功能域走查清單。
 - 真實 ASP.NET 系統尚未進場；本卡需輸出具名交接物 `real-aspnet-intake-startup-pack.md`，作為正式專案第一週 code archaeology 與返工盤點的啟動包。
 
 ## 落地設計
@@ -135,7 +135,7 @@ inventory -> mapped -> verified -> confirmed; verified -> exception_required
 | 類型 | 內容 |
 | --- | --- |
 | Input | Qutora baseline、MariaDB metadata、任務前置卡 evidence、RB-03 evidence index、必要 ADR 或 human sign-off。 |
-| Output | 本卡設計規格、legacy coverage matrix、未移植 Qutora API / module 清單、真實 ASP.NET 系統進場啟動包、validator 結果、test case 結果、review 紀錄、Gate 是否可通過的建議。 |
+| Output | 本卡設計規格、173 endpoints legacy coverage matrix、未移植 Qutora API / module 清單、真實 ASP.NET 系統進場啟動包、validator 結果、test case 結果、review 紀錄、Gate 是否可通過的建議。 |
 
 ## ADR-018 轉換軌收口
 
@@ -143,13 +143,18 @@ inventory -> mapped -> verified -> confirmed; verified -> exception_required
 
 | 來源 | 必填欄位 |
 | --- | --- |
-| `TASK-RPT-0005` conversion map | Qutora 元件、分類、對應任務卡、DRI、closure reviewer、比對方式。 |
+| `TASK-RPT-0005` conversion map | Qutora controller / endpoint / service / entity、分類、對應任務卡或 workstream、DRI、closure reviewer、比對方式。 |
 | `TASK-RPT-0009` porting comparison report | Qutora 元件、`src/` 模組路徑、輸入樣本、輸出差異、RB-07 差異等級、處置。 |
-| MVP2 / Pilot 核心卡 | 0023 / 0024 / 0025 / 0028 等 C# 實作是否計入轉換軌、對應 validators、未通過項。 |
+| MVP2 / Pilot 核心卡 | 0023 / 0024 / 0025 / 0028 等 C# 實作是否計入轉換軌、19 功能域 UI 對應、對應 validators、未通過項。 |
 | 每日排程 §8 documented exceptions | 7 張裁減卡、裁減理由、human / ADR sign-off 條件。 |
 | 未移植 Qutora API / module | 名稱、路徑、未移植理由、是否可 documented exception、正式專案 owner。 |
 
-若任一 Qutora API / module 無法歸入 `ported`、`wrapped`、`reused`、`rewritten` 或 `documented_exception`，本卡不得 closure。
+矩陣每列必填：controller、endpoint、HTTP method、route、分類（移植 -> 對應卡或 workstream / 沿用 / 淘汰+理由 / documented exception+next-phase owner）、evidence ref、reviewer、狀態。controller 數必須等於 19，endpoint 列數必須等於 173；差一筆即 blocked。若任一 Qutora endpoint / module 無法歸入上述分類，本卡不得 closure。
+
+完整性對帳（可執行檢核，差一筆即 blocked）：
+
+- `Get-ChildItem -Directory open-source-sandbox/qutora-api/Qutora.API/Controllers | Measure-Object | Select-Object -ExpandProperty Count` 必須等於對帳表 controller 數（現為 19）。
+- `Select-String -Path open-source-sandbox/qutora-api/Qutora.API/Controllers/*.cs -Pattern '\[Http(Get|Post|Put|Delete|Patch)' | Measure-Object | Select-Object -ExpandProperty Count` 必須等於對帳表 endpoint 列數（現為 173）。
 
 ## 真實 ASP.NET 系統進場啟動包
 
@@ -166,7 +171,7 @@ inventory -> mapped -> verified -> confirmed; verified -> exception_required
 ## 完成定義
 
 - 本卡所有 deliverables 已產生並放在 `evidence/ProductionCandidate/TASK-RPT-0045/`。
-- `legacy-coverage-matrix.md` 已列出每個 Qutora API / module 的處置狀態。
+- `legacy-coverage-matrix.md` 已列出 19 controllers / 173 endpoints 的處置狀態。
 - `unported-qutora-api-list.md` 已列出未移植項與 documented exception / next-phase owner。
 - `real-aspnet-intake-startup-pack.md` 已完成並通過 reviewer 檢查。
 - 10 條 validators 與 10 條 test cases 皆有可重跑 evidence。
@@ -185,8 +190,8 @@ inventory -> mapped -> verified -> confirmed; verified -> exception_required
 | V-0045-06 | 驗證所有關鍵操作都有 audit event 與 correlation_id。 | `evidence/ProductionCandidate/TASK-RPT-0045/V-0045-06.md` |
 | V-0045-07 | 驗證 evidence 依 RB-03 放在本卡指定目錄。 | `evidence/ProductionCandidate/TASK-RPT-0045/V-0045-07.md` |
 | V-0045-08 | 驗證 reviewer 與產出者不可為同一人。 | `evidence/ProductionCandidate/TASK-RPT-0045/V-0045-08.md` |
-| V-0045-09 | 驗證 human gate / ADR gate 有明確觸發條件。 | `evidence/ProductionCandidate/TASK-RPT-0045/V-0045-09.md` |
-| V-0045-10 | 驗證真實 ASP.NET 系統進場啟動包包含進場清單、Qutora 映射、必返工項、第一週 code archaeology 派工與阻擋條件。 | `evidence/ProductionCandidate/TASK-RPT-0045/V-0045-10.md` |
+| V-0045-09 | 驗證 controller 數檢核等於 19：`Get-ChildItem -Directory open-source-sandbox/qutora-api/Qutora.API/Controllers | Measure-Object | Select-Object -ExpandProperty Count`。 | `evidence/ProductionCandidate/TASK-RPT-0045/V-0045-09.md` |
+| V-0045-10 | 驗證 endpoint 數檢核等於 173：`Select-String -Path open-source-sandbox/qutora-api/Qutora.API/Controllers/*.cs -Pattern '\[Http(Get\|Post\|Put\|Delete\|Patch)' | Measure-Object | Select-Object -ExpandProperty Count`；並驗證真實 ASP.NET 系統進場啟動包包含進場清單、Qutora 映射、必返工項、第一週 code archaeology 派工與阻擋條件。 | `evidence/ProductionCandidate/TASK-RPT-0045/V-0045-10.md` |
 
 ## Test Cases
 

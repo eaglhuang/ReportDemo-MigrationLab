@@ -13,7 +13,8 @@
 | M5-01 下載閘道 API / DB / 狀態 / fail-closed | `tasks/TASK-RPT-0023-m5-01-download-gateway.task.md` | 任務卡是實作契約 |
 | M5-02 動態浮水印欄位 / 主副本流程 / Hash 時點 | `tasks/TASK-RPT-0024-m5-02-dynamic-watermark.task.md` 與 `TASK-RPT-0025` | 0024 管浮水印，0025 管下載副本 Hash |
 | MariaDB 環境、MSSQL -> MariaDB 改造與回復 | `runbooks/RB-05-mariadb-environment.md` | runbook 管 HOW |
-| Qutora 代碼轉換軌（新平台 HTML5 + ASP.NET Core C#） | ADR-018、`tasks/TASK-RPT-0005`、`0009`、`src/README.md` | 轉換來源唯讀；`src/` 是新平台落點；`poc/` 降為輔助工具 |
+| Qutora 代碼轉換軌（新平台 HTML5 + ASP.NET Core C#） | ADR-018、`tasks/TASK-RPT-0005`、`0009`、`src/README.md` | **全功能轉換**：19 controllers / 173 endpoints 全部要有下落（移植或 documented exception，0045 對帳）；轉換來源唯讀；`src/` 是新平台落點；`poc/` 降為輔助工具 |
+| 每日 hands-on TC 與每週五 Demo Day（結果制雙層驗收） | `runbooks/RB-06-ai-dispatch-cycle.md`、ADR-016 | 每人每日親手跑 1 條 test case；週五目視 4 種最終結果；格式唯一出處是 RB-06 |
 | 單一 Owner、reviewer、validators、evidence path | `tasks/README.md` 與各任務卡 | 不另建 ownership map |
 
 簡單分工：`docs` 是長期共識與入口，`drills` 是演練節奏，`runbooks` 是怎麼做，`tasks` 是單一 Owner 的交付契約，`evidence` 是證據，`archive` 是歷史。
@@ -44,7 +45,9 @@
 2. 讀 `drills/每日任務卡排程.md`，找今天的 WHAT/WHEN。
 3. 讀 `runbooks/RB-06-ai-dispatch-cycle.md`，照 HOW 產生或更新 `evidence/<Stage>/daily-dispatch-YYYY-MM-DD.md`。
 4. 讀當天涉及的 `tasks/TASK-RPT-*.task.md`，只讀任務卡內的 scope、deliverables、validators、evidence path。
-5. 收工時把 evidence 與 review 結果回填到派工單與任務卡指定位置。
+5. 每人每日從主責卡挑 1 條 test case **親手執行**，記入派工單 `hands_on_tc` 欄（優先挑負向 / fail-closed 類；fail 即 blocker 入簿）。
+6. 收工時把 evidence 與 review 結果回填到派工單與任務卡指定位置。
+7. 每週五加開 Demo Day：目視 4 種最終結果（功能畫面與浮水印 PDF、親手越權被拒、稽核查詢可反查、173 endpoints 差異儀表板 P0=0），格式依 RB-06。
 
 ## 角色新人地圖
 
@@ -85,7 +88,7 @@
 4. 依 `runbooks/RB-02-seed-data-synthetic-pdf.md` 建立測試 PDF 與 metadata。
 5. 依 `runbooks/RB-03-evidence-standard.md` 建 evidence index。
 6. 依 `drills/分階段演練與驗收計畫.md` 執行 MVP1。
-7. 每日依 `drills/每日任務卡排程.md`、RB-06 與任務卡開工。
+7. 每日依 `drills/每日任務卡排程.md`、RB-06 與任務卡開工；每人每日親手跑 1 條 hands-on TC，每週五依 RB-06 Demo Day 驗收 4 種最終結果。
 8. MVP1 Gate 通過後，依 `runbooks/RB-05-mariadb-environment.md` 建 MariaDB 環境。
 9. 依 ADR-018 在 `src/` 以 C# 實作新平台功能（閘道 / 浮水印 / 查詢 / 移植模組）；輔助腳本依 ADR-015 放 `poc/` 與 `tools/`；不改 Qutora 原始碼。
 10. Gate 通過後進 Pilot，再收斂 Production Candidate evidence package。

@@ -256,11 +256,12 @@
 | 參與角色 | 三人小隊、人類決策者、Agent Team Captain、Reviewer |
 | 背景 | 若三人皆有 AI 開發環境，AI 可顯著加速程式、腳本、測試與 evidence 產出；但人類仍需監控、決策、驗收數據與簽核。 |
 | 候選方案 | 維持 18 週人工作業排程、AI 主導 12 到 14 週排程、過度壓縮至 6 到 8 週。 |
-| 決策結論 | 採 AI 主導三人併行模式，Base Plan 目標為 12 到 14 週完成 Production Candidate 演練；Best Case 8 到 10 週僅作挑戰目標，Risk Buffer 為 16 到 18 週。每人每日最多 8 小時、週末不排正式工作；AI 產出需以 `[AI]`、`[AI->HUMAN]`、`[HUMAN]`、`[GATE]` 標籤區分責任。 |
-| 邊界聲明 | AI 可主開發與產出 evidence 草稿，但不得取代 human / ADR gate，不得自行接受資安、稽核、資料、權限或正式切換風險。 |
+| 決策結論 | 採 AI 主導三人併行模式，Base Plan 目標為 `12+2`：12 週 baseline 完成 Production Candidate 演練，+2 只作 buffer / hardening / documented exception closure，不是開發期。每人每日最多 8 小時、週末不排正式工作；AI 產出需以 `[AI]`、`[AI->HUMAN]`、`[HUMAN]`、`[GATE]` 標籤區分責任。 |
+| 結果制雙層驗收 | 卡片層 closure 改為三段：第一，AI reviewer 由獨立 session 執行中間 evidence 驗證，不得與 producer 同一 session，且只拿驗收條件、不拿實作理由；第二，人類每日層，每人每天親手執行 1 條當日主責卡 test case，記入 daily-dispatch 的 `hands_on_tc`，fail 即 blocker 且該卡不得由 AI reviewer close；第三，人類每週層，週五 Demo Day 以功能畫面 / 權限拒絕 / 稽核查詢 / 173 endpoints 差異儀表板四種最終結果做整週驗收。 |
+| 邊界聲明 | AI 可主開發、產出 evidence 草稿與擔任 AI reviewer，但不得取代 DRI、closure reviewer、human / ADR gate，不得自行接受資安、稽核、資料、權限或正式切換風險。安全關鍵卡仍維持人類逐卡 closure。 |
 | 影響範圍 | `drills/分階段演練與驗收計畫.md`、`runbooks/RB-06-ai-dispatch-cycle.md`、`tasks/README.md`、Agent Team 計畫書。 |
-| 驗收 Gate | W3 結束需有 MVP2 下載閘道、浮水印、hash 與 audit fail-closed 可重跑 evidence；否則退回 16 到 18 週保守排程。 |
-| 待補問題 | 若未來接入真實 CI / agent runtime，需補充自動化執行限制、credential policy 與 reviewer queue 上限。 |
+| 驗收 Gate | W3 結束需有 MVP2 下載閘道、浮水印、hash 與 audit fail-closed 可重跑 evidence；每日 hands-on TC 與週五 Demo Day 缺任一層，不得宣告該週結果制驗收完成。安全關鍵例外包含 `TASK-RPT-0023` / `0024` 的 fail-closed 負向測試、`0038` break-glass、所有 `[GATE]` 與 human-only 卡（0040 / 0041 / 0043 / 0044 / 0045），這些不得由 AI reviewer 加速 closure。 |
+| 待補問題 | 結果制驗收僅限演練；正式專案面對稽核、法遵或正式 release gate 時需重評。若未來接入真實 CI / agent runtime，需補充自動化執行限制、credential policy 與 reviewer queue 上限。 |
 
 ## 20. ADR-017 演練並行期間基準方與退出條件
 
@@ -287,11 +288,12 @@
 | 背景 | 目前無法取得真實券商 ASP.NET 舊系統，但演練仍需要「舊代碼 → 新平台」的轉換標的，否則轉換方法論（功能里程碑 §0 四式、架構書附錄 A strangler / adapter）只有骨架、沒有可執行對象。已知真實系統進場後勢必返工；返工由 `TASK-RPT-0045` 的 `real-aspnet-intake-startup-pack.md` 承接。 |
 | 候選方案 | 等真實系統進場再演練轉換、以 Qutora 代碼為轉換來源、只做資料搬移不碰代碼轉換。 |
 | 決策結論 | 演練新平台技術假設為 **HTML5 前端 + .NET server（ASP.NET Core, C#）**。轉換來源為 `open-source-sandbox/qutora-api` 固定 commit 的 ASP.NET 代碼（唯讀，不修改，依 ADR-012）。新平台程式碼落點為 `src/`。MVP2 起，下載閘道（0023）、浮水印（0024）、下載副本 hash（0025）、查詢（0028）等新系統功能直接以 C# 在 `src/` 實作，不再先做 Python PoC 再重寫；ADR-015 的 Python + shell / SQL 降為輔助工具（合成資料、validator、比對腳本、migration CSV 管線），落點仍為 `poc/` 與 `tools/`。 |
-| 轉換深度 | 核心功能面 = Documents API、Metadata、Categories、Auth / Permission、Audit、Storage Provider。**既有 MVP2 / Pilot 核心卡的 C# 實作計入轉換軌交付**（由 0005 的 conversion map 對應）；0009 只承接未被既有卡覆蓋的殘餘模組（如 document CRUD / versioning API surface、category tree）。HTML5 前端只做最小查詢 / 下載頁，掛 `TASK-RPT-0028`。全 API 覆蓋由 `TASK-RPT-0045` 覆蓋矩陣管理，未移植項記 documented exception。 |
-| W5 檢查點 | `TASK-RPT-0005` conversion map 定案時，若核心面工作量超出「既有卡吸收 + 0009 一週併行」的評估，依每日排程 §9 觸發 re-baseline（12+2 調整為 14-16 週），不得靜默壓縮驗證。 |
+| 轉換深度 | **全功能轉換**：Qutora 固定 commit 的 19 支 controllers、173 個 HTTP endpoints、約 25 個 application services、25 個 entities 與可觀測行為全部要有下落。移植項由 `TASK-RPT-0005` conversion map、`TASK-RPT-0009` workstreams、0023 / 0024 / 0025 / 0028 等既有任務卡承接；不移植項必須進 `TASK-RPT-0045` 的 173 endpoints 對帳表，附 documented exception、理由與 next-phase owner。HTML5 前端由 `TASK-RPT-0028` 擴充為 19 功能域全覆蓋 UI。 |
+| 估算依據 | AI 產碼預估 2 到 3 天可形成批次草稿，不作為 critical path；瓶頸是人類 review 吞吐、差異裁決與安全關鍵卡 closure。採結果制雙層驗收後，人類驗收集中在每日 1 條 hands-on TC 與每週 Demo Day，轉換軌可吸收進 12+2。主要變異來源為差異量爆表、前端返工與 Qutora 行為不可比對；由 +2 buffer 與每日排程 §9 re-baseline 承接。 |
+| W5 檢查點 | `TASK-RPT-0005` conversion map 定案時，若 AI 背景軌無法在 W9 前完成全移植、173 endpoints 對帳與 P0=0 差異儀表板，依每日排程 §9 觸發 re-baseline（15-17 週），不得靜默壓縮驗證。 |
 | 邊界聲明 | 此假設僅限演練；與架構書附錄 C 的 ASP.NET Core 建議方向一致，但不取代 ADR-001（DB）、ADR-007（PDF library）等正式選型；不宣稱 Qutora 轉換經驗等價於真實券商系統轉換。 |
 | 影響範圍 | `TASK-RPT-0005`、`0009`、`0023`、`0024`、`0025`、`0028`、`0045`、`src/`、`poc/README.md`、`drills/每日任務卡排程.md` W4-W9、`tasks/README.md`。 |
-| 驗收 Gate | 0005 產出 Qutora 元件分類表（沿用 / 封裝 / 移植 / 重寫 四式，含 owner 與對應卡）；0009 移植的每個模組附雙製比對 evidence（引用 RB-07 差異字典）；`src/` 內 C# 服務通過對應任務卡 validators；W14 的 0045 覆蓋矩陣列出全部未移植項與理由。 |
+| 驗收 Gate | 0005 產出 19 controllers / 173 endpoints 完整 conversion map；0009 workstreams 移植未被 0023 / 0024 / 0025 / 0028 承接的 service / module，且每個 workstream 附雙製比對 evidence（引用 RB-07 差異字典）；0028 提供 19 功能域 UI 走查清單；`src/` 內 C# 服務通過對應任務卡 validators；0045 覆蓋矩陣逐列列出 173 endpoints 的移植 / 沿用 / 淘汰 / documented exception 狀態。 |
 | 待補問題 | 真實 ASP.NET 系統進場後，本 ADR 的轉換經驗如何映射到真實代碼，由 `TASK-RPT-0045` 的 `real-aspnet-intake-startup-pack.md` 具名承接；HTML5 前端框架選型（純 HTML5 / 輕量框架）於 0028 開工前由 Tech Lead 裁決。 |
 
 ## 22. 決策狀態追蹤表
@@ -313,6 +315,6 @@
 | ADR-013 | Accepted for drill | 專案 sponsor / Backend / DBA | 已決 | 本演練目標資料庫採用 MariaDB。 | 不取代正式專案最終 DB 選型。 |
 | ADR-014 | Accepted | 專案 sponsor / Tech Lead | 已決 | 採 2 週 MVP 節奏與完整任務卡開工 Gate。 | MVP1/MVP2 核心任務卡需後續逐張升級。 |
 | ADR-015 | Accepted for drill | Tech Lead / Captain | 已決 | 演練 PoC 採 Python 3 + shell / SQL，落點固定為 `poc/` 與 `tools/`。 | 若引入第三方 PDF library 或 MariaDB client，需補 license 與安裝方式。 |
-| ADR-016 | Accepted for drill | Tech Lead / Captain | 已決 | 採 AI 主導三人併行模式，Base Plan 目標為 12+2：12 週 baseline 加 2 週 buffer / hardening / documented exception closure。 | 若 W3 MVP2 evidence 不足，退回 16 到 18 週保守排程。演練範圍外 7 張任務卡依《每日任務卡排程》§8 處理；0005 / 0009 已由 ADR-018 納入轉換軌；0027 高機密控制的裁減需於 W12 sign-off-record 顯式記載。 |
+| ADR-016 | Accepted for drill | Tech Lead / Captain | 已決 | 採 AI 主導三人併行模式與結果制雙層驗收；Base Plan 目標為 12+2：12 週 baseline 加 2 週 buffer / hardening / documented exception closure。 | 每日每人 1 條 hands-on TC 與週五 Demo Day 為最低人類動作；安全關鍵卡不得由 AI reviewer 加速 closure。正式專案面對稽核需重評。 |
 | ADR-017 | Accepted for drill | Tech Lead / Captain | 已決 | 演練並行期間以 Qutora 為基準方，退出條件為連續 N=3 批次或 N=3 工作日通過。 | 正式專案需另行決定法律 / 業務權威與正式並行期。 |
-| ADR-018 | Accepted for drill | Tech Lead / Captain | 已決 | 演練新平台假設為 HTML5 + ASP.NET Core (C#)，以 Qutora 代碼為轉換來源；`src/` 為新平台落點；0005 / 0009 解除裁減納入轉換軌。 | W5 檢查點評估工作量；真實系統進場後的 code archaeology 啟動包由 `TASK-RPT-0045` 的 `real-aspnet-intake-startup-pack.md` 承接。 |
+| ADR-018 | Accepted for drill | Tech Lead / Captain | 已決 | 演練新平台假設為 HTML5 + ASP.NET Core (C#)，以 Qutora 代碼為轉換來源；全功能轉換要求 19 controllers / 173 endpoints 全部有下落，`src/` 為新平台落點。 | W5 檢查點確認 AI 背景軌能否在 W9 前完成全移植與 173 endpoints 對帳；真實系統進場後的 code archaeology 啟動包由 `TASK-RPT-0045` 的 `real-aspnet-intake-startup-pack.md` 承接。 |

@@ -33,6 +33,8 @@ deliverables:
   - Target system implementation artifacts: code, DB migration, tests, and operation docs
 validators:
   - "git diff --check"
+  - "Get-ChildItem -Directory open-source-sandbox/qutora-api/Qutora.API/Controllers | Measure-Object | Select-Object -ExpandProperty Count # expected: 19"
+  - "Select-String -Path open-source-sandbox/qutora-api/Qutora.API/Controllers/*.cs -Pattern '\\[Http(Get|Post|Put|Delete|Patch)' | Measure-Object | Select-Object -ExpandProperty Count # expected: 173"
   - After target implementation location is created, add: dotnet test or equivalent automated tests
   - After target implementation location is created, add: Golden Dataset / Shadow Validation comparison command
 evidence:
@@ -64,9 +66,9 @@ nonGoals:
 本卡解除範圍外裁減，轉換來源具體化為 Qutora ASP.NET 代碼（固定 commit，唯讀）：
 
 - 目標：把 Qutora 的 controllers / services / entities / storage providers / 查詢邏輯，逐項分類為 **沿用（演練期呼叫舊 API）/ 封裝（adapter）/ 移植（port 到 `src/` C#）/ 重寫**，引用功能里程碑 §0 四式。
-- 交付物：`evidence/Pilot/TASK-RPT-0005/qutora-component-conversion-map.md`——每列含 Qutora 元件、程式路徑、公開 API / service 行為、分類（沿用 / 封裝 / 移植 / 重寫 / 廢止候選）、理由、對應任務卡、DRI、closure reviewer、比對方式、殘餘項是否歸入 `TASK-RPT-0009`。
+- 交付物：`evidence/Pilot/TASK-RPT-0005/qutora-component-conversion-map.md`——每列含 Qutora 元件、程式路徑、公開 API / service 行為、分類（沿用 / 封裝 / 移植 / 重寫 / 廢止候選）、理由、對應任務卡或 0009 workstream、DRI、closure reviewer、比對方式；controller 數必須對到 19，endpoint 數必須對到 173。
 - 分工：Backend / DBA 以 AI 產分析草稿；Tech Lead / Captain 裁決分類（DRI）；QA / Security / DevOps 驗證分類表可追溯（closure reviewer）。
-- W5 檢查點：conversion map 定案時評估工作量；超出「既有卡吸收 + 0009 一週併行」則依每日排程 §9 觸發 re-baseline。
+- W5 檢查點：conversion map 定案時評估工作量；若 AI 背景軌無法在 W9 前完成全移植、173 endpoints 對帳與 Demo Day 第 4 項 P0=0，則依每日排程 §9 觸發 15-17 週 re-baseline。
 - 完整規格（10 validators / 10 test cases）依排程於 W4 升級後才可開工。
 
 ## Legacy Coverage
@@ -99,6 +101,8 @@ nonGoals:
 ## Validators
 
 - `git diff --check`
+- `Get-ChildItem -Directory open-source-sandbox/qutora-api/Qutora.API/Controllers | Measure-Object | Select-Object -ExpandProperty Count` must equal 19
+- `Select-String -Path open-source-sandbox/qutora-api/Qutora.API/Controllers/*.cs -Pattern '\[Http(Get|Post|Put|Delete|Patch)' | Measure-Object | Select-Object -ExpandProperty Count` must equal 173
 - After target implementation location is created, add: dotnet test or equivalent automated tests
 - After target implementation location is created, add: Golden Dataset / Shadow Validation comparison command
 

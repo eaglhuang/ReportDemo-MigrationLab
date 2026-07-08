@@ -1,6 +1,27 @@
 # 內部人員交易報表轉媒體儲存系統
 ## 版本異動摘要 Change Log
 
+## 2026-07-08：結果制雙層驗收與 Qutora 全功能轉換吸收進 12+2
+
+範圍：依人類決策者三項新決策同步全文件——(1) 轉換口徑升為全功能（19 controllers / 173 endpoints 全部有下落）；(2) 驗收改結果制雙層（每日每人 1 條親手 hands-on TC + 週五 Demo Day 4 種最終結果，中間 evidence 由獨立 AI reviewer 驗證）；(3) 時程維持 12+2，轉換以 AI 背景軌吸收，W9 前未達標即依 §9 re-baseline（15-17 週）。
+
+| 異動 | 併入文件 / 章節或任務卡 |
+| --- | --- |
+| ADR-016 升版：結果制雙層驗收三段制（AI reviewer 獨立 session / 每日 hands-on TC / 週五 Demo Day）；安全關鍵卡例外清單（0023/0024 負向、0038、[GATE] 卡）不得加速。 | `決策紀錄樣板ADR.md` §19、追蹤表 |
+| ADR-018 升版：轉換深度改全功能（19/173 全部有下落）；新增估算依據欄；W5 檢查點改為 W9 前全移植 + 對帳達標。 | `決策紀錄樣板ADR.md` §21、追蹤表 |
+| RB-06 新增 AI 輔助驗收模式（獨立 session、決策包三段格式）、派工單 `hands_on_tc` 欄與必填規則、Demo Day 節（4 種最終結果、記錄落點 `demo-day-W<N>.md`）、EOD 加 hands-on 與 velocity 欄。 | `runbooks/RB-06-ai-dispatch-cycle.md` |
+| 每日排程：§0 邊界表與 §2 使用方式加 hands-on TC；各週 Demo Day 驗收重點表；§4.1 Qutora 全功能轉換 AI 背景軌（W1-W9）；§8 加 Approval/Shares 與 M6 卡區辨澄清；§9 加 W9 轉換軌 re-baseline 觸發。 | `drills/每日任務卡排程.md` |
+| 0009 加卡內 workstreams（0009a Documents / 0009b Approval / 0009c Shares+Email / 0009d Admin 殘餘）與 `module-porting-comparison-report.md` 欄位規格；validators 納入 dotnet build/test。 | `tasks/TASK-RPT-0009-*.task.md` |
+| 0028 擴為 HTML5 前端 19 功能域全覆蓋，加 workstream 0028a 走查清單，W8 Demo Day 半天走查。 | `tasks/TASK-RPT-0028-*.task.md` |
+| 0005 conversion map 欄位規格具體化並加 19 controllers / 173 endpoints 完整性檢核 validator。 | `tasks/TASK-RPT-0005-*.task.md` |
+| 0045 對帳表加可執行完整性檢核（controller 數 =19、endpoint 數 =173，差一筆即 blocked）與逐列欄位定義。 | `tasks/TASK-RPT-0045-*.task.md` |
+| 演練計畫：§0 Must Do 改全功能轉換；風險表第 7/10 列對策與監控點連動結果制與 Demo Day 儀表板；§2.0 補轉換軌吸收前提與 re-baseline 條件。 | `drills/分階段演練與驗收計畫.md` |
+| README：文件邊界表加全功能轉換與雙層驗收兩列；每日閱讀路線加 hands-on TC 與 Demo Day 步驟；12 步流程第 7 步同步。 | `README.md` |
+| keep.summary：核心共識加全功能口徑與雙層驗收；30 分鐘路線同步。 | `docs/keep.summary.md` |
+| src/README：Module Done Definition 補 ADR-016 雙層制與安全關鍵模組例外。 | `src/README.md` |
+
+本次未執行：不展延 12 週 baseline、不移除人類最低親手動作、不把安全關鍵卡納入 AI closure、不修改 Qutora 原始碼；結果制驗收僅限演練，正式專案面對稽核需重評。
+
 ## 2026-07-08：新平台技術假設與 Qutora 代碼轉換軌（ADR-018）
 
 範圍：因無法取得真實 ASP.NET 舊系統，以 Qutora 固定 commit 的 ASP.NET 代碼作為轉換來源標的；新平台假設為 HTML5 + .NET server（ASP.NET Core, C#）。已知真實系統進場後會返工，由 `TASK-RPT-0045` 的 `real-aspnet-intake-startup-pack.md` 承接。
