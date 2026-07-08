@@ -16,11 +16,11 @@
 
 ## Assignments
 
-| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer |
-| --- | --- | --- | --- | --- | --- | --- |
-| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0010`：定義 audit 必寫事件與 fail-closed 邊界。 | [AI->HUMAN] | audit event checklist。 | `evidence/MVP2/TASK-RPT-0010/audit-event-checklist.md` | QA / Security / DevOps |
-| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0007`：補 batch retry / rollback / error code。 | [AI->HUMAN] | batch state machine。 | `evidence/MVP2/TASK-RPT-0007/batch-state-machine.md` | Tech Lead / Captain |
-| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0010`：驗證 audit 寫入失敗不得靜默通過。 | [AI->HUMAN] | fail-closed evidence。 | `evidence/MVP2/TASK-RPT-0010/audit-fail-closed-evidence.md` | Backend / DBA |
+| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer | hands_on_tc |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0010`：定義 audit 必寫事件與 fail-closed 邊界。 | [AI->HUMAN] | audit event checklist。 | `evidence/MVP2/TASK-RPT-0010/audit-event-checklist.md` | QA / Security / DevOps | pending |
+| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0007`：補 batch retry / rollback / error code。 | [AI->HUMAN] | batch state machine。 | `evidence/MVP2/TASK-RPT-0007/batch-state-machine.md` | Tech Lead / Captain | pending |
+| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0010`：驗證 audit 寫入失敗不得靜默通過。 | [AI->HUMAN] | fail-closed evidence。 | `evidence/MVP2/TASK-RPT-0010/audit-fail-closed-evidence.md` | Backend / DBA | pending |
 
 ## Human Gate Watchlist
 
@@ -46,6 +46,12 @@
   - pending
 - reviewer_conflict:
   - pending
+- hands_on_tc_complete:
+  - pending
+- velocity:
+  - ai_outputs: pending
+  - human_closures: pending
+  - diff_decisions: pending
 
 ## Captain Notes
 

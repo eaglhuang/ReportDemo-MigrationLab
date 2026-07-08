@@ -56,7 +56,7 @@
 
 | 角色 | 必讀 | 明確不用先讀 |
 | --- | --- | --- |
-| Tech Lead / Captain | `README.md` 全文 -> `docs/keep.summary.md` -> `drills/分階段演練與驗收計畫.md` §0/§2/§4/§9 -> `內部人員交易報表轉媒體儲存系統_系統架構與治理計畫書.md` §1 -> `決策紀錄樣板ADR.md` §3、ADR-012 到 ADR-017 | 架構書附錄 B-H；功能里程碑全文，接任務卡時再查對應 M 節 |
+| Tech Lead / Captain | `README.md` 全文 -> `docs/keep.summary.md` -> `drills/分階段演練與驗收計畫.md` §0/§2/§4/§9 -> `內部人員交易報表轉媒體儲存系統_系統架構與治理計畫書.md` §1 -> `決策紀錄樣板ADR.md` §3、ADR-012 到 ADR-018 | 架構書附錄 B-H；功能里程碑全文，接任務卡時再查對應 M 節 |
 | Backend / DBA | `README.md` 全文 -> `docs/keep.summary.md` -> `drills/分階段演練與驗收計畫.md` §0/§2.1 -> 架構書 §4/§6/§8 -> `runbooks/RB-05-mariadb-environment.md` -> ADR-013/015/017 | M6-M10、RB-07 到 RB-09，Pilot 前再讀 |
 | QA / Security / DevOps | `README.md` 全文 -> `docs/keep.summary.md` -> `內部人員交易報表轉媒體儲存系統_Agent Team計畫書.md` §3/§7/§8 -> 架構書 §5/§7 -> RB-01/RB-02/RB-03 -> `tasks/README.md` | 架構書 §8 資料模型、`poc/`，W3 前不用 |
 

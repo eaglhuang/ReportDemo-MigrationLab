@@ -19,11 +19,11 @@
 
 ## Assignments
 
-| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer |
-| --- | --- | --- | --- | --- | --- | --- |
-| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0003`：確認 Golden Dataset 邊界；審核合成 PDF 欄位與正式資料禁用聲明。 | [AI->HUMAN] | `golden-dataset-definition.md`，含資料邊界、正式資料禁用聲明、欄位與限制。 | `evidence/MVP1/TASK-RPT-0003/golden-dataset-definition.md` | QA / Security / DevOps |
-| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0002`：支援 metadata 欄位對照；把 Qutora 欄位對應到新系統初版欄位。 | [AI->HUMAN] | metadata mapping 草稿，含 Qutora 欄位、新系統候選欄位、轉換風險與未知項。 | `evidence/MVP1/TASK-RPT-0002/metadata-mapping-draft.md` | Tech Lead / Captain |
-| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0003`：產生、上傳、下載合成 PDF；依 RB-02 執行並計算 hash。 | [AI->HUMAN] | `metadata-export.json` 與 `pdf-baseline-hash.csv`，含可重跑命令、輸出與遮罩說明。 | `evidence/MVP1/TASK-RPT-0003/metadata-export.json` | Backend / DBA |
+| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer | hands_on_tc |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0003`：確認 Golden Dataset 邊界；審核合成 PDF 欄位與正式資料禁用聲明。 | [AI->HUMAN] | `golden-dataset-definition.md`，含資料邊界、正式資料禁用聲明、欄位與限制。 | `evidence/MVP1/TASK-RPT-0003/golden-dataset-definition.md` | QA / Security / DevOps | pending |
+| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0002`：支援 metadata 欄位對照；把 Qutora 欄位對應到新系統初版欄位。 | [AI->HUMAN] | metadata mapping 草稿，含 Qutora 欄位、新系統候選欄位、轉換風險與未知項。 | `evidence/MVP1/TASK-RPT-0002/metadata-mapping-draft.md` | Tech Lead / Captain | pending |
+| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0003`：產生、上傳、下載合成 PDF；依 RB-02 執行並計算 hash。 | [AI->HUMAN] | `metadata-export.json` 與 `pdf-baseline-hash.csv`，含可重跑命令、輸出與遮罩說明。 | `evidence/MVP1/TASK-RPT-0003/metadata-export.json` | Backend / DBA | pending |
 
 ## Human Gate Watchlist
 
@@ -51,6 +51,12 @@
   - pending
 - reviewer_conflict:
   - pending
+- hands_on_tc_complete:
+  - pending
+- velocity:
+  - ai_outputs: pending
+  - human_closures: pending
+  - diff_decisions: pending
 
 ## Captain Notes
 

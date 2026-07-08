@@ -16,11 +16,11 @@
 
 ## Assignments
 
-| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer |
-| --- | --- | --- | --- | --- | --- | --- |
-| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0019`：主持 W2 Gate，確認 DB / audit / scope 不阻擋 W3。 | [GATE] | W2 Gate summary。 | `evidence/MVP2/TASK-RPT-0019/w2-gate-summary.md` | QA / Security / DevOps |
-| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0019`：建立 PDF metadata 初版模型。 | [AI->HUMAN] | `pdf_metadata` 欄位草案。 | `evidence/MVP2/TASK-RPT-0019/pdf-metadata-model.md` | Tech Lead / Captain |
-| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0010`：重跑 audit / scope validators，打包 W2 evidence。 | [AI->HUMAN] | W2 evidence index。 | `evidence/MVP2/index.md` | Tech Lead / Captain |
+| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer | hands_on_tc |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0019`：主持 W2 Gate，確認 DB / audit / scope 不阻擋 W3。 | [GATE] | W2 Gate summary。 | `evidence/MVP2/TASK-RPT-0019/w2-gate-summary.md` | QA / Security / DevOps | pending |
+| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0019`：建立 PDF metadata 初版模型。 | [AI->HUMAN] | `pdf_metadata` 欄位草案。 | `evidence/MVP2/TASK-RPT-0019/pdf-metadata-model.md` | Tech Lead / Captain | pending |
+| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0010`：重跑 audit / scope validators，打包 W2 evidence。 | [AI->HUMAN] | W2 evidence index。 | `evidence/MVP2/index.md` | Tech Lead / Captain | pending |
 
 ## Human Gate Watchlist
 
@@ -46,6 +46,12 @@
   - pending
 - reviewer_conflict:
   - pending
+- hands_on_tc_complete:
+  - pending
+- velocity:
+  - ai_outputs: pending
+  - human_closures: pending
+  - diff_decisions: pending
 
 ## Captain Notes
 

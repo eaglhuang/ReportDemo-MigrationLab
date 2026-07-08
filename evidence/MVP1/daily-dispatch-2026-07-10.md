@@ -22,11 +22,11 @@
 
 ## Assignments
 
-| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer |
-| --- | --- | --- | --- | --- | --- | --- |
-| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0004 / 0004c` DRI：建立第三方 / 跨平台 PoC 風險判斷；整理 DB provider、PDF、storage、auth 風險。 | [AI->HUMAN] | `0004c-decision-summary.md` 草稿，含 DB provider、PDF、storage、auth 風險與待決項；負責本卡當日 closure 建議。 | `evidence/MVP1/TASK-RPT-0004/0004c-decision-summary.md` | QA / Security / DevOps |
-| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0004 / 0004b` contributor：檢查 DB provider 與 storage compatibility；列出 MariaDB / SQL Server 差異風險，交給本卡 DRI 彙整。 | [AI->HUMAN] | `0004b-db-provider-compat.md`，含 provider 差異、storage 風險、migration 注意事項；不單獨宣告本卡完成。 | `evidence/MVP1/TASK-RPT-0004/0004b-db-provider-compat.md` | Tech Lead / Captain + QA / Security / DevOps |
-| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0003`：執行無權限下載與 audit / log 追蹤測試；保存失敗與成功路徑。 | [AI->HUMAN] | `expected-result.md` 與 `baseline-review.md`，含成功 / 失敗路徑、audit / log 追蹤與 blocker 判斷。 | `evidence/MVP1/TASK-RPT-0003/expected-result.md` | Backend / DBA |
+| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer | hands_on_tc |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0004 / 0004c` DRI：建立第三方 / 跨平台 PoC 風險判斷；整理 DB provider、PDF、storage、auth 風險。 | [AI->HUMAN] | `0004c-decision-summary.md` 草稿，含 DB provider、PDF、storage、auth 風險與待決項；負責本卡當日 closure 建議。 | `evidence/MVP1/TASK-RPT-0004/0004c-decision-summary.md` | QA / Security / DevOps | pending |
+| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0004 / 0004b` contributor：檢查 DB provider 與 storage compatibility；列出 MariaDB / SQL Server 差異風險，交給本卡 DRI 彙整。 | [AI->HUMAN] | `0004b-db-provider-compat.md`，含 provider 差異、storage 風險、migration 注意事項；不單獨宣告本卡完成。 | `evidence/MVP1/TASK-RPT-0004/0004b-db-provider-compat.md` | Tech Lead / Captain + QA / Security / DevOps | pending |
+| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0003`：執行無權限下載與 audit / log 追蹤測試；保存失敗與成功路徑。 | [AI->HUMAN] | `expected-result.md` 與 `baseline-review.md`，含成功 / 失敗路徑、audit / log 追蹤與 blocker 判斷。 | `evidence/MVP1/TASK-RPT-0003/expected-result.md` | Backend / DBA | pending |
 
 ## Human Gate Watchlist
 
@@ -54,6 +54,12 @@
   - pending
 - reviewer_conflict:
   - pending
+- hands_on_tc_complete:
+  - pending
+- velocity:
+  - ai_outputs: pending
+  - human_closures: pending
+  - diff_decisions: pending
 
 ## Captain Notes
 

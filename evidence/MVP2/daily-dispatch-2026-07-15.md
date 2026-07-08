@@ -17,11 +17,11 @@
 
 ## Assignments
 
-| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer |
-| --- | --- | --- | --- | --- | --- | --- |
-| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0008`：審查 staging 欄位是否足以支援後續比對；確認不過度設計。 | [AI->HUMAN] | staging review notes。 | `evidence/MVP2/TASK-RPT-0008/staging-review-notes.md` | QA / Security / DevOps |
-| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0008`：建立 staging tables 與 Qutora metadata mapping。 | [AI->HUMAN] | schema / mapping SQL。 | `evidence/MVP2/TASK-RPT-0008/staging-schema-mapping.sql` | Tech Lead / Captain |
-| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0008`：匯入 MVP1 metadata sample 並重跑。 | [AI->HUMAN] | staging import validator。 | `evidence/MVP2/TASK-RPT-0008/staging-import-validator.md` | Backend / DBA |
+| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer | hands_on_tc |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0008`：審查 staging 欄位是否足以支援後續比對；確認不過度設計。 | [AI->HUMAN] | staging review notes。 | `evidence/MVP2/TASK-RPT-0008/staging-review-notes.md` | QA / Security / DevOps | pending |
+| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0008`：建立 staging tables 與 Qutora metadata mapping。 | [AI->HUMAN] | schema / mapping SQL。 | `evidence/MVP2/TASK-RPT-0008/staging-schema-mapping.sql` | Tech Lead / Captain | pending |
+| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0008`：匯入 MVP1 metadata sample 並重跑。 | [AI->HUMAN] | staging import validator。 | `evidence/MVP2/TASK-RPT-0008/staging-import-validator.md` | Backend / DBA | pending |
 
 ## Human Gate Watchlist
 
@@ -47,6 +47,12 @@
   - pending
 - reviewer_conflict:
   - pending
+- hands_on_tc_complete:
+  - pending
+- velocity:
+  - ai_outputs: pending
+  - human_closures: pending
+  - diff_decisions: pending
 
 ## Captain Notes
 

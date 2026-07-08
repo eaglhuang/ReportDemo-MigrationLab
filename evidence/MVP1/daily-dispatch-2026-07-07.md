@@ -19,11 +19,11 @@
 
 ## Assignments
 
-| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer |
-| --- | --- | --- | --- | --- | --- | --- |
-| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0001`：建立 Qutora 功能盤點框架；讀 README / RB-01 / Qutora docs，列 Documents API、metadata、download、audit 初表。 | [AI->HUMAN] | `report-inventory.md` 草稿，含功能清單、未知項、Qutora capability gap 初判。 | `evidence/MVP1/TASK-RPT-0001/report-inventory.md` | QA / Security / DevOps |
-| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0002`：盤點 Qutora DB；讀 entity / migration / compose，列主要 table 與欄位。 | [AI->HUMAN] | `qutora-db-inventory.md` 草稿，含主要資料表、欄位、migration risk 初表。 | `evidence/MVP1/TASK-RPT-0002/qutora-db-inventory.md` | Tech Lead / Captain |
-| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0001`：證明 Qutora 可作為舊系統來源；依 RB-01 啟動 API / DB，保存 health evidence。 | [AI->HUMAN] | `qutora-startup.md`，含啟動命令、health / API / DB 檢查結果與敏感資訊遮罩說明。 | `evidence/MVP1/TASK-RPT-0001/qutora-startup.md` | Backend / DBA |
+| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer | hands_on_tc |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0001`：建立 Qutora 功能盤點框架；讀 README / RB-01 / Qutora docs，列 Documents API、metadata、download、audit 初表。 | [AI->HUMAN] | `report-inventory.md` 草稿，含功能清單、未知項、Qutora capability gap 初判。 | `evidence/MVP1/TASK-RPT-0001/report-inventory.md` | QA / Security / DevOps | pending |
+| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0002`：盤點 Qutora DB；讀 entity / migration / compose，列主要 table 與欄位。 | [AI->HUMAN] | `qutora-db-inventory.md` 草稿，含主要資料表、欄位、migration risk 初表。 | `evidence/MVP1/TASK-RPT-0002/qutora-db-inventory.md` | Tech Lead / Captain | pending |
+| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0001`：證明 Qutora 可作為舊系統來源；依 RB-01 啟動 API / DB，保存 health evidence。 | [AI->HUMAN] | `qutora-startup.md`，含啟動命令、health / API / DB 檢查結果與敏感資訊遮罩說明。 | `evidence/MVP1/TASK-RPT-0001/qutora-startup.md` | Backend / DBA | pending |
 
 ## Human Gate Watchlist
 
@@ -51,6 +51,12 @@
   - pending
 - reviewer_conflict:
   - pending
+- hands_on_tc_complete:
+  - pending
+- velocity:
+  - ai_outputs: pending
+  - human_closures: pending
+  - diff_decisions: pending
 
 ## Captain Notes
 

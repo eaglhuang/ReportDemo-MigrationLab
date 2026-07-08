@@ -16,11 +16,11 @@
 
 ## Assignments
 
-| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer |
-| --- | --- | --- | --- | --- | --- | --- |
-| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0014`：審查 Role 與 Data Scope 分離；確認最小權限。 | [HUMAN] | scope decision notes。 | `evidence/MVP2/TASK-RPT-0014/scope-decision-notes.md` | QA / Security / DevOps |
-| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0014`：建立 Data Scope matrix 與資料表草案。 | [AI->HUMAN] | `data_scope` model。 | `evidence/MVP2/TASK-RPT-0014/data-scope-model.md` | Tech Lead / Captain |
-| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0014`：執行越權查詢 / 下載負向測試草稿。 | [AI->HUMAN] | deny-case evidence。 | `evidence/MVP2/TASK-RPT-0014/deny-case-evidence.md` | Backend / DBA |
+| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer | hands_on_tc |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0014`：審查 Role 與 Data Scope 分離；確認最小權限。 | [HUMAN] | scope decision notes。 | `evidence/MVP2/TASK-RPT-0014/scope-decision-notes.md` | QA / Security / DevOps | pending |
+| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0014`：建立 Data Scope matrix 與資料表草案。 | [AI->HUMAN] | `data_scope` model。 | `evidence/MVP2/TASK-RPT-0014/data-scope-model.md` | Tech Lead / Captain | pending |
+| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0014`：執行越權查詢 / 下載負向測試草稿。 | [AI->HUMAN] | deny-case evidence。 | `evidence/MVP2/TASK-RPT-0014/deny-case-evidence.md` | Backend / DBA | pending |
 
 ## Human Gate Watchlist
 
@@ -45,6 +45,12 @@
   - pending
 - reviewer_conflict:
   - pending
+- hands_on_tc_complete:
+  - pending
+- velocity:
+  - ai_outputs: pending
+  - human_closures: pending
+  - diff_decisions: pending
 
 ## Captain Notes
 

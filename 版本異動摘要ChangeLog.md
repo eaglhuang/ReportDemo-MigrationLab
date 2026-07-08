@@ -19,6 +19,10 @@
 | README：文件邊界表加全功能轉換與雙層驗收兩列；每日閱讀路線加 hands-on TC 與 Demo Day 步驟；12 步流程第 7 步同步。 | `README.md` |
 | keep.summary：核心共識加全功能口徑與雙層驗收；30 分鐘路線同步。 | `docs/keep.summary.md` |
 | src/README：Module Done Definition 補 ADR-016 雙層制與安全關鍵模組例外。 | `src/README.md` |
+| 新增可執行的 MVP2 PoC smoke path：合成資料 → metadata projection → download decision（含 denied / fail-closed 案例）→ watermark payload → validator（含 19/173 對帳），輸出至 `evidence/MVP2/poc-smoke/`；README 補入口與情境觸發列。 | `poc/`、`poc/README.md`、`README.md`、`evidence/MVP2/poc-smoke/` |
+| W1-W2 預填每日派工單（07-07 至 07-20 共 10 份）補齊 RB-06 新格式：Assignments 加 `hands_on_tc` 欄、End-of-day Gate 加 `hands_on_tc_complete` 與 velocity 欄。 | `evidence/MVP1/daily-dispatch-*.md`、`evidence/MVP2/daily-dispatch-*.md` |
+| 0007 / 0008 加 Execution Steps 步驟表（引用文件不重複命令），串接 MVP1 baseline → batch 設計 → RB-05 / poc smoke → 0008 staging。 | `tasks/TASK-RPT-0007-*.task.md`、`tasks/TASK-RPT-0008-*.task.md` |
+| 修正 README 角色地圖過期引用（ADR-012 到 ADR-017 → ADR-018）。 | `README.md` |
 
 本次未執行：不展延 12 週 baseline、不移除人類最低親手動作、不把安全關鍵卡納入 AI closure、不修改 Qutora 原始碼；結果制驗收僅限演練，正式專案面對稽核需重評。
 

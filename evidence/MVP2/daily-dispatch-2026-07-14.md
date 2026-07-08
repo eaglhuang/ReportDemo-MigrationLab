@@ -17,11 +17,11 @@
 
 ## Assignments
 
-| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer |
-| --- | --- | --- | --- | --- | --- | --- |
-| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0007`：定義 import batch 範圍與成功條件；確認來源只用 MVP1 合成資料。 | [HUMAN] | batch source scope 與成功條件。 | `evidence/MVP2/TASK-RPT-0007/batch-source-scope.md` | QA / Security / DevOps |
-| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0007`：設計 batch 狀態、筆數、hash、錯誤與重跑欄位。 | [AI->HUMAN] | import batch design 草稿。 | `evidence/MVP2/TASK-RPT-0007/import-batch-design.md` | Tech Lead / Captain |
-| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0008`：依 RB-05 建 MariaDB 並驗證連線。 | [AI->HUMAN] | MariaDB environment evidence。 | `evidence/MVP2/TASK-RPT-0008/mariadb-environment-evidence.md` | Backend / DBA |
+| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer | hands_on_tc |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0007`：定義 import batch 範圍與成功條件；確認來源只用 MVP1 合成資料。 | [HUMAN] | batch source scope 與成功條件。 | `evidence/MVP2/TASK-RPT-0007/batch-source-scope.md` | QA / Security / DevOps | pending |
+| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0007`：設計 batch 狀態、筆數、hash、錯誤與重跑欄位。 | [AI->HUMAN] | import batch design 草稿。 | `evidence/MVP2/TASK-RPT-0007/import-batch-design.md` | Tech Lead / Captain | pending |
+| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0008`：依 RB-05 建 MariaDB 並驗證連線。 | [AI->HUMAN] | MariaDB environment evidence。 | `evidence/MVP2/TASK-RPT-0008/mariadb-environment-evidence.md` | Backend / DBA | pending |
 
 ## Human Gate Watchlist
 
@@ -49,6 +49,12 @@
   - pending
 - reviewer_conflict:
   - pending
+- hands_on_tc_complete:
+  - pending
+- velocity:
+  - ai_outputs: pending
+  - human_closures: pending
+  - diff_decisions: pending
 
 ## Captain Notes
 

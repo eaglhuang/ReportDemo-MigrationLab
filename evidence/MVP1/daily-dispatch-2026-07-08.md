@@ -19,11 +19,11 @@
 
 ## Assignments
 
-| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer |
-| --- | --- | --- | --- | --- | --- | --- |
-| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0001`：完成文件 / 報表功能覆蓋盤點；補 gap 與不做項。 | [AI->HUMAN] | `qutora-document-feature-map.md`，含覆蓋清單、gap、不做項與下一步建議。 | `evidence/MVP1/TASK-RPT-0001/qutora-document-feature-map.md` | QA / Security / DevOps |
-| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0002`：完成 DB inventory 與 migration risk register；匯出 schema sample。 | [AI->HUMAN] | `source-table-map.csv` 與 migration risk register 草稿，含主要 table、欄位與風險註記。 | `evidence/MVP1/TASK-RPT-0002/source-table-map.csv` | Tech Lead / Captain |
-| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0004`：驗證 admin / token / API 可用性；執行登入與 Swagger / endpoint 探查。 | [AI->HUMAN] | `0004a-qutora-startup-poc.md`，含登入、token、Swagger / endpoint 探查、遮罩與失敗案例紀錄。 | `evidence/MVP1/TASK-RPT-0004/0004a-qutora-startup-poc.md` | Backend / DBA |
+| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer | hands_on_tc |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0001`：完成文件 / 報表功能覆蓋盤點；補 gap 與不做項。 | [AI->HUMAN] | `qutora-document-feature-map.md`，含覆蓋清單、gap、不做項與下一步建議。 | `evidence/MVP1/TASK-RPT-0001/qutora-document-feature-map.md` | QA / Security / DevOps | pending |
+| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0002`：完成 DB inventory 與 migration risk register；匯出 schema sample。 | [AI->HUMAN] | `source-table-map.csv` 與 migration risk register 草稿，含主要 table、欄位與風險註記。 | `evidence/MVP1/TASK-RPT-0002/source-table-map.csv` | Tech Lead / Captain | pending |
+| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0004`：驗證 admin / token / API 可用性；執行登入與 Swagger / endpoint 探查。 | [AI->HUMAN] | `0004a-qutora-startup-poc.md`，含登入、token、Swagger / endpoint 探查、遮罩與失敗案例紀錄。 | `evidence/MVP1/TASK-RPT-0004/0004a-qutora-startup-poc.md` | Backend / DBA | pending |
 
 ## Human Gate Watchlist
 
@@ -52,6 +52,12 @@
   - pending
 - reviewer_conflict:
   - pending
+- hands_on_tc_complete:
+  - pending
+- velocity:
+  - ai_outputs: pending
+  - human_closures: pending
+  - diff_decisions: pending
 
 ## Captain Notes
 

@@ -20,11 +20,11 @@
 
 ## Assignments
 
-| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer |
-| --- | --- | --- | --- | --- | --- | --- |
-| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0004`：主持 MVP1 Gate；重看 `0001-0004` evidence，決定是否進 MVP2。 | [GATE] | MVP1 Gate summary 草稿，含 pass / blocked / carry_over 建議、限制與 human decision needed。 | `evidence/MVP1/TASK-RPT-0004/mvp1-gate-summary.md` | QA / Security / DevOps |
-| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0002`：補 DB 風險與差異說明；確認 migration 前置輸入完整。 | [AI->HUMAN] | DB inventory final，含 source table map、migration risk、前置輸入完整性與待決項。 | `evidence/MVP1/TASK-RPT-0002/db-inventory-final.md` | Tech Lead / Captain |
-| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0003`：重跑至少 2 個 validator，打包 MVP1 evidence index。 | [AI->HUMAN] | reviewer 可追溯 evidence package，含 validator rerun、evidence index 與缺漏清單。 | `evidence/MVP1/TASK-RPT-0003/mvp1-evidence-index.md` | Backend / DBA |
+| Person | AI role/session | Main task | execution_mode | Today outcome | Evidence path | Reviewer | hands_on_tc |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Tech Lead / Captain | Captain / Coordinator | `TASK-RPT-0004`：主持 MVP1 Gate；重看 `0001-0004` evidence，決定是否進 MVP2。 | [GATE] | MVP1 Gate summary 草稿，含 pass / blocked / carry_over 建議、限制與 human decision needed。 | `evidence/MVP1/TASK-RPT-0004/mvp1-gate-summary.md` | QA / Security / DevOps | pending |
+| Backend / DBA | Backend / DBA Agent | `TASK-RPT-0002`：補 DB 風險與差異說明；確認 migration 前置輸入完整。 | [AI->HUMAN] | DB inventory final，含 source table map、migration risk、前置輸入完整性與待決項。 | `evidence/MVP1/TASK-RPT-0002/db-inventory-final.md` | Tech Lead / Captain | pending |
+| QA / Security / DevOps | QA / Security / DevOps Agent | `TASK-RPT-0003`：重跑至少 2 個 validator，打包 MVP1 evidence index。 | [AI->HUMAN] | reviewer 可追溯 evidence package，含 validator rerun、evidence index 與缺漏清單。 | `evidence/MVP1/TASK-RPT-0003/mvp1-evidence-index.md` | Backend / DBA | pending |
 
 ## Human Gate Watchlist
 
@@ -54,6 +54,12 @@
   - pending
 - reviewer_conflict:
   - pending
+- hands_on_tc_complete:
+  - pending
+- velocity:
+  - ai_outputs: pending
+  - human_closures: pending
+  - diff_decisions: pending
 
 ## Captain Notes
 
